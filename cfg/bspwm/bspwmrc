@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# autostart
+bash $HOME/.config/bspwm/scripts/autostart.sh
+
+# use 1 to use the scripts/monitor.sh file (configure it file editing it!)
+MONITOR_SUPPORT=1
+
+function setopt () {
+  bspc config "$1" "$2"
+}
+
+function exec () {
+  $HOME/.local/bin/${@}
+  return $?
+}
+
+function script () {
+  $HOME/.config/bspwm/scripts/${@} &
+  return $?
+}
+
+# borders and gaps
+setopt window_gap 12
+script borders
+
+# behaviour stuff
+setopt split_ratio 0.52
+setopt focus_follows_pointer true
+exec mode restore
+
+# fullscreen
+bspc subscribe node_state | while read -r _ _ _ _ state flag; do
+  if [ "$state" != "fullscreen" ]; then
+    continue
+  fi
+  if [ "$flag" == on ]; then
+    exec mode switch false
+  else
+    exec mode switch true
+  fi
+done &
+
+# monitor
+if [[ $MONITOR_SUPPORT == 1 ]]; then
+  bash $HOME/.config/bspwm/scripts/monitor.sh
+else
+  bspc monitor primary -d 1 2 3 4 5 6
+fi
+
+# rules
+bash $HOME/.config/bspwm/scripts/rules.sh

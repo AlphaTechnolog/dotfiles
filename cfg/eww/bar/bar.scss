@@ -1,0 +1,186 @@
+.bar {
+  background-color: $bg;
+  font-family: Iosevka Nerd Font;
+  font-size: 12px;
+  color: $fg;
+}
+
+.launcher {
+  margin: 7px 0 7px 7px;
+  font-size: 16px;
+  .dispatcher {
+    background-color: $green;
+    color: $bg;
+    border-radius: 7px;
+    font-size: inherit;
+    padding: 0 14px 0 10px;
+  }
+}
+
+.works {
+  margin-top: 9px;
+  margin-left: 13px;
+  font-size: 11px;
+  background-color: $contrastbg;
+
+  .0 {
+    color: $black;
+    background-color: $bg;
+    padding: 6px 10px;
+  }
+
+  .01, .02, .03, .04, .05, .06 {
+    color: $fg;
+    background-color: $bg;
+    padding: 6px 10px;
+  }
+  
+  .011, .022, .033, .044, .055, .066 {
+    color: $green;
+    background-color: $bg;
+    padding: 6px 10px;
+  }
+}
+
+.wintitle {
+  background-color: $contrastbg;
+  border-bottom: solid $green 1px;
+  color: $green;
+  margin: 7px 0;
+  padding: 0 10px;
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+.date-box {
+  background: $contrastbg;
+  margin: 7px 7px 7px 0;
+  padding: 0 8px 0 12px;
+  border-radius: 7px;
+  .content {
+    color: $fg;
+    font-size: 14px;
+    padding-right: 3px;
+  }
+  .date-dropdown {
+    background-color: inherit;
+    margin: 0;
+    padding: 0 5px 0 3px;
+    color: $fg;
+  }
+}
+
+.sep {
+  color: $black;
+  padding: 0 5px;
+}
+
+.musicbox {
+  margin-right: 17px;
+  .art {
+    border-radius: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-width: 24px;
+    min-height: 24px;
+    margin: 10px;
+  }
+}
+
+// calendar
+.cal-box {
+  font-family: Iosevka Nerd Font;
+  background-color: $bg;
+  border-radius: 8px;
+  padding: 1rem 1rem .2rem;
+
+  .cal {
+    background-color: inherit;
+    padding: .8rem .25rem 0rem;
+    margin-left: 10px;
+
+    & > * {
+      border: solid 0px transparent;
+    }
+    
+    &.highlight {
+      padding: 10rem;
+    }
+  }
+}
+
+calendar:selected {
+  color: $accent;
+}
+
+calendar.header {
+  color: $cyan;
+  font-weight: bold;
+}
+
+calendar.button {
+  color: $cyan;
+}
+
+calendar.highlight {
+  color: $green;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: rgba(205, 219, 249, 0.3);
+}
+
+// dashboard dispatcher
+.dashboard-dispatcher-box {
+  margin: 5px 0 5px 7px;
+  .dispatcher-btn {
+    background-color: $contrastbg;
+    &:hover { background-color: $bgSecondary; }
+    &:active { background-color: $contrastbg; }
+    padding: 0px 13px 0px 10px;
+    border-radius: 7px;
+    border-bottom: solid $blue 1px;
+    color: $blue;
+  }
+}
+
+// actions revealer
+.actions-revealer {
+  margin: 5px 0 5px 7px;
+  font-size: 14px;
+  .dispatcher {
+    background-color: $bg;
+    &:hover, &.active { background-color: $contrastbg; }
+    &:active { background-color: $bgSecondary; }
+    padding: 0px 11px 0px 10px;
+    border-radius: 7px;
+  }
+  .opened-actions {
+    margin-right: 8px;
+    .network {
+      background-color: $bg;
+      &:hover { background-color: $contrastbg; }
+      &:active { background-color: $bgSecondary; }
+      padding: 0px 17px 0px 10px;
+      border-radius: 7px;
+      border-bottom: solid 1px;
+      &.disconnected { color: $red; border-bottom-color: $red; }
+      &.connected { color: $green; border-bottom-color: $green; }
+    }
+    .volume {
+      background-color: $bg;
+      &:hover { background-color: $contrastbg; }
+      &:active { background-color: $bgSecondary; }
+      margin-left: 5px;
+      padding: 0 17px 0px 10px;
+      border-radius: 7px;
+      border-bottom: solid 1px;
+      &.red { color: $red; border-bottom-color: $red; }
+      &.magenta { color: $magenta; border-bottom-color: $magenta; }
+      &.yellow { color: $yellow; border-bottom-color: $yellow; }
+      &.blue { color: $blue; border-bottom-color: $blue; }
+    }
+  }
+}

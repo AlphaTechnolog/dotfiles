@@ -1,0 +1,15 @@
+#!/bin/bash
+
+original_content=$(cat $HOME/.Xresources)
+
+rm $HOME/.Xresources
+echo "$original_content" | sed 's/st\.borderpx: .*$/st\.borderpx: 0/g' > $HOME/.Xresources
+xrdb merge $HOME/.Xresources
+kill -USR1 $(xprop -id $(xdotool getwindowfocus) | grep '_NET_WM_PID' | grep -oE '[[:digit:]]*$')
+echo "$original_content" > $HOME/.Xresources
+xrdb merge $HOME/.Xresources
+${@}
+sleep 0.01
+kill -USR1 $(xprop -id $(xdotool getwindowfocus) | grep '_NET_WM_PID' | grep -oE '[[:digit:]]*$')
+
+exit 0

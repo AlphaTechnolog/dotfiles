@@ -1,0 +1,20 @@
+#!/bin/bash
+
+window=$(cat /proc/$(xdotool getwindowpid $(xdotool getwindowfocus))/comm)
+title=$(xdotool getactivewindow getwindowname)
+
+if [[ $window == "" || $title == "" ]]; then
+  echo "Desktop"
+  exit 0
+fi
+
+toshow="$window - $title"
+maxlen=30
+
+sufix=""
+
+if test $(echo $toshow | wc -c) -ge $maxlen ; then
+  sufix=" ..."
+fi
+
+echo "${toshow:0:$maxlen}$sufix"

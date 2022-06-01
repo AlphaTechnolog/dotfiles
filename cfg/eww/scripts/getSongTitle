@@ -1,0 +1,34 @@
+#!/bin/bash
+title=$(playerctl -p spotify metadata --format '{{ title }}')
+count=$(echo -n "$title" | wc -c)
+
+get () {
+  if [ -z "$title" ]; then
+    echo "Not Playing";
+  else
+    if [ "$count" -le 24 ]; then
+      echo $title
+    else	
+      if [[ "$title" =~ ^[一-龠]+|[ぁ-ゔ]+|[ァ-ヴー]+ ]]; then
+        playerctl metadata --format '{{ title }}'
+      else
+        playerctl metadata --format '{{ title }}'
+      fi
+    fi
+  fi
+}
+
+if [[ $1 == "full" ]]; then
+  get
+else
+  toshow=$(get)
+  maxlen=18
+
+  sufix=""
+
+  if test $(echo $toshow | wc -c) -ge $maxlen ; then
+    sufix=" ..."
+  fi
+
+  echo "${toshow:0:$maxlen}$sufix"
+fi

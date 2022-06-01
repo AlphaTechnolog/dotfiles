@@ -1,0 +1,110 @@
+.stats-box {
+  background-color: $bg;
+  margin: 5px 10px;
+  slider {
+    all: unset;
+    color: $fg;
+  }
+}
+
+.vol-slider {
+  margin-top: 10px;
+  .vol-label {
+    font-size: 28px;
+    margin-left: 2px;
+    &.red { color: $red; }
+    &.magenta { color: $magenta; }
+    &.yellow { color: $yellow; }
+    &.blue { color: $blue; }
+  }
+  & scale trough {
+    all: unset;
+    background-color: $bgSecondary;
+    border-radius: 50px;
+    min-height: 8px;
+    margin-top: -3px;
+    min-width: 170px;
+    margin-left: 10px;
+    & highlight {
+      all: unset;
+      background-color: $blue;
+      color: #000000;
+      border-radius: 10px;
+    }
+  }
+}
+
+.br-slider {
+  margin-top: 5px;
+  .br-label {
+    font-size: 28px;
+    margin-left: 1px;
+    color: $yellow;
+  }
+  & scale trough {
+    all: unset;
+    background-color: $bgSecondary;
+    border-radius: 50px;
+    min-height: 8px;
+    min-width: 170px;
+    margin-top: -3px;
+    margin-left: 10px;
+    & highlight {
+      all: unset;
+      background-color: $yellow;
+      color: #000000;
+      border-radius: 10px;
+    }
+  }
+}
+
+.ram-slider {
+  margin-top: 4px;
+  .ram-label {
+    font-size: 28px;
+    margin-left: 2px;
+    &.yellow { color: $yellow; }
+    &.magenta { color: $magenta; }
+    &.purple { color: $purple; }
+    &.red { color: $red; }
+  }
+  & scale trough {
+    all: unset;
+    background-color: $bgSecondary;
+    border-radius: 50px;
+    min-height: 8px;
+    min-width: 170px;
+    margin-top: -3px;
+    margin-left: 10px;
+    & highlight {
+      all: unset;
+      background-color: $magenta;
+      color: #000000;
+      border-radius: 10px;
+    }
+  }
+}
+
+.cpu-slider {
+  margin-top: 4px;
+  .cpu-label {
+    font-size: 28px;
+    margin-left: 2px;
+    color: $red;
+  }
+  & scale trough {
+    all: unset;
+    background-color: $bgSecondary;
+    border-radius: 50px;
+    min-height: 8px;
+    min-width: 170px;
+    margin-top: -3px;
+    margin-left: 10px;
+    & highlight {
+      all: unset;
+      background-color: $red;
+      color: #000000;
+      border-radius: 10px;
+    }
+  }
+}

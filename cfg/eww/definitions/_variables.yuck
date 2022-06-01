@@ -1,0 +1,25 @@
+(defpoll art :interval "5s" "scripts/echoSongArt")
+(defpoll song_art :interval "5s" "scripts/getSongArt")
+(defpoll song_title :interval "5s" "scripts/getSongTitle")
+(defpoll full_song_title :interval "5s" "scripts/getSongTitle full")
+
+(defpoll calendar_day :interval "10h" "date '+%d'")
+(defpoll calendar_month :interval "10h" "./scripts/getCalendarMonth")
+(defpoll calendar_year :interval "10h" "date '+%Y'")
+
+(defpoll network_icon :interval "3s" "./scripts/getNetwork icon")
+(defpoll network_class :interval "3s" "./scripts/getNetwork class")
+(defpoll network_name :interval "3s" "./scripts/getNetwork name")
+
+(defpoll volume_class :interval "1s" "scripts/getVolume class")
+(defpoll volume :interval "1s" "scripts/getVolume percentage")
+(defpoll vol :interval "1s" "scripts/getVolume vol")
+(defpoll volume_icon :interval "1s" "scripts/getVolume icon")
+
+(defpoll br_icon :interval "1s" "scripts/getBrightness icon")
+(defpoll br :interval "1s" "scripts/getBrightness br")
+
+(defpoll ram_class :interval "5s" "scripts/getRam class")
+(defpoll ram :interval "5s" "scripts/getRam ram")
+
+(defpoll cpu :interval "5s" "scripts/getCpu cpu")

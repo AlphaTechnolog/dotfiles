@@ -1,0 +1,54 @@
+(defwidget stats []
+  (box :class "stats-box"
+       :orientation "v"
+       :space-evenly "false"
+    (box :orientation "h"
+         :space-evenly "false"
+         :class "vol-slider"
+      (box :class "vol-label ${volume_class}"
+           volume_icon
+      )
+      (scale :value vol
+             :onchange "amixer sset Master {}%"
+             :min 0
+             :max 101)
+    )
+    (box :class "br-slider"
+         :orientation "h"
+         :space-evenly "false"
+      (box :class "br-label"
+           br_icon)
+      (scale :value br
+             :onchange "brightnessctl s {}%"
+             :min 0
+             :max 101)
+    )
+    (box :class "ram-slider"
+         :orientation "h"
+         :space-evenly "false"
+      (box :class "ram-label ${ram_class}"
+           "")
+      (scale :value ram
+             :active false
+             :min 0
+             :max 101)
+    )
+    (box :class "cpu-slider"
+         :orientation "h"
+         :space-evenly "false"
+      (box :class "cpu-label"
+           "")
+      (scale :value cpu
+             :active false
+             :min 0
+             :max 101)
+    )
+  )
+)
+
+(defwindow stats
+  :geometry (geometry :x "13px"
+                      :y "56px"
+                      :width "135px"
+                      :height "20%")
+(stats))
