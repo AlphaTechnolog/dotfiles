@@ -34,7 +34,7 @@
       )
     )
     (button :class "dispatcher ${actions_are_opened ? 'active' : ''}"
-            :onclick "eww update actions_are_opened=${actions_are_opened ? 'false' : 'true'}"
+            :onclick "eww update actions_are_opened=${!actions_are_opened}"
             {actions_are_opened ? "" : ""})
   )
 )
@@ -46,7 +46,7 @@
        :space-evenly "false"
     (button :class "dispatcher-btn"
             :tooltip "Open dashboard"
-            :onclick "eww open --toggle stats"
+            :onclick "dashboard/toggle.sh"
             "舘")
   )
 )

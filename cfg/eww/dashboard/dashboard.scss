@@ -108,3 +108,73 @@
     }
   }
 }
+
+.datepanel-box {
+  background-color: $bg;
+  color: $fg;
+  .content {
+    background-color: inherit;
+    color: inherit;
+    font-family: Iosevka Nerd Font;
+    font-size: 18px;
+    .dateval-box {
+      .value {
+        font-size: 28px;
+        color: $blue;
+      }
+    }
+    .weekday-box {
+      margin-top: 13px;
+      .weekday {
+        color: $fg;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.music-control-box {
+  background-color: $bg;
+  color: $fg;
+  font-family: Iosevka Nerd Font;
+  .picture {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 10px;
+    border-radius: 10px;
+  }
+  .song-title-box {
+    margin: 30px 5px 0 0;
+  }
+  .song-buttons-box {
+    margin: 0px 0px 30px -10px;
+    .previous-button {
+      background-color: $bg;
+      color: $green;
+      font-size: 18px;
+      border-radius: 10px;
+      &:hover { background-color: $contrastbg; }
+      &:active { background-color: $bgSecondary; }
+    }
+    .pause-button {
+      background-color: $bg;
+      font-size: 18px;
+      color: $fg;
+      border-radius: 10px;
+      padding-left: 12px;
+      &:hover { background-color: $contrastbg; }
+      &:active { background-color: $bgSecondary; }
+      &.paused { color: $yellow; }
+      &.playing { color: $blue; }
+    }
+    .next-button {
+      background-color: $bg;
+      color: $green;
+      font-size: 18px;
+      border-radius: 10px;
+      &:hover { background-color: $contrastbg; }
+      &:active { background-color: $bgSecondary; }
+    }
+  }
+}

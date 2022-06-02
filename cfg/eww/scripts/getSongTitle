@@ -22,7 +22,7 @@ if [[ $1 == "full" ]]; then
   get
 else
   toshow=$(get)
-  maxlen=18
+  maxlen=13
 
   sufix=""
 
