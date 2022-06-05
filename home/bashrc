@@ -7,15 +7,10 @@ alias ls="exa --icons"
 alias la="ls -la"
 alias cat="bat --theme=base16 --style=plain --paging=never"
 alias tree="ls --tree"
+alias g="copier -c github_token 2>&1 > /dev/null && git" # @requires: [copier](https://github.com/AlphaTechnolog/copier)
 
 export PATH="$PATH:$HOME/.local/bin"
 PS1='[\u@\h \W]\$ '
 . "$HOME/.cargo/env"
 
 eval "$(starship init bash)"
-
-export http_proxy=http://192.168.49.1:8282/
-export https_proxy=$http_proxy
-export ftp_proxy=$http_proxy
-export rsync_proxy=$http_proxy
-export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
