@@ -9,8 +9,4 @@ alias cat="bat --theme=base16 --style=plain --paging=never"
 alias tree="ls --tree"
 alias g="copier -c github_token 2>&1 > /dev/null && git" # @requires: [copier](https://github.com/AlphaTechnolog/copier)
 
-export PATH="$PATH:$HOME/.local/bin"
-PS1='[\u@\h \W]\$ '
-. "$HOME/.cargo/env"
-
 eval "$(starship init bash)"
