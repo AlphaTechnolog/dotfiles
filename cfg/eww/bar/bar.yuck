@@ -130,12 +130,12 @@
 
 (defwindow bar
    :geometry (geometry :x "0px"
-                       :y "0px"
-                       :width "100%"
+                       :y "11px"
+                       :width "98%"
                        :height "40px"
                        :anchor "top center")
    :stacking "fg"
-   :reserve (struts :distance "44px" :side "top")
+   :reserve (struts :distance "55px" :side "top")
    :windowtype "dock"
    :wm-ignore false
  (bar))

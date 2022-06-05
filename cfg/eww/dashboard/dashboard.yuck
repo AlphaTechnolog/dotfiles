@@ -48,7 +48,7 @@
 
 (defwindow stats
   :geometry (geometry :x "13px"
-                      :y "56px"
+                      :y "65px"
                       :width "135px"
                       :height "20%")
 (stats))
@@ -79,7 +79,7 @@
 
 (defwindow date
   :geometry (geometry :x "-13px"
-                      :y "56px"
+                      :y "65px"
                       :width "250px"
                       :height "20%"
                       :anchor "top right")
@@ -103,15 +103,15 @@
         (box :orientation "h"
              :class "song-buttons-box"
           (button :class "previous-button"
-                  :onclick "playerctl previous"
+                  :onclick "playerctl -p spotify previous"
                   :tooltip "Previous Music"
                   "玲")
           (button :class "pause-button ${music_status == 'Playing' ? 'playing' : 'paused'}"
-                  :onclick "playerctl play-pause"
+                  :onclick "playerctl -p spotify play-pause"
                   :tooltip "Play/Pause Music"
                   "${music_status == 'Playing' ? '' : ''} ")
           (button :class "next-button"
-                  :onclick "playerctl next"
+                  :onclick "playerctl -p spotify next"
                   :tooltip "Next Music"
                   "怜")
         )
@@ -119,11 +119,11 @@
     )
   )
 )
-(defpoll music_status :interval "1s" "playerctl -p spotify status") 
+(defpoll music_status :interval "1s" "playerctl -p spotify status")
 
 (defwindow musiccontrol
   :geometry (geometry :x "-13px"
-                      :y "220px"
+                      :y "30%"
                       :width "250px"
                       :height "20%"
                       :anchor "top right")
