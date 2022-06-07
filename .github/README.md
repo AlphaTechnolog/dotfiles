@@ -43,6 +43,8 @@ Here are some details about my setup:
 <!-- SETUP -->
 ## ‎ <samp>Setup</samp>
 
+### Clone the repository
+
 First clone the repository
 
 ```sh
@@ -50,7 +52,9 @@ git clone https://github.com/AlphaTechnolog/dotfiles-v2
 cd dotfiles-v2
 ```
 
-Then install the next requirements
+### Requirements
+
+Then make sure you have the next requirements installed
 
 #### Fonts
 
@@ -80,7 +84,9 @@ Then install the next requirements
 |iwgetid|Get the connected wifi SSID|
 |amixer|Manage the audio|
 
-Then copy the configs
+> You can use the pkg for install the mayority of the pkgs
+
+### Copy the configs
 
 **WARNING**: Configuration files may be overrided.
 
@@ -91,7 +97,9 @@ cp -r ./home/bashrc ~/.bashrc
 cp -r ./home/Xresources ~/.Xresources
 ```
 
-Then compile my build of st (this is the default terminal, but you can change it in the sxhkd configuration):
+### Compile st
+
+Compile my build of st (this is the default terminal, but you can change it in the sxhkd configuration):
 
 ```sh
 cd ~/.config/st
@@ -99,6 +107,10 @@ rm config.h && sudo make clean install
 ```
 
 > It could throws some errors, make sure you have the correct dependencies for st like `harfbuzz` and `imlib2` (if not luck, try installing the `-dev` or `-devel` pkgs)
+
+### Enjoy
+
+That's all! Now enjoy with this configuration!
 
 ## Tips
 
