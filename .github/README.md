@@ -30,9 +30,11 @@ Welcome! This is the repository for my bspwm rice using my own theme called deca
 
 If you like this configuration, please give me a start, it will make me more happy! :)
 
-## ‎ <samp>Information</samp> <img src="./assets/neofetch.png" align="right" width="400px"/>
+## ‎ <samp>Information</samp>
 
 Here are some details about my setup:
+
+<img src="./assets/neofetch.png" align="right" width="400px"/>
 
 - **OS:** [Void Linux](https://voidlinux.org)
 - **WM:** [bspwm](https://github.com/baskerville/bspwm)
