@@ -93,4 +93,4 @@ rm config.h && sudo make clean install
 
 ## Tips
 
-If you want to open neovim without padding in st terminal, you can use `nv` instead of `neovim` (because in [bin](./bin) i put the `nv` script)
+If you want to open neovim without padding in st terminal, you can use `nv` instead of `neovim` (because in [bin](../bin) i put the `nv` script)
