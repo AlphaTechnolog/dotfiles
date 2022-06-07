@@ -78,6 +78,7 @@ Then copy the configs
 ```sh
 cp -r ./cfg/* ~/.config
 cp -r ./bin/* ~/.local/bin
+cp -r ./home/* ~/
 ```
 
 Then compile my build of st (this is the default terminal, but you can change it in the sxhkd configuration):
