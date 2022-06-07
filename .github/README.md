@@ -30,7 +30,7 @@ Welcome! This is the repository for my bspwm rice using my own theme called deca
 
 If you like this configuration, please give me a start, it will make me more happy! :)
 
-## ‎ <samp>Information</samp> 
+## ‎ <samp>Information</samp> <img src="./assets/neofetch.png" align="right" width="400px"/>
 
 Here are some details about my setup:
 
