@@ -1,4 +1,5 @@
 (include "./bar/widgets/_calendar.yuck")
+(include "./bar/widgets/_powermenu.yuck")
 
 (defwidget launcher[]
   (box :orientation "h"
@@ -108,6 +109,17 @@
   )
 )
 
+(defwidget powermenu []
+  (box :orientation "h"
+       :space-evenly "false"
+       :class "powermenu-box"
+    (button :class "dispatcher"
+            :tooltip "Toggle Power Menu"
+            :onclick "eww open --toggle powermenu"
+            "⏻")
+  )
+)
+
 (defwidget right []
   (box :class "right-modules"
        :space-evenly "false"
@@ -116,6 +128,7 @@
     (actions-revealer)
     (musicbox)
     (datebox)
+    (powermenu)
   )
 )
 

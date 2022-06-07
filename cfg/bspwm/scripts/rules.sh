@@ -7,3 +7,4 @@ bspc rule -a Plank layer=above manage=on border=off
 bspc rule --add network state=floating # nmtui spawned by eww bar
 bspc rule --add Pavucontrol state=floating
 bspc rule --add Gnome-screenshot state=floating
+bspc rule --add floating state=floating

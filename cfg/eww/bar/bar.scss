@@ -184,3 +184,50 @@ calendar:indeterminate {
     }
   }
 }
+
+.powermenu-box {
+  padding: 0 2px;
+  margin: 7px 7px 7px 0px;
+  background: inherit;
+  .dispatcher {
+    border-radius: 7px;
+    background: $bg;
+    color: $red;
+    font-size: 14px;
+    padding: 0 14px 0 10px;
+    &:hover { background-color: $contrastbg; }
+    &:active { background-color: $bgSecondary; }
+  }
+}
+
+// powermenu
+.powermenu-container {
+  background: $bg;
+  color: $fg;
+  padding: 10px;
+  font-size: 55px;
+  // shutdown
+  .shutdown-btn-box .btn {
+    color: $red;
+    border-radius: 15px;
+    background-color: $bg;
+    &:hover { background-color: $contrastbg; }
+    &:active { background-color: $bgSecondary; }
+  }
+  // reboot
+  .reboot-btn-box .btn {
+    color: $magenta;
+    border-radius: 15px;
+    background-color: $bg;
+    &:hover { background-color: $contrastbg; }
+    &:active { background-color: $bgSecondary; }
+  }
+  // exit
+  .exit-btn-box .btn {
+    color: $yellow;
+    border-radius: 15px;
+    background-color: $bg;
+    &:hover { background-color: $contrastbg; }
+    &:active { background-color: $bgSecondary; }
+  }
+}
