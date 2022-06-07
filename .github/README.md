@@ -52,25 +52,33 @@ cd dotfiles-v2
 
 Then install the next requirements
 
-- Iosevka Nerd Font
-- CaskaydiaCove Nerd Font
-- bspwm
-- sxhkd
-- picom
-- fish
-- starship
-- feh
-- bat
-- exa
-- eww
-- dunst
-- rofi
-- playerctl
-- light
-- wireless_tools (for iwgetid)
-- alsa-tools (for amixer)
-- pulseaudio-alsa
-- playerctl
+#### Fonts
+
+| **font** | **utility** |
+|----------|-------------|
+|Iosevka Nerd Font|Bar font|
+|JetBrainsMono Nerd Font|Bar Font|
+
+> [Download site](https://www.nerdfonts.com/font-downloads)
+
+#### Dependencies
+
+| **dependency** | **utility** |
+|----------------|-------------|
+|bspwm|The window manager|
+|sxhkd|The hotkeys daemon|
+|picom|The compositor|
+|bash|The shell|
+|starship|With starship you can customize the prompt of any shell|
+|feh|Set wallpaper and image viewer|
+|bat|Enhanced cat|
+|exa|Enhanced ls (using for tree too)|
+|dunst|Customizable notifications|
+|rofi|Apps launcher|
+|playerctl|Remotely music management|
+|light|Manage the brightness using the cli|
+|iwgetid|Get the connected wifi SSID|
+|amixer|Manage the audio|
 
 Then copy the configs
 
