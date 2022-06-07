@@ -64,7 +64,7 @@ Then make sure you have the next requirements installed
 | **font** | **utility** |
 |----------|-------------|
 |Iosevka Nerd Font|Bar font|
-|JetBrainsMono Nerd Font|Bar Font|
+|CaskaydiaCove Nerd Font|General Font|
 
 > [Download site](https://www.nerdfonts.com/font-downloads)
 
