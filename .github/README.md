@@ -21,7 +21,7 @@
 
 <br>
 
-## Hi there! Thanks for dropping by! :green_heart:
+## Hi there! Thanks for dropping by! :blue_heart:
 <b>  AlphaTechnolog's bspwm Rice  </b>
 
 Welcome! This is the repository for my bspwm rice using my own theme called decay (darker version)
