@@ -65,6 +65,7 @@ Then install the next requirements
 - eww
 - dunst
 - rofi
+- playerctl
 - light
 - wireless_tools (for iwgetid)
 - alsa-tools (for amixer)
