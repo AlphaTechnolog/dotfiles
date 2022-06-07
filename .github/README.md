@@ -28,7 +28,7 @@ Welcome! This is the repository for my bspwm rice using my own theme called deca
 
 ## ‎ <samp>Notice</samp>
 
-If you like this configuration, please give me a start, it will make me more happy! :)
+If you like this configuration, please give me a start, it will make me more happy! 😁
 
 ## ‎ <samp>Information</samp>
 
