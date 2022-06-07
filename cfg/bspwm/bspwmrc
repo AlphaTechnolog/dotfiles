@@ -4,7 +4,7 @@
 bash $HOME/.config/bspwm/scripts/autostart.sh
 
 # use 1 to use the scripts/monitor.sh file (configure it file editing it!)
-MONITOR_SUPPORT=1
+MONITOR_SUPPORT=0
 
 function setopt () {
   bspc config "$1" "$2"
@@ -43,10 +43,10 @@ done &
 
 # monitor
 if [[ $MONITOR_SUPPORT == 1 ]]; then
-  bash $HOME/.config/bspwm/scripts/monitor.sh
+  script monitor.sh
 else
   bspc monitor primary -d 1 2 3 4 5 6
 fi
 
 # rules
-bash $HOME/.config/bspwm/scripts/rules.sh
+script rules.sh

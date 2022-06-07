@@ -59,6 +59,9 @@ Then install the next requirements
 - picom
 - fish
 - starship
+- feh
+- bat
+- exa
 - eww
 - dunst
 - rofi

@@ -133,12 +133,9 @@ super + alt + {h,j,k,l}
 
 super + b
     firefox
-
-super + shift + ctrl + l
-  lock
-
+Si
 super + x
-  xcolor-pick
+  ~/.local/bin/xcolor-pick
 
 super + m
-  mode toggle
+  ~/.local/bin/mode toggle

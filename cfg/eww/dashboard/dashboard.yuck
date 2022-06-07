@@ -98,7 +98,7 @@
       (box :orientation "v"
         (box :orientation "h"
              :class "song-title-box"
-          (label :text song_title)
+          (label :text song_title :class "content")
         )
         (box :orientation "h"
              :class "song-buttons-box"

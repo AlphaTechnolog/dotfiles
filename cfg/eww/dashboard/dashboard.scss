@@ -126,7 +126,7 @@
     .weekday-box {
       margin-top: 13px;
       .weekday {
-        color: $fg;
+        color: $yellow;
         font-size: 16px;
       }
     }
@@ -146,6 +146,9 @@
   }
   .song-title-box {
     margin: 30px 5px 0 0;
+    .content {
+      color: $yellow;
+    }
   }
   .song-buttons-box {
     margin: 0px 0px 30px -10px;

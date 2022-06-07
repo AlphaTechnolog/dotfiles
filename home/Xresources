@@ -11,7 +11,7 @@ st.borderpx: 20
 !-- values between 0.1  - 1.0 --! 
 
 st.alpha: 1.0
-st.font: Iosevka Nerd Font:style:medium:pixelsize=12
+st.font: CaskaydiaCove Nerd Font:style:medium:pixelsize=12
 
 !-- decay palette --!
 #define decay_darker_bg   #0e1217
