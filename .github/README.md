@@ -26,7 +26,10 @@
 
 Welcome! This is the repository for my bspwm rice using my own theme called decay (darker version)
 
-<!-- INFORMATION -->
+## ‎ <samp>Notice</samp>
+
+If you like this configuration, please give me a start, it will make me more happy! :)
+
 ## ‎ <samp>Information</samp> 
 
 Here are some details about my setup:
@@ -112,6 +115,6 @@ rm config.h && sudo make clean install
 
 That's all! Now enjoy with this configuration!
 
-## Tips
+## ‎ <samp>Tips</samp>
 
 If you want to open neovim without padding in st terminal, you can use `nv` instead of `neovim` (because in [bin](../bin) i put the `nv` script)
