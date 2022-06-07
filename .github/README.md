@@ -59,6 +59,8 @@ cd dotfiles-v2
 
 Then make sure you have the next requirements installed
 
+> This is in testing, if you think that i miss some pkg, please tell me it using my discord (alphatechnolog#6570) or opening an [issue](https://github.com/AlphaTechnolog/dotfiles-v2/issues/new)
+
 #### Fonts
 
 | **font** | **utility** |
