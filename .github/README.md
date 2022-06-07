@@ -78,7 +78,8 @@ Then copy the configs
 ```sh
 cp -r ./cfg/* ~/.config
 cp -r ./bin/* ~/.local/bin
-cp -r ./home/* ~/
+cp -r ./home/bashrc ~/.bashrc
+cp -r ./home/Xresources ~/.Xresources
 ```
 
 Then compile my build of st (this is the default terminal, but you can change it in the sxhkd configuration):
@@ -89,3 +90,7 @@ rm config.h && sudo make clean install
 ```
 
 > It could throws some errors, make sure you have the correct dependencies for st like `harfbuzz` and `imlib2` (if not luck, try installing the `-dev` or `-devel` pkgs)
+
+## Tips
+
+If you want to open neovim without padding in st terminal, you can use `nv` instead of `neovim` (because in [bin](./bin) i put the `nv` script)
