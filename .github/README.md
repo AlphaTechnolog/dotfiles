@@ -126,3 +126,11 @@ That's all! Now enjoy with this configuration!
 ## ‎ <samp>Tips 😎</samp>
 
 If you want to open neovim without padding in st terminal, you can use `nv` instead of `neovim` (because in [bin](../bin) i put the `nv` script)
+
+## ‎ <samp>Thanks to 😁</samp>
+
+I want to say really thank to the next people, because they helped me with some things to make this rice possible:
+
+- [leo](https://github.com/justleoo)
+- [Bleyom](https://github.com/Bleyom)
+- [PanicKk](https://github.com/PanicKk)
