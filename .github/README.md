@@ -26,13 +26,13 @@
 
 Welcome! This is the repository for my bspwm rice using my own theme called decay (darker version)
 
-## ‎ <samp>Notice</samp>
+## ‎ <samp>Notice! ⚠️</samp>
 
 If you like this configuration, please give me a star in this repo, it will make me more happy! 😁
 
 > If you want, you can visit [more of my repos](https://github.com/AlphaTechnolog?tab=repositories) or go to [my profile](https://github.com/AlphaTechnolog)
 
-## ‎ <samp>Information</samp>
+## ‎ <samp>Information ℹ️</samp>
 
 Here are some details about my setup:
 
@@ -48,7 +48,7 @@ Here are some details about my setup:
 - **Application Launcher:** [rofi](https://github.com/davatorium/rofi)
 
 <!-- SETUP -->
-## ‎ <samp>Setup</samp>
+## ‎ <samp>Setup ✏️</samp>
 
 ### Clone the repository
 
@@ -59,7 +59,7 @@ git clone https://github.com/AlphaTechnolog/dotfiles-v2
 cd dotfiles-v2
 ```
 
-### Requirements
+### Requirements ✅
 
 Then make sure you have the next requirements installed
 
@@ -117,10 +117,10 @@ rm config.h && sudo make clean install
 
 > It could throws some errors, make sure you have the correct dependencies for st like `harfbuzz` and `imlib2` (if not luck, try installing the `-dev` or `-devel` pkgs)
 
-### Enjoy
+### Enjoy ❤️
 
 That's all! Now enjoy with this configuration!
 
-## ‎ <samp>Tips</samp>
+## ‎ <samp>Tips 😎</samp>
 
 If you want to open neovim without padding in st terminal, you can use `nv` instead of `neovim` (because in [bin](../bin) i put the `nv` script)
