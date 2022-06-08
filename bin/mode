@@ -38,7 +38,7 @@ restore () {
   fi
   if [[ $barstatus == "true" ]]; then
     echo "Opening bar"
-    bspc config top_padding 44
+    bspc config top_padding 55
     bspc config single_monocle false
     bspc config gapless_monocle false
     bspc config borderless_monocle false
