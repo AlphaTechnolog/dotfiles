@@ -94,8 +94,16 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it us
 |light|Manage the brightness using the cli|
 |iwgetid|Get the connected wifi SSID|
 |amixer|Manage the audio|
+|wmutils/opt|Make borders scripts works|
 
 > You can use the pkg for install the mayority of the pkgs
+
+> for wmutils/opt you can try with the next commands:
+
+```sh
+git clone https://github.com/wmutils/opt.git && cd opt
+make && sudo make install
+```
 
 ### Copy the configs
 
