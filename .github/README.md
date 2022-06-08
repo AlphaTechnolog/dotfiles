@@ -93,6 +93,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it us
 |rofi|Apps launcher|
 |playerctl|Remotely music management|
 |light|Manage the brightness using the cli|
+|brightnessctl|Another way to get/manage the brightness using the cli|
 |iwgetid|Get the connected wifi SSID|
 |amixer|Manage the audio|
 |wmutils/opt|Make borders scripts works|
