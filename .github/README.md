@@ -122,7 +122,7 @@ Compile my build of st (this is the default terminal, but you can change it in t
 
 ```sh
 cd ~/.config/st
-rm config.h && sudo make clean install
+./rebuild.sh
 ```
 
 > It could throws some errors, make sure you have the correct dependencies for st like `harfbuzz` and `imlib2` (if not luck, try installing the `-dev` or `-devel` pkgs)
