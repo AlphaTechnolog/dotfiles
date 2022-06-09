@@ -148,7 +148,7 @@ If you want to open neovim without padding in st terminal, you can use `nv` inst
 |super + alt + {h,j,k,l}|Resize the window|
 |super + ctrl + {h,j,k,l}|Move a floating window|
 |super + escape|Restart sxhkd|
-|super + shift + q|Quit bspwmw|
+|super + shift + q|Quit bspwm|
 |super + shift + r|Restart bspwm|
 |super + w|Close window|
 |super + Tab|Alternate between monocle and tiled layout|
