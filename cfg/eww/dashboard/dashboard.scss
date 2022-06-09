@@ -165,7 +165,7 @@
       font-size: 18px;
       color: $fg;
       border-radius: 10px;
-      padding-left: 12px;
+      padding-left: 4px;
       &:hover { background-color: $contrastbg; }
       &:active { background-color: $bgSecondary; }
       &.paused { color: $yellow; }
