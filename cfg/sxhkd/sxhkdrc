@@ -10,9 +10,6 @@ super + Return
 super + shift + Return
   rofi -show drun
 
-super + shift + ctrl + Return
-  bash ~/.config/eww/scripts/openSysTray.sh
-
 # make sxhkd reload its configuration files:
 super + Escape
   pkill -USR1 -x sxhkd
@@ -133,7 +130,7 @@ super + alt + {h,j,k,l}
 
 super + b
     firefox
-Si
+
 super + x
   ~/.local/bin/xcolor-pick
 
