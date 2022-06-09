@@ -47,8 +47,6 @@ Here are some details about my setup:
 - **Compositor:** [picom](https://github.com/yshui/picom)
 - **Application Launcher:** [rofi](https://github.com/davatorium/rofi)
 
-> I know, i know, my kernel is too old, but i can't update it in void (because newer isn't released yet i think) ☹️
-
 <!-- SETUP -->
 ## ‎ <samp>Setup ✏️</samp>
 
