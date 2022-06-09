@@ -128,3 +128,21 @@
                       :height "20%"
                       :anchor "top right")
 (music-control))
+
+(defwidget search-box []
+  (box :class "search-box"
+       :orientation "v"
+    (button :class "search-button"
+            :onclick "rofi -show drun"
+            "  Search...")
+    (label :text "Welcome ${user}" :class "welcome")
+  )
+)
+(defpoll user :interval "100s" "whoami")
+
+(defwindow search
+  :geometry (geometry :x "13px"
+                      :y "31%"
+                      :width "220px"
+                      :height "20%")
+(search-box))

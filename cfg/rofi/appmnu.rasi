@@ -21,7 +21,7 @@ entry {
     placeholder-color:              @foreground;
     expand:                         true;
     horizontal-align:               0;
-    placeholder:                    "   Type here to search...";
+    placeholder:                    "   Search...";
     padding:                        10px;
     margin:                         0 1%;
     blink:                          true;

@@ -41,14 +41,14 @@
 )
 (defvar actions_are_opened false)
 
-(defwidget dashboard-dispatcher []
-  (box :class "dashboard-dispatcher-box"
+(defwidget controls-dispatcher []
+  (box :class "controls-dispatcher-box"
        :orientation "h"
        :space-evenly "false"
     (button :class "dispatcher-btn"
-            :tooltip "Open dashboard"
-            :onclick "dashboard/toggle.sh"
-            "舘")
+            :tooltip "Open controls"
+            :onclick "controls/toggle.sh"
+            "漣")
   )
 )
 
@@ -59,7 +59,7 @@
        :class "left"
     (launcher)
     (workspaces)
-    (dashboard-dispatcher)
+    (controls-dispatcher)
   )
 )
 

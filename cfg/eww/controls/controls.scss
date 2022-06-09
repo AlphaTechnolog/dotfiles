@@ -181,3 +181,20 @@
     }
   }
 }
+
+.search-box {
+  background-color: $bg;
+  color: $fg;
+  padding: 5px 28px;
+  font-family: Iosevka Nerd Font;
+  .search-button {
+    background-color: $contrastbg;
+    border-radius: 7px;
+    margin: 22px 0 10px 0;
+    &:hover { background-color: $bgSecondary }
+    &:active { background-color: $contrastbg; }
+  }
+  .welcome {
+    color: $yellow;
+  }
+}

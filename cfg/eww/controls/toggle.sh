@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cachefile="$HOME/.cache/eww/dashboard"
+cachefile="$HOME/.cache/eww/controls"
 cachedir=$(dirname $cachefile)
 
 if ! test -d $cachedir; then
@@ -46,7 +46,7 @@ initial_struct
 
 # ;;
 
-declare -a windows=(stats date musiccontrol)
+declare -a windows=(stats date musiccontrol search)
 
 opened=$(get_cache_key "opened")
 
