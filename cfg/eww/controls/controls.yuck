@@ -132,10 +132,18 @@
 (defwidget search-box []
   (box :class "search-box"
        :orientation "v"
-    (button :class "search-button"
-            :onclick "rofi -show drun"
-            "  Search...")
-    (label :text "Welcome ${user}" :class "welcome")
+    (box :class "button-container"
+         :orientation "v"
+         :space-evenly "false"
+      (button :class "search-button"
+              :onclick "rofi -show drun"
+              "  Search...")
+    )
+    (box :class "welcome-container"
+         :space-evenly "false"
+         :orientation "v"
+      (label :text "Welcome ${user}" :class "welcome")
+    )
   )
 )
 (defpoll user :interval "100s" "whoami")

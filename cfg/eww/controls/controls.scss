@@ -187,14 +187,20 @@
   color: $fg;
   padding: 5px 28px;
   font-family: Iosevka Nerd Font;
-  .search-button {
-    background-color: $contrastbg;
-    border-radius: 7px;
+  .button-container {
     margin: 22px 0 10px 0;
-    &:hover { background-color: $bgSecondary }
-    &:active { background-color: $contrastbg; }
+    .search-button {
+      background-color: $contrastbg;
+      border-radius: 7px;
+      padding: 10px;
+      &:hover { background-color: $bgSecondary }
+      &:active { background-color: $contrastbg; }
+    }
   }
-  .welcome {
-    color: $yellow;
+  .welcome-container {
+    margin-top: 15px;
+    .welcome {
+      color: $yellow;
+    }
   }
 }
