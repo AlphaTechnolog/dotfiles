@@ -139,7 +139,7 @@ If you want to open neovim without padding in st terminal, you can use `nv` inst
 
 ## ‎ <samp>Thanks to 😁</samp>
 
-I want to say really thank to the next people, because they helped me with some things to make this rice possible:
+I want to say really thanks to the next people, because they helped me with some things to make this rice possible:
 
 - [leo](https://github.com/justleoo)
 - [Bleyom](https://github.com/Bleyom)
