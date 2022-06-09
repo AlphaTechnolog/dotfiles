@@ -133,7 +133,30 @@ That's all! Now enjoy with this configuration!
 
 ## ‎ <samp>Tips 😎</samp>
 
+### Neovim
+
 If you want to open neovim without padding in st terminal, you can use `nv` instead of `neovim` (because in [bin](../bin) i put the `nv` script)
+
+### Some keyboards shortcuts
+
+| **shortcut** | **meaning** |
+|--------------|-------------|
+|super + shift + return|Open rofi|
+|super + m|Toggle bar state (if show or not)|
+|super + b|Spawn firefox|
+|super + x|Spawn a screen color picker|
+|super + alt + {h,j,k,l}|Resize the window|
+|super + ctrl + {h,j,k,l}|Move a floating window|
+|super + escape|Restart sxhkd|
+|super + shift + q|Quit bspwmw|
+|super + shift + r|Restart bspwm|
+|super + w|Close window|
+|super + Tab|Alternate between monocle and tiled layout|
+|super + space|Switch to floating layout|
+|super + t|Switch to tiled layout|
+|super + f|Switch to fullscreen layout|
+
+> In the most of the cases, exists mouse based keybindings (but i really prefer use the shortcuts lol)
 
 ## ‎ <samp>Thanks to 😁</samp>
 
