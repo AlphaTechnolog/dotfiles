@@ -136,7 +136,7 @@
          :orientation "v"
          :space-evenly "false"
       (button :class "search-button"
-              :onclick "rofi -show drun"
+              :onclick "scripts/exec rofi -show drun"
               "  Search...")
     )
     (box :class "welcome-container"

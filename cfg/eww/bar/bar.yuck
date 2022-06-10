@@ -26,11 +26,11 @@
            :space-evenly "false"
         (button :class "network ${network_class}"
                 :tooltip "${network_name} (Press to open nmtui)"
-                :onclick "st -c network -e lessborder nmtui &"
+                :onclick "scripts/exec st -c network -e lessborder nmtui"
                 network_icon)
         (button :class "volume ${volume_class}"
                 :tooltip "Volume: ${volume} (Press to open pavucontrol)"
-                :onclick "pavucontrol &"
+                :onclick "scripts/exec pavucontrol"
                 volume_icon)
       )
     )
