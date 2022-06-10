@@ -133,6 +133,26 @@ That's all! Now enjoy with this configuration!
 
 ## ‎ <samp>Tips 😎</samp>
 
+### Multi theming support
+
+I'm working in multi theming support for the config using a tool that I'm writing from scratch, [this is](../bin/themer).
+
+The tool reads files from `~/.config/themes/templates` and recreate all the necessary files to apply the changes, in this config
+i included two templates: dark-decay and night theme by [rxyhn](https://github.com/rxyhn).
+
+You can change the theme using `themer -s <themename>` or `themer --switch <themename>`, more info could be obtained using:
+
+```sh
+themer --help
+themer -h
+```
+
+so, you can write your own themes too using the templates in `~/.config/themes/templates` and then calling it using `themer`.
+
+#### Demonstration
+
+![themer-demonstration](./assets/themer.png)
+
 ### Neovim
 
 If you want to open neovim without padding in st terminal, you can use `nv` instead of `neovim` (because in [bin](../bin) i put the `nv` script)
@@ -165,3 +185,4 @@ I want to say really thanks to the next people, because they helped me with some
 - [leo](https://github.com/justleoo)
 - [Bleyom](https://github.com/Bleyom)
 - [PanicKk](https://github.com/PanicKk)
+- [rxyhn](https://github.com/rxyhn) (night theme)
