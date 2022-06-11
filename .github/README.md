@@ -83,7 +83,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it us
 |bspwm|The window manager|
 |sxhkd|The hotkeys daemon|
 |eww|Literally the most of this ui is written using eww (tested with eww 0.2.0)|
-|picom|The compositor|
+|picom|The compositor, i'm using the [Arian8j's picom fork](https://github.com/Arian8j2/picom)|
 |bash|The shell|
 |starship|With starship you can customize the prompt of any shell|
 |feh|Set wallpaper and image viewer|
