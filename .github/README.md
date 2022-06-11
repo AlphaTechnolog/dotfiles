@@ -29,7 +29,6 @@ Welcome! This is the repository for my bspwm rice using my own theme called deca
 ## ‎ <samp>Notice! ⚠️</samp>
 
 If you like this configuration, please give me a star in this repo, it will make me more happy! 😁
-
 > If you want, you can visit [more of my repos](https://github.com/AlphaTechnolog?tab=repositories) or go to [my profile](https://github.com/AlphaTechnolog)
 
 ## ‎ <samp>Information ℹ️</samp>
@@ -49,7 +48,7 @@ Here are some details about my setup:
 
 ## ‎ <samp>Demonstration 📹</samp>
 
-You can see the workflow video on youtube! [Click Me](https://www.youtube.com/watch?v=Qcl_9k_RaS0&t=97s)
+You can see the workflow video on youtube! [Click Me](https://youtu.be/Qcl_9k_RaS0)
 
 ## ‎ <samp>Setup ✏️</samp>
 
