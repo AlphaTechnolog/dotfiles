@@ -47,7 +47,7 @@ Here are some details about my setup:
 - **Compositor:** [picom](https://github.com/yshui/picom)
 - **Application Launcher:** [rofi](https://github.com/davatorium/rofi)
 
-## ‎ <samp>Demonstration ✏️</samp>
+## ‎ <samp>Demonstration 📹</samp>
 
 You can see the workflow video on youtube! [Click Me](https://www.youtube.com/watch?v=Qcl_9k_RaS0&t=97s)
 
