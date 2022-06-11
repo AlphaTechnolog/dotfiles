@@ -82,7 +82,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it us
 |----------------|-------------|
 |bspwm|The window manager|
 |sxhkd|The hotkeys daemon|
-|eww|Literally the most of this ui is written using eww|
+|eww|Literally the most of this ui is written using eww (tested with eww 0.2.0)|
 |picom|The compositor|
 |bash|The shell|
 |starship|With starship you can customize the prompt of any shell|
