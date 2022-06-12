@@ -4,9 +4,9 @@
 #
 # Yes, this is stolen from gk.
 
-outer='0x101419'   # outer
-inner1='0x242931'  # focused
-inner2='0x15191e'  # normal
+outer='0x171B20' # outer
+inner1='0x21262e' # focused
+inner2='0x1a1e24' # normal
 
 trap 'bspc config border_width 0; kill -9 -$$' INT TERM
 
@@ -17,7 +17,14 @@ targets() {
 	esac | grep -iv "$v"
 }
 
+get_hex () {
+  local originalHex=$1
+  echo $originalHex | sed 's/0x/#/g'
+}
+
 bspc config border_width 18
+bspc config normal_border_color "$(get_hex $outer)"
+bspc config focused_border_color "$(get_hex $outer)"
 
 draw() { chwb2 -I "$inner" -O "$outer" -i "4" -o "9" $* |:; }
 
