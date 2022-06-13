@@ -129,6 +129,16 @@ cd ~/.config/st
 
 > It could throws some errors, make sure you have the correct dependencies for st like `harfbuzz` and `imlib2` (if not luck, try installing the `-dev` or `-devel` pkgs)
 
+### Run themer
+
+After login into bspwm, run themer to get the correct colors in the setup.
+
+```sh
+themer --switch dark-decay
+```
+
+> You can get more info about what is themer using `themer --help` but in fact, themer is a script that I made to manage the colorscheme in the configs
+
 ### Enjoy ❤️
 
 That's all! Now enjoy with this configuration!

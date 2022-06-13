@@ -81,7 +81,7 @@
   :geometry (geometry :x "-13px"
                       :y "65px"
                       :width "250px"
-                      :height "20%"
+                      :height "125px"
                       :anchor "top right")
 (datepanel))
 
@@ -123,9 +123,9 @@
 
 (defwindow musiccontrol
   :geometry (geometry :x "-13px"
-                      :y "30%"
+                      :y "27%"
                       :width "250px"
-                      :height "20%"
+                      :height "125px"
                       :anchor "top right")
 (music-control))
 
