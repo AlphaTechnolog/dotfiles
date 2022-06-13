@@ -96,6 +96,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it us
 |brightnessctl|Another way to get/manage the brightness using the cli|
 |iwgetid|Get the connected wifi SSID|
 |amixer|Manage the audio|
+|xdotool|dependency for some scripts|
 |wmutils/opt|Make borders scripts works|
 
 > You can use the pkg for install the mayority of the pkgs
