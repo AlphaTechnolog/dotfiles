@@ -30,6 +30,7 @@ Welcome! This is the repository for my bspwm rice using my own theme called deca
 
 If you like this configuration, please give me a star in this repo, it will make me more happy! 😁
 > If you want, you can visit [more of my repos](https://github.com/AlphaTechnolog?tab=repositories) or go to [my profile](https://github.com/AlphaTechnolog)
+> Ah, and gimme credits if you will use my config for showcase :3
 
 ## ‎ <samp>Information ℹ️</samp>
 
