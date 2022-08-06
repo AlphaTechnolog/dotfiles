@@ -4,7 +4,6 @@ local xresources = require 'beautiful.xresources'
 local beautiful = require 'beautiful'
 local wibox = require 'wibox'
 local gears = require 'gears'
-local actions = require 'ui.actions'
 local helpers = require 'helpers'
 
 local dpi = xresources.apply_dpi
@@ -194,7 +193,7 @@ screen.connect_signal('request::desktop_decoration', function (s)
              valign = 'center',
              buttons = {
                 awful.button({}, 1, function ()
-                   actions.toggle_popup()
+                   require 'ui.actions'.toggle_popup()
                 end)
              },
              widget = wibox.widget.imagebox,
