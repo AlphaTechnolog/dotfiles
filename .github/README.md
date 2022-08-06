@@ -24,7 +24,7 @@
 ## Hi there! Thanks for dropping by! :blue_heart:
 <b>  AlphaTechnolog's AwesomeWM Rice  </b>
 
-Welcome! This is the repository for my awesomewm rice using decay (decayce variant)
+Welcome! This is the repository for my awesomewm rice using [decay](https://github.com/decaycs) (decayce variant)
 
 ## ‎ <samp>Notice! ⚠️</samp>
 
