@@ -144,11 +144,6 @@ theme.pfp = actions_assets_path .. "user/pfp.png"
 -- disable icon theme
 theme.icon_theme = nil
 
--- flash focus
-theme.flash_focus_start_opacity = 0.6
-theme.flash_focus_step = 0.02
-theme.flash_focus_timeout = 0.01
-
 -- task preview
 theme.task_preview_widget_border_radius = dpi(7)
 theme.task_preview_widget_bg = theme.bg_normal
