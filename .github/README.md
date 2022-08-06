@@ -43,7 +43,7 @@ Here are some details about my setup:
 
 - **OS:** [Void Linux](https://voidlinux.org)
 - **WM:** [AwesomeWM](https://github.com/awesomeWM/awesome)
-- **Terminal:** [kitty](https://github.com/kovidgoyal/kitty)
+- **Terminal:** [tym](https://github.com/endaaman/tym)
 - **Shell:** [hilbish](https://github.com/Rosettea/Hilbish)
 - **Editor:** [neovim](https://github.com/neovim/neovim)
 - **NeovimConfig**: [nvcodark](https://github.com/AlphaTechnolog/nvcodark) (I'm using the remake that is present in the dev branch, instructions aren't ready yet, main branch is broken)
