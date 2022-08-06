@@ -12,10 +12,10 @@
 <!-- BADGES -->
 <h1>
   <a href="#--------">
-    <img alt="" align="left" src="https://img.shields.io/github/stars/AlphaTechnolog/dotfiles-v2?color=f1cf8a&labelColor=f1cf8a&style=for-the-badge"/>
+    <img alt="" align="left" src="https://img.shields.io/github/stars/AlphaTechnolog/dotfiles?color=f1cf8a&labelColor=f1cf8a&style=for-the-badge"/>
   </a>
   <a href="#--------">
-    <img alt="" align="right" src="https://badges.pufler.dev/visits/AlphaTechnolog/dotfiles-v2?style=for-the-badge&color=7ddac5&logoColor=white&labelColor=7ddac5"/>
+    <img alt="" align="right" src="https://badges.pufler.dev/visits/AlphaTechnolog/dotfiles?style=for-the-badge&color=7ddac5&logoColor=white&labelColor=7ddac5"/>
   </a>
 </h1>
 
@@ -58,15 +58,15 @@ You can see the workflow video on youtube! [Click Me](https://youtu.be/Qcl_9k_Ra
 First clone the repository
 
 ```sh
-git clone https://github.com/AlphaTechnolog/dotfiles-v2
-cd dotfiles-v2
+git clone https://github.com/AlphaTechnolog/dotfiles
+cd dotfiles
 ```
 
 ### Requirements ✅
 
 Then make sure you have the next requirements installed
 
-This is in testing phase btw, if you think i miss some pkg, please tell me it using my discord (alphatechnolog#6570) or opening an [issue](https://github.com/AlphaTechnolog/dotfiles-v2/issues/new)
+This is in testing phase btw, if you think i miss some pkg, please tell me it using my discord (alphatechnolog#6570) or opening an [issue](https://github.com/AlphaTechnolog/dotfiles/issues/new)
 
 #### Fonts
 
