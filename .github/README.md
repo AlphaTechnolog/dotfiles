@@ -12,10 +12,10 @@
 <!-- BADGES -->
 <h1>
   <a href="#--------">
-    <img alt="" align="left" src="https://img.shields.io/github/stars/AlphaTechnolog/dotfiles-v2?color=f1cf8a&labelColor=f1cf8a&style=for-the-badge"/>
+    <img alt="" align="left" src="https://img.shields.io/github/stars/AlphaTechnolog/dotfiles?color=f1cf8a&labelColor=f1cf8a&style=for-the-badge"/>
   </a>
   <a href="#--------">
-    <img alt="" align="right" src="https://badges.pufler.dev/visits/AlphaTechnolog/dotfiles-v2?style=for-the-badge&color=7ddac5&logoColor=white&labelColor=7ddac5"/>
+    <img alt="" align="right" src="https://badges.pufler.dev/visits/AlphaTechnolog/dotfiles?style=for-the-badge&color=7ddac5&logoColor=white&labelColor=7ddac5"/>
   </a>
 </h1>
 
@@ -31,7 +31,7 @@ Welcome! This is the repository for my awesomewm rice using [decay](https://gith
 If you like this configuration, please give me a star in this repo, it will make me more happy! 😁
 > If you want, you can visit [more of my repos](https://github.com/AlphaTechnolog?tab=repositories) or go to [my profile](https://github.com/AlphaTechnolog)
 > Ah, and gimme credits if you will use my config for showcase :3
-> If you're looking for the old bspwm rice, go to the [bspwm](https://github.com/AlphaTechnolog/tree/bspwm) branch
+> If you're looking for the old bspwm rice, go to the [bspwm](https://github.com/AlphaTechnolog/dotfiles/tree/bspwm) branch
 
 ## ‎ <samp>Information ℹ️</samp>
 
@@ -63,7 +63,7 @@ cd dotfiles
 
 Then make sure you have the next requirements installed
 
-This is in testing phase btw, if you think i miss some pkg, please tell me it opening an [issue](https://github.com/AlphaTechnolog/dotfiles-v2/issues/new)
+This is in testing phase btw, if you think i miss some pkg, please tell me it opening an [issue](https://github.com/AlphaTechnolog/dotfiles/issues/new)
 
 #### Fonts
 
