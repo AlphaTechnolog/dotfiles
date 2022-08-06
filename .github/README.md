@@ -58,7 +58,7 @@ You can see the workflow video on youtube! [Click Me](https://youtu.be/Qcl_9k_Ra
 First clone the repository
 
 ```sh
-git clone https://github.com/AlphaTechnolog/dotfiles
+git clone -b bspwm https://github.com/AlphaTechnolog/dotfiles
 cd dotfiles
 ```
 
