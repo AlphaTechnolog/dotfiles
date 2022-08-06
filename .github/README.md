@@ -55,7 +55,7 @@ Here are some details about my setup:
 First clone the repository
 
 ```sh
-git clone https://github.com/AlphaTechnolog/dotfiles-v2 dotfiles
+git clone https://github.com/AlphaTechnolog/dotfiles
 cd dotfiles
 ```
 
