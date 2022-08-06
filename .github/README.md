@@ -22,9 +22,11 @@
 <br>
 
 ## Hi there! Thanks for dropping by! :blue_heart:
-<b>  AlphaTechnolog's AwesomeWM Rice  </b>
+<b>  AlphaTechnolog's WIP AwesomeWM Rice  </b>
 
 Welcome! This is the repository for my awesomewm rice using [decay](https://github.com/decaycs) (decayce variant)
+
+> WIP cuz notifications aren't configured yet (btw WIP = Work In Progress)
 
 ## ‎ <samp>Notice! ⚠️</samp>
 
