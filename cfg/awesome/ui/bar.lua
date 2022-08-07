@@ -210,13 +210,13 @@ screen.connect_signal('request::desktop_decoration', function (s)
     -- add hover feedback to actions toggler
     helpers.add_feedback(s.myactiontoggler, beautiful.bg_contrast, beautiful.bg_lighter)
 
-   -- systray widget
-   s.mysystray = wibox.widget.systray {
-      horizontal = true,
-      screen = s,
-   }
+    -- systray widget
+    s.mysystray = wibox.widget.systray {
+       horizontal = true,
+       screen = s,
+    }
 
-   -- create bar
+    -- create bar
     s.mywibox = awful.wibar {
         position = "bottom",
         screen = s,
