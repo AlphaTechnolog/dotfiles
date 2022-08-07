@@ -54,6 +54,16 @@ M.ghost_prompt = function (fail, is_root)
    }) .. ' {cyan}%d{reset}{black}{reset} ' .. (is_root and '{red}' or '{yellow}') .. ' {reset}'
 end
 
+M.simple_cold_ghost_prompt = function (fail, is_root)
+    return '{blue} {cyan}%d ' .. M.get_icon_by_failure(fail, {
+        success = '{blue}',
+        failure = '{red}',
+    }, {
+        success = '❯{cyan}❯',
+        failure = '❯{yellow}❯'
+    }) .. ' {reset}'
+end
+
 M.arrows_prompt = function (fail, is_root)
    -- a bit hacky
    return M.get_icon_by_failure(fail, {
@@ -74,7 +84,7 @@ end
 
 -- change the style changing the name of the functin that `hilbish.prompt` calls
 M.do_prompt = function (code)
-   hilbish.prompt(lunacolors.format(M.ghost_prompt(
+   hilbish.prompt(lunacolors.format(M.simple_cold_ghost_prompt(
       code ~= 0 and code ~= nil, -- checks if the command was executed successfully
       hilbish.user == 'root' -- checks if the user is root
    )))

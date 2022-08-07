@@ -7,6 +7,7 @@ M.aliases = {
    ls = "exa --icons",
    la = "ls -la",
    tree = "ls --tree",
+   grep = 'grep --color=always',
 }
 
 function M.setup_bat ()
