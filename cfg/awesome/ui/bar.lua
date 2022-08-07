@@ -287,3 +287,17 @@ end)
 screen.connect_signal('property::geometry', function (s)
     s.mywibox.width = s.geometry.width - beautiful.useless_gap * 1.5
 end)
+
+client.connect_signal('request::border', function (c)
+    local s = c.screen
+
+    if c.maximized then
+        s.mywibox.shape = gears.shape.rectangle
+        s.mywibox.width = s.geometry.width
+    else
+        s.mywibox.width = s.geometry.width - beautiful.useless_gap * 1.5
+        s.mywibox.shape = function (cr, w, h)
+            return gears.shape.partially_rounded_rect(cr, w, h, true, true, false, false, beautiful.border_radius)
+        end
+    end
+end)
