@@ -17,14 +17,7 @@ local controls = require 'ui.actions.blocks.controls'
 local actions = {}
 
 actions.popup = awful.popup {
-    widget = {
-        helpers.mkblock(date),
-        helpers.mkblock(music),
-        helpers.mkblock(user),
-        helpers.mkblock(stats),
-        helpers.mkblock(controls),
-        layout = wibox.layout.fixed.vertical,
-    },
+    widget = {},
     screen = awful.screen.focused(),
     minimum_width = dpi(10),
     minimum_height = props.height,
@@ -48,9 +41,21 @@ actions.popup = awful.popup {
 
 function actions.toggle_popup()
     if not actions.popup.visible then
+        actions.popup.widget = wibox.widget{
+            helpers.mkblock(require 'ui.actions.blocks.date'),
+            helpers.mkblock(require 'ui.actions.blocks.music'),
+            helpers.mkblock(require 'ui.actions.blocks.user'),
+            helpers.mkblock(require 'ui.actions.blocks.stats'),
+            helpers.mkblock(require 'ui.actions.blocks.controls'),
+            layout = wibox.layout.fixed.vertical,
+        }
         actions.popup.screen = awful.screen.focused()
+        actions.popup.visible = true
+    else
+        actions.popup.widget = nil
+        actions.popup.visible = false
+        collectgarbage('collect')
     end
-    actions.popup.visible = not actions.popup.visible
 end
 
 return actions
