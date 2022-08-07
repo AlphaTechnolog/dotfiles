@@ -285,5 +285,5 @@ screen.connect_signal('request::desktop_decoration', function (s)
 end)
 
 screen.connect_signal('property::geometry', function (s)
-    s.mywibox.width = s.geometry.width
+    s.mywibox.width = s.geometry.width - beautiful.useless_gap * 1.5
 end)
