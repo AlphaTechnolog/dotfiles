@@ -8,12 +8,6 @@ local props = require 'ui.actions.props'
 
 local dpi = xresources.apply_dpi
 
-local date = require 'ui.actions.blocks.date'
-local stats = require 'ui.actions.blocks.stats'
-local music = require 'ui.actions.blocks.music'
-local user = require 'ui.actions.blocks.user'
-local controls = require 'ui.actions.blocks.controls'
-
 local actions = {}
 
 actions.popup = awful.popup {
