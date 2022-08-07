@@ -73,6 +73,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |----------|-------------|
 |[Product Sans (Google Sans)](https://www.cufonfonts.com/font/google-sans)|Main UI Font|
 |[Iosevka Nerd Font](https://nerdfonts.com/font-downloads)|Some icons, others are rendered using svg|
+|[JetBrainsMono Nerd Font](https://nerdfonts.com/font-downloads)|Terminal font|
 
 #### Dependencies
 
