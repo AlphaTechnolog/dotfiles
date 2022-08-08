@@ -3,6 +3,8 @@ local bait = require("bait")
 local lunacolors = require("lunacolors")
 local ansikit = require("ansikit")
 
+local rc = require 'utils.rc'.get_rc()
+
 local M = {}
 
 -- configuration
@@ -12,17 +14,17 @@ end
 
 -- events
 M.do_end_line = function (cmd_str)
-   if cmd_str ~= 'clear' then
-      print()
-   end
+    if cmd_str ~= 'clear' and rc.prompt.do_end_line then
+        print()
+    end
 end
 
 M.do_vim_mode_setup = function (mode)
-   if mode ~= 'insert' then
-      ansikit.cursorStyle(ansikit.blockCursor)
-   else
-      ansikit.cursorStyle(ansikit.lineCursor)
-   end
+    if mode == 'insert' then
+        ansikit.cursorStyle(rc.prompt.vim_mode.cursors_case.insert)
+    else
+        ansikit.cursorStyle(rc.prompt.vim_mode.cursors_case.others)
+    end
 end
 
 M.do_events = function ()
@@ -60,7 +62,7 @@ end
 
 -- change the style changing the name of the functin that `hilbish.prompt` calls
 M.do_prompt = function (code)
-   hilbish.prompt(lunacolors.format(M.ghost_prompt(
+   hilbish.prompt(lunacolors.format(M[rc.prompt.style .. '_prompt'](
       code ~= 0 and code ~= nil, -- checks if the command was executed successfully
       hilbish.user == 'root' -- checks if the user is root
    )))
