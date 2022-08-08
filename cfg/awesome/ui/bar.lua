@@ -220,12 +220,10 @@ screen.connect_signal('request::desktop_decoration', function (s)
     s.mywibox = awful.wibar {
         position = "bottom",
         screen = s,
-        width = s.geometry.width - beautiful.useless_gap * 1.5,
+        width = s.geometry.width,
         height = beautiful.bar_height,
         layout = wibox.layout.align.horizontal,
-        shape = function (cr, width, height)
-            return gears.shape.partially_rounded_rect(cr, width, height, true, true, false, false, beautiful.border_radius)
-        end,
+        shape = gears.shape.rectangle,
     }
 
     s.mywibox:setup {
@@ -285,19 +283,5 @@ screen.connect_signal('request::desktop_decoration', function (s)
 end)
 
 screen.connect_signal('property::geometry', function (s)
-    s.mywibox.width = s.geometry.width - beautiful.useless_gap * 1.5
-end)
-
-client.connect_signal('request::border', function (c)
-    local s = c.screen
-
-    if c.maximized then
-        s.mywibox.shape = gears.shape.rectangle
-        s.mywibox.width = s.geometry.width
-    else
-        s.mywibox.width = s.geometry.width - beautiful.useless_gap * 1.5
-        s.mywibox.shape = function (cr, w, h)
-            return gears.shape.partially_rounded_rect(cr, w, h, true, true, false, false, beautiful.border_radius)
-        end
-    end
+    s.mywibox.width = s.geometry.width
 end)

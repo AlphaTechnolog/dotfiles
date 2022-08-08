@@ -23,7 +23,7 @@ actions.popup = awful.popup {
         return awful.placement.left(drawable, {
             margins = {
                 bottom = beautiful.bar_height,
-                left = beautiful.useless_gap * 2
+                left = beautiful.useless_gap
             }
         })
     end,
