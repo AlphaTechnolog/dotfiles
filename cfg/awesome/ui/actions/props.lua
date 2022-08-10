@@ -7,7 +7,7 @@ local screen = awful.screen.focused()
 
 return {
     width = dpi(920),
-    height = screen.geometry.height - beautiful.bar_height - beautiful.useless_gap * 2,
+    height = screen.geometry.height - beautiful.useless_gap * 4,
     gaps = dpi(16),
     radius = dpi(12),
 }

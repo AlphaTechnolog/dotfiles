@@ -24,7 +24,7 @@ theme.font = theme.font_name .. ' ' .. theme.font_size
 
 -- base colors
 theme.black = '#1c1e27'
-theme.light_black = '#1c1e27'
+theme.light_black = '#262831'
 theme.red = '#dd6777'
 theme.yellow = '#ecd3a0'
 theme.magenta = '#c296eb'
@@ -56,6 +56,7 @@ theme.actions = {
 }
 
 -- bar
+theme.bar_width = dpi(45)
 theme.bar_height = dpi(40)
 
 -- gaps and borders
@@ -84,7 +85,7 @@ theme.menu_font = theme.font
 theme.menu_submenu_icon = gears.color.recolor_image(shapes_path .. "triangle.png", theme.fg_normal)
 theme.menu_height = dpi(35)
 theme.menu_width  = dpi(180)
-theme.menu_bg_focus = theme.black
+theme.menu_bg_focus = theme.bg_lighter
 
 -- titlebar
 theme.titlebar_bg = theme.bg_normal
@@ -129,9 +130,6 @@ theme.layout_cornerse = gears.color.recolor_image(themes_path.."default/layouts/
 -- icons
 theme.rofi_spawner_icon = gears.color.recolor_image(icons_path .. "rocket.svg", theme.fg_normal)
 theme.settings_icon = gears.color.recolor_image(icons_path .. "gear-solid.svg", theme.fg_normal)
-theme.wifi_icon = icons_path .. "wifi-solid.svg"
-theme.bluetooth_icon = icons_path .. "bluetooth-brands.svg"
-theme.redshift_icon = icons_path .. "lightbulb-solid.svg"
 
 -- actions icons
 theme.fallback_music_image = actions_assets_path .. "music/fallback.png"
@@ -139,6 +137,8 @@ theme.previous_music = gears.color.recolor_image(actions_assets_path .. "music/p
 theme.pause_music = gears.color.recolor_image(actions_assets_path .. "music/pause.svg", theme.fg_normal)
 theme.play_music = gears.color.recolor_image(actions_assets_path .. "music/play.svg", theme.fg_normal)
 theme.next_music = gears.color.recolor_image(actions_assets_path .. "music/next.svg", theme.fg_normal)
+theme.shutdown = gears.color.recolor_image(actions_assets_path .. "powerbuttons/shutdown.svg", theme.red)
+theme.reboot = gears.color.recolor_image(actions_assets_path .. "powerbuttons/reboot.svg", theme.yellow)
 theme.pfp = actions_assets_path .. "user/pfp.png"
 
 -- disable icon theme

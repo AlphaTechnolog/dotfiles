@@ -19,11 +19,10 @@ actions.popup = awful.popup {
     shape = function (cr, width, height)
         return gears.shape.rounded_rect(cr, width, height, props.radius)
     end,
-    placement = function (drawable)
-        return awful.placement.left(drawable, {
+    placement = function (d)
+        return awful.placement.left(d, {
             margins = {
-                bottom = beautiful.bar_height,
-                left = beautiful.useless_gap
+                left = beautiful.bar_width + beautiful.useless_gap * 4,
             }
         })
     end,
@@ -41,6 +40,7 @@ function actions.toggle_popup()
             helpers.mkblock(require 'ui.actions.blocks.user'),
             helpers.mkblock(require 'ui.actions.blocks.stats'),
             helpers.mkblock(require 'ui.actions.blocks.controls'),
+            require 'ui.actions.blocks.powerbuttons',
             layout = wibox.layout.fixed.vertical,
         }
         actions.popup.screen = awful.screen.focused()

@@ -5,7 +5,7 @@ local xresources = require 'beautiful.xresources'
 local awful = require 'awful'
 
 local dpi = xresources.apply_dpi
-local height = 95
+local height = 75
 
 local pfp = wibox.widget {
     image = beautiful.pfp,
@@ -37,7 +37,7 @@ local user_widget = wibox.widget {
         nil,
         {
             username,
-            top = dpi(16),
+            top = dpi(2),
             widget = wibox.container.margin,
         },
         layout = wibox.layout.align.vertical,

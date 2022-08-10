@@ -1,21 +1,20 @@
----@diagnostic disable: undefined-global
+---@diagnostic disable:undefined-global
 local awful = require 'awful'
-local xresources = require 'beautiful.xresources'
 local beautiful = require 'beautiful'
-local wibox = require 'wibox'
 local gears = require 'gears'
-local helpers = require 'helpers'
+local wibox = require 'wibox'
+local xresources = require 'beautiful.xresources'
 
 local dpi = xresources.apply_dpi
 
 screen.connect_signal('request::desktop_decoration', function (s)
-    -- set tags
+    -- set number of tags
     awful.tag(
         { '1', '2', '3', '4', '5', '6' },
         s, awful.layout.layouts[1]
     )
 
-    -- launcher, spawns rofi
+    -- launcher, just spawns rofi
     s.launcher = wibox.widget {
         image = beautiful.rofi_spawner_icon,
         buttons = {
@@ -23,7 +22,7 @@ screen.connect_signal('request::desktop_decoration', function (s)
                 awful.spawn(launcher)
             end),
         },
-        widget = wibox.widget.imagebox
+        widget = wibox.widget.imagebox,
     }
 
     -- taglist widget
@@ -92,12 +91,136 @@ screen.connect_signal('request::desktop_decoration', function (s)
                         return gears.shape.partially_rounded_rect(
                             cr, width, height,
                             tl, tr, br, bl,
-                            dpi(10) -- 10px for border radius
+                            dpi(20) -- 20px for border radius
                         )
                     end
                 end
             end
         }
+    }
+
+    -- tasklist widget
+    s.mytasklist = awful.widget.tasklist {
+        screen = s,
+        filter = awful.widget.tasklist.filter.currenttags,
+        layout = {
+            spacing = dpi(15),
+            layout = wibox.layout.fixed.vertical,
+        },
+        buttons = {
+            awful.button({ }, 1, function (c)
+                c:activate { context = "tasklist", action = "toggle_minimization" }
+            end),
+            awful.button({ }, 3, function() awful.menu.client_list { theme = { width = 250 } } end),
+            awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
+            awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
+        },
+        widget_template = {
+            {
+                wibox.widget.base.make_widget(),
+                id = 'background_role',
+                forced_width = dpi(2),
+                widget = wibox.container.background,
+            },
+            nil,
+            {
+                {
+                    forced_width = dpi(26),
+                    forced_height = dpi(26),
+                    widget = awful.widget.clienticon,
+                },
+                top = dpi(3),
+                bottom = dpi(3),
+                left = dpi(7),
+                right = dpi(7),
+                widget = wibox.container.margin,
+            },
+            layout = wibox.layout.align.horizontal,
+            create_callback = function (self, c, index, objects)
+                self:connect_signal('mouse::enter', function ()
+                    awesome.emit_signal('bling::task_preview::visibility', s, true, c)
+                end)
+                self:connect_signal('mouse::leave', function ()
+                    awesome.emit_signal('bling::task_preview::visibility', s, false, c)
+                end)
+            end
+        }
+    }
+
+    -- systray
+    s.mysystray = wibox.widget {
+        horizontal = false,
+        reverse = true,
+        widget = wibox.widget.systray,
+    }
+
+    -- actions toggler
+    s.myactionstoggler = wibox.widget {
+        image = beautiful.settings_icon,
+        widget = wibox.widget.imagebox,
+        buttons = {
+            awful.button({}, 1, function ()
+                require 'ui.actions'.toggle_popup()
+            end)
+        }
+    }
+
+    -- vertical clock
+    s.myverticalclock_hour = wibox.widget {
+        markup = '',
+        font = beautiful.font_name .. ' 12',
+        align = 'center',
+        widget = wibox.widget.textbox,
+    }
+
+    s.myverticalclock_minutes = wibox.widget {
+        markup = '',
+        font = beautiful.font_name .. ' 12',
+        align = 'center',
+        widget = wibox.widget.textbox,
+    }
+
+    -- updates markups
+    local function trim(s)
+        local result = s:gsub("%s+", "")
+
+        return string.gsub(result, "%s+", "")
+    end
+
+    local function update_markups()
+        awful.spawn.easy_async_with_shell('date +%H', function (hour)
+            s.myverticalclock_hour:set_markup_silently('<b>' .. trim(hour) .. '</b>')
+        end)
+
+        awful.spawn.easy_async_with_shell('date +%M', function (minutes)
+            s.myverticalclock_minutes:set_markup_silently('<b>' .. trim(minutes) .. '</b>')
+        end)
+    end
+
+    gears.timer {
+        timeout = 1,
+        call_now = true,
+        autostart = true,
+        callback = update_markups,
+    }
+
+    s.myverticalclock = wibox.widget {
+        {
+            {
+                s.myverticalclock_hour,
+                s.myverticalclock_minutes,
+                spacing = dpi(1),
+                layout = wibox.layout.fixed.vertical,
+            },
+            left = dpi(2),
+            right = dpi(2),
+            top = dpi(10),
+            bottom = dpi(10),
+            widget = wibox.container.margin,
+        },
+        bg = beautiful.bg_lighter,
+        widget = wibox.container.background,
+        shape = gears.shape.rounded_bar,
     }
 
     -- layoutbox
@@ -111,177 +234,107 @@ screen.connect_signal('request::desktop_decoration', function (s)
         }
     }
 
-    -- tasklist widget
-    s.mytasklist = awful.widget.tasklist {
+    -- the wibar
+    s.mywibox = awful.wibar {
+        position = "left",
         screen = s,
-        filter = awful.widget.tasklist.filter.currenttags,
-        buttons = {
-            awful.button({ }, 1, function (c)
-                c:activate { context = "tasklist", action = "toggle_minimization" }
-            end),
-            awful.button({ }, 3, function() awful.menu.client_list { theme = { width = 250 } } end),
-            awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
-            awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
-        },
-        widget_template = {
+        width = beautiful.bar_width,
+        height = s.geometry.height - beautiful.useless_gap * 4,
+        layout = wibox.layout.align.horizontal,
+        margins = { left = beautiful.useless_gap * 2 },
+        shape = function (cr, width, height)
+            return gears.shape.rounded_rect(cr, width, height, beautiful.border_radius)
+        end,
+    }
+
+    -- make widgets
+    s.mywibox:setup {
+        layout = wibox.layout.stack,
+        {
+            layout = wibox.layout.align.vertical,
             {
                 {
-                    forced_width = dpi(26),
-                    forced_height = dpi(26),
-                    widget = awful.widget.clienticon,
+                    s.launcher,
+                    top = dpi(15),
+                    left = dpi(15),
+                    right = dpi(15),
+                    bottom = dpi(5),
+                    widget = wibox.container.margin,
                 },
-                top = dpi(3),
-                bottom = dpi(3),
-                left = dpi(7),
-                right = dpi(7),
-                widget = wibox.container.margin,
+                {
+                    {
+                        {
+                            s.mytaglist,
+                            direction = 'west',
+                            widget = wibox.container.rotate,
+                        },
+                        layout = wibox.layout.fixed.vertical,
+                    },
+                    margins = dpi(8),
+                    widget = wibox.container.margin,
+                },
+                layout = wibox.layout.fixed.vertical,
             },
             nil,
             {
-                wibox.widget.base.make_widget(),
-                id = 'background_role',
-                forced_height = dpi(2),
-                widget = wibox.container.background,
+                {
+                    s.mysystray,
+                    top = dpi(10),
+                    left = dpi(10),
+                    right = dpi(10),
+                    bottom = dpi(0),
+                    widget = wibox.container.margin,
+                },
+                {
+                    s.myactionstoggler,
+                    bottom = dpi(12),
+                    top = dpi(12),
+                    left = dpi(14),
+                    right = dpi(14),
+                    widget = wibox.container.margin,
+                },
+                {
+                    s.myverticalclock,
+                    left = dpi(7),
+                    right = dpi(7),
+                    widget = wibox.container.margin,
+                },
+                {
+                    s.mylayoutbox,
+                    margins = dpi(12),
+                    widget = wibox.container.margin,
+                },
+                layout = wibox.layout.fixed.vertical,
             },
-            layout = wibox.layout.align.vertical,
-            create_callback = function (self, c, index, objects)
-                self:connect_signal('mouse::enter', function ()
-                    awesome.emit_signal('bling::task_preview::visibility', s, true, c)
-                end)
-                self:connect_signal('mouse::leave', function ()
-                    awesome.emit_signal('bling::task_preview::visibility', s, false, c)
-                end)
-            end
-        }
-    }
-
-    -- textclock
-    s.mytextclock_raw = wibox.widget {
-       format = "%I:%M %p",
-       refresh = 1,
-       buttons = {
-          awful.button({}, 1, function ()
-             if s.mytextclock_raw.format == '%I:%M %p' then
-                s.mytextclock_raw.format = '%d/%m/%y'
-             else
-                s.mytextclock_raw.format = '%I:%M %p'
-             end
-          end)
-       },
-       widget = wibox.widget.textclock,
-    }
-
-    s.mytextclock = wibox.widget {
-       {
-          s.mytextclock_raw,
-          left = dpi(15),
-          right = dpi(15),
-          widget = wibox.container.margin,
-       },
-       bg = beautiful.bg_contrast,
-       shape = gears.shape.rounded_bar,
-       widget = wibox.container.background,
-    }
-
-    -- actions toggler, settings button, just toggle the actions popup
-    s.myactiontoggler = wibox.widget {
-       {
-          {
-             image = beautiful.settings_icon,
-             forced_height = dpi(16),
-             forced_width = dpi(16),
-             valign = 'center',
-             buttons = {
-                awful.button({}, 1, function ()
-                   require 'ui.actions'.toggle_popup()
-                end)
-             },
-             widget = wibox.widget.imagebox,
-          },
-          left = dpi(12),
-          right = dpi(12),
-          widget = wibox.container.margin,
-       },
-       shape = gears.shape.circle,
-       bg = beautiful.bg_contrast,
-       widget = wibox.container.background
-    }
-
-    -- add hover feedback to actions toggler
-    helpers.add_feedback(s.myactiontoggler, beautiful.bg_contrast, beautiful.bg_lighter)
-
-    -- systray widget
-    s.mysystray = wibox.widget.systray {
-       horizontal = true,
-       screen = s,
-    }
-
-    -- create bar
-    s.mywibox = awful.wibar {
-        position = "bottom",
-        screen = s,
-        width = s.geometry.width,
-        height = beautiful.bar_height,
-        layout = wibox.layout.align.horizontal,
-        shape = gears.shape.rectangle,
-    }
-
-    s.mywibox:setup {
-         layout = wibox.layout.stack,
-         {
-             layout = wibox.layout.align.horizontal,
-             {
-                 layout = wibox.layout.fixed.horizontal,
-                 { -- left widgets
-                     {
-                         {
-                             s.launcher,
-                             margins = dpi(4),
-                             left = dpi(7),
-                             widget = wibox.container.margin,
-                         },
-                         {
-                             s.mytaglist,
-                             left = dpi(10),
-                             widget = wibox.container.margin,
-                         },
-                         s.myactiontoggler,
-                         layout = wibox.layout.fixed.horizontal,
-                     },
-                     margins = dpi(8),
-                     widget = wibox.container.margin,
-                 },
-             },
-             nil,
-             { -- Right widgets
-                 layout = wibox.layout.fixed.horizontal,
-                 {
-                     {
-                        layout = wibox.layout.fixed.horizontal,
-                        s.mysystray,
-                        {
-                           s.mytextclock,
-                           left = dpi(10),
-                           right = dpi(18),
-                           widget = wibox.container.margin,
-                        },
-                        s.mylayoutbox,
-                     },
-                     margins = dpi(8),
-                     widget = wibox.container.margin,
-                 },
-             },
-         },
-         {
+        },
+        {
             s.mytasklist,
             widget = wibox.container.margin,
-            valign = "center",
-            halign = "center",
-            layout = wibox.container.place
-         }
-     }
+            valign = 'center',
+            halign = 'center',
+            layout = wibox.container.place,
+        },
+    }
 end)
 
+-- readjust dimensions and margins when a client modify the property maximized
+client.connect_signal('property::maximized', function (c)
+    local s = c.screen
+    if c.maximized then
+        s.mywibox.height = s.geometry.height
+        s.mywibox.shape = gears.shape.rectangle
+        s.mywibox.margins = { left = 0 }
+    else
+        s.mywibox.height = s.geometry.height - beautiful.useless_gap * 4
+        s.mywibox.margins = { left = beautiful.useless_gap * 2 }
+        s.mywibox.shape = function (cr, w, h)
+            return gears.shape.rounded_rect(cr, w, h, beautiful.border_radius)
+        end
+    end
+end)
+
+-- readjust dimensions and margins when the screen is resized
 screen.connect_signal('property::geometry', function (s)
-    s.mywibox.width = s.geometry.width
+    s.mywibox.height = s.geometry.height - beautiful.useless_gap * 4
+    s.mywibox.margins = { left = beautiful.useless_gap * 2 }
 end)

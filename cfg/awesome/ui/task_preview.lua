@@ -9,10 +9,10 @@ bling.widget.task_preview.enable {
     height = dpi(300),
     width = dpi(300),
     placement_fn = function (c)
-        awful.placement.bottom(c, {
+        awful.placement.left(c, {
             margins = {
-                bottom = beautiful.bar_height + beautiful.useless_gap,
-            },
+                left = beautiful.bar_width + beautiful.useless_gap * 4,
+            }
         })
     end,
     widget_structure = {
