@@ -15,7 +15,8 @@ end
 function helpers.mkblock(opts)
     local height = opts.height or helpers.percent(props.height, 15)
     local widget = opts.widget or {}
-    local flat = opts.flat or false
+    local notop = opts.notop or false
+    local contrast = opts.contrast or false
 
     return {
         {
@@ -24,14 +25,14 @@ function helpers.mkblock(opts)
                 margins = props.gaps,
                 widget = wibox.container.margin,
             },
-            bg = flat and beautiful.actions.bg or beautiful.actions.contrast,
+            bg = contrast and beautiful.actions.contrast or beautiful.actions.bg,
             forced_height = dpi(height),
             widget = wibox.container.background,
             shape = function (cr, w, h)
                 return gears.shape.rounded_rect(cr, w, h, props.radius)
             end
         },
-        top = props.gaps,
+        top = notop and 0 or props.gaps,
         left = props.gaps,
         right = props.gaps,
         widget = wibox.container.margin,

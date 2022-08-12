@@ -16,25 +16,20 @@ actions.popup = awful.popup {
     minimum_width = dpi(10),
     minimum_height = props.height,
     type = 'dock',
-    shape = function (cr, width, height)
-        return gears.shape.rounded_rect(cr, width, height, props.radius)
-    end,
-    placement = function (d)
-        return awful.placement.left(d, {
-            margins = {
-                left = beautiful.bar_width + beautiful.useless_gap * 4,
-            }
-        })
-    end,
+    placement = awful.placement.bottom_left,
     ontop = true,
     visible = false,
     bg = beautiful.actions.bg,
     fg = beautiful.actions.fg,
+    shape = function (cr, w, h)
+        return gears.shape.partially_rounded_rect(cr, w, h, false, true, false, false, beautiful.border_radius)
+    end
 }
 
 function actions.toggle_popup()
     if not actions.popup.visible then
         actions.popup.widget = wibox.widget{
+            require 'ui.actions.blocks.header',
             helpers.mkblock(require 'ui.actions.blocks.date'),
             helpers.mkblock(require 'ui.actions.blocks.music'),
             helpers.mkblock(require 'ui.actions.blocks.user'),

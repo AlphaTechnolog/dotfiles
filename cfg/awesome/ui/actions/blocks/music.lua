@@ -170,6 +170,5 @@ local music_widget = wibox.widget {
 
 return {
     widget = music_widget,
-    flat = true,
     height = height
 }

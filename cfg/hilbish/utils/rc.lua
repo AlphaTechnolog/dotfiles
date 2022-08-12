@@ -4,8 +4,8 @@ local ansikit = require 'ansikit'
 -- in construction rc
 rc.default_conf = {
     prompt = {
-        do_end_line = false, -- append an enter after command execution
-        style = 'ghost', -- just ghost (for now)
+        do_end_line = true, -- append an enter after command execution
+        style = 'blocks', -- just ghost (for now)
         vim_mode = {
             cursors_case = {
                 insert = ansikit.lineCursor,

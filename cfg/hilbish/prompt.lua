@@ -60,6 +60,16 @@ M.ghost_prompt = function (fail, _)
     }) .. ' '
 end
 
+M.blocks_prompt = function (fail, _)
+    return M.get_icon_by_failure(fail, {
+        success = "{blue}{blueBg}",
+        failure = '{magenta}{magentaBg}',
+    }, {
+        success = '{black} {reset}{blue}{blackBg}',
+        failure = '{black} {reset}{magenta}{blackBg}',
+    }) .. '{reset}{blackBg}{cyan}  %d {reset}{black} {reset}{yellow} {reset}'
+end
+
 -- change the style changing the name of the functin that `hilbish.prompt` calls
 M.do_prompt = function (code)
    hilbish.prompt(lunacolors.format(M[rc.prompt.style .. '_prompt'](

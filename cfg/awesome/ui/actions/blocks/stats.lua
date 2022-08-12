@@ -90,6 +90,5 @@ gears.timer {
 
 return {
     height = height,
-    flat = true,
     widget = stats_widget,
 }

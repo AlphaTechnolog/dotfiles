@@ -115,5 +115,7 @@ local date_widget = wibox.widget {
 
 return {
     height = height,
+    contrast = true,
+    notop = true,
     widget = date_widget,
 }

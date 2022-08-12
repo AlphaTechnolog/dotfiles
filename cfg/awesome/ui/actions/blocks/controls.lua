@@ -82,6 +82,5 @@ local controls_widget = wibox.widget {
 
 return {
     height = height,
-    flat = true,
     widget = controls_widget,
 }

@@ -99,6 +99,24 @@ cp -r ./cfg/* ~/.config
 cp -r ./bin/* ~/.local/bin
 ```
 
+### Galery
+
+#### The Desktop
+
+![desktop](./assets/galery/desktop.png)
+
+#### Actions Sidebar
+
+![sidebar](./assets/galery/sidebar.png)
+
+#### Task preview (using bling)
+
+![task-preview](./assets/galery/task-preview.png)
+
+#### Tags Preview (using bling)
+
+![tags-preview](./assets/galery/tags-preview.png)
+
 ### Enjoy ❤️
 
 That's all! Now enjoy with this configuration!
@@ -119,3 +137,9 @@ That's all! Now enjoy with this configuration!
 |super + Tab|Switch layouts|
 
 > In the most of the cases, exists mouse based keybindings (but i really prefer the shortcuts lol)
+
+### Bling
+
+You can use the official bling module, but I made some modifications in the source code
+of bling to add multimonitor support in some parts, it's recommended to use my own version (for this dotfiles at least),
+but anyway you can use another version or modification of the bling module if you want

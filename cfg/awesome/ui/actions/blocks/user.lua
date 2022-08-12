@@ -47,5 +47,6 @@ local user_widget = wibox.widget {
 
 return {
     height = height,
+    contrast = true,
     widget = user_widget,
 }

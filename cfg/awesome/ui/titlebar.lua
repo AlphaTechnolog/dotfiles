@@ -8,32 +8,24 @@ client.connect_signal("request::titlebars", function (c)
      size = 30
   })
 
+  local function separate_button(b, opts)
+    opts = opts or {}
+    return wibox.widget {
+        b,
+        top = opts.top or 4,
+        bottom = opts.bottom or 4,
+        left = opts.left or 8,
+        right = opts.right or 8,
+        widget = wibox.container.margin,
+    }
+  end
+
   titlebar:setup {
      { -- Top
-         {
-             {
-                  awful.titlebar.widget.closebutton(c),
-                  margins = 5,
-                  bottom = 4,
-                  widget = wibox.container.margin,
-             },
-             {
-                  awful.titlebar.widget.maximizedbutton(c),
-                  margins = 5,
-                  top = 4,
-                  bottom = 3,
-                  widget = wibox.container.margin,
-             },
-             {
-                  awful.titlebar.widget.minimizebutton(c),
-                  margins = 5,
-                  top = 5,
-                  widget = wibox.container.margin,
-             },
-             layout = wibox.layout.fixed.vertical
-         },
-         margins = 3,
-         widget = wibox.container.margin,
+        separate_button(awful.titlebar.widget.closebutton(c), { top = 9 }),
+        separate_button(awful.titlebar.widget.maximizedbutton(c)),
+        separate_button(awful.titlebar.widget.minimizebutton(c)),
+        layout = wibox.layout.fixed.vertical
      },
      { -- middle, just loads the titlebar buttons
         layout = wibox.layout.fixed.vertical,

@@ -13,6 +13,7 @@ local icons_path = assets_path .. "icons/"
 local shapes_path = assets_path .. "shapes/"
 local titlebar_assets_path = assets_path .. "titlebar/"
 local actions_assets_path = assets_path .. "actions/"
+local dock_assets = assets_path .. "dock-pinned/"
 
 local theme = {}
 
@@ -34,12 +35,14 @@ theme.cyan = '#93cee9'
 
 -- backgrounds
 theme.bg_normal     = "#0d0f18"
+theme.bg_contrast   = "#0f111a"
+theme.bg_lighter    = "#11131c"
+
+-- elements bg
 theme.bg_focus      = theme.bg_normal
 theme.bg_urgent     = theme.red
 theme.bg_minimize   = theme.bg_normal
-theme.bg_systray    = theme.bg_normal
-theme.bg_contrast = "#0f111a"
-theme.bg_lighter = "#11131c"
+theme.bg_systray    = theme.bg_lighter
 
 -- foregrounds
 theme.fg_normal     = "#a5b6cf"
@@ -69,12 +72,13 @@ theme.border_radius = dpi(10)
 
 -- tasklist
 theme.tasklist_plain_task_name = true
+theme.tasklist_bg = theme.black
 theme.tasklist_bg_focus = theme.blue
 
 -- taglist
 theme.taglist_bg = theme.bg_lighter
-theme.taglist_bg_focus = theme.yellow
-theme.taglist_bg_occupied = theme.blue
+theme.taglist_bg_focus = theme.blue
+theme.taglist_bg_occupied = theme.cyan
 theme.taglist_bg_empty = theme.black
 
 -- systray
@@ -88,18 +92,20 @@ theme.menu_width  = dpi(180)
 theme.menu_bg_focus = theme.bg_lighter
 
 -- titlebar
-theme.titlebar_bg = theme.bg_normal
+theme.titlebar_bg = theme.bg_contrast
+theme.titlebar_bg_focus = theme.bg_normal
+theme.titlebar_fg = theme.fg_normal
 
 theme.titlebar_close_button_normal = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.red)
 theme.titlebar_close_button_focus = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.red)
 
-theme.titlebar_maximized_button_normal_inactive = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.blue)
-theme.titlebar_maximized_button_focus_inactive = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.blue)
-theme.titlebar_maximized_button_normal_active = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.blue)
-theme.titlebar_maximized_button_focus_active = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.blue)
+theme.titlebar_maximized_button_normal_inactive = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow)
+theme.titlebar_maximized_button_focus_inactive = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow)
+theme.titlebar_maximized_button_normal_active = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow)
+theme.titlebar_maximized_button_focus_active = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow)
 
-theme.titlebar_minimize_button_normal = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.magenta)
-theme.titlebar_minimize_button_focus = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.magenta)
+theme.titlebar_minimize_button_normal = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
+theme.titlebar_minimize_button_focus = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
 
 theme.titlebar_floating_button_normal_inactive = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.cyan)
 theme.titlebar_floating_button_focus_inactive = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.cyan)
@@ -107,7 +113,7 @@ theme.titlebar_floating_button_normal_active = gears.color.recolor_image(titleba
 theme.titlebar_floating_button_focus_active = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.cyan)
 
 -- wallpaper
-theme.wallpaper = assets_path .. "wallpaper.jpg"
+theme.wallpaper = assets_path .. "wallpaper.png"
 
 -- layouts
 theme.layout_fairh = gears.color.recolor_image(themes_path.."default/layouts/fairhw.png", theme.fg_normal)
@@ -162,5 +168,11 @@ theme.tag_preview_widget_bg = theme.bg_normal
 theme.tag_preview_widget_border_color = theme.bg_normal
 theme.tag_preview_widget_border_width = 0
 theme.tag_preview_widget_margin = dpi(7)
+
+-- taskbar pinneds
+theme.thunar = dock_assets .. "thunar.svg"
+theme.firefox = dock_assets .. "firefox.svg"
+theme.kitty = dock_assets .. 'kitty.svg'
+theme.vscode = dock_assets .. 'code.svg'
 
 return theme
