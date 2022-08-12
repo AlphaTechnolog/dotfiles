@@ -130,7 +130,7 @@ That's all! Now enjoy with this configuration!
 |super + shift + return|Open rofi|
 |super + m|Maximize window|
 |super + {j,k}|Move Window Focus|
-|super + alt + {h,l}|Resize the window|
+|super + {h,l}|Resize the window|
 |super + shift + q|Quit AwesomeWM|
 |super + ctrl + r|Restart AwesomeWM|
 |super + w|Close window|
