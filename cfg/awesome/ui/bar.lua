@@ -268,7 +268,7 @@ screen.connect_signal('request::desktop_decoration', function (s)
         position = 'bottom',
         screen = s,
         height = beautiful.bar_height,
-        width = s.geometry.width - beautiful.useless_gap * 1.8,
+        width = s.geometry.width - beautiful.useless_gap * 4,
         shape = function (cr, w, h)
             return gears.shape.partially_rounded_rect(cr, w, h, true, true, false, false, beautiful.border_radius)
         end
