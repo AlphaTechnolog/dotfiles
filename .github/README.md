@@ -81,7 +81,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |----------------|-------------|
 |awesomeWM|The window manager (Use the GIT version)|
 |picom|The compositor, i'm using the [Arian8j's picom fork](https://github.com/Arian8j2/picom)|
-|hilbish|The shell|
+|[hilbish](./cfg/hilbish)|The shell|
 |bat|Enhanced cat|
 |exa|Enhanced ls (using for tree too)|
 |rofi|Apps launcher|
