@@ -49,6 +49,36 @@ M.get_icon_by_failure = function (fail, colors, icons)
    return fail and colors.failure .. icons.failure or colors.success .. icons.success
 end
 
+-- trim strings
+local function trim(s)
+    local result = s:gsub("%s+", "")
+
+    return string.gsub(result, "%s+", "")
+end
+
+-- git integration
+local function dirty() -- thanks to TorchedSammy
+    local _, dirt = hilbish.run('git status --porcelain | wc -l', false)
+    local ret = trim(dirt)
+
+    if ret == '' then
+        return ''
+    end
+
+    return tonumber(ret) > 0 and ' *' or ''
+end
+
+local function get_branch_name() -- thanks to TorchedSammy
+    local _, branch = hilbish.run('git rev-parse --abbrev-ref HEAD', false)
+    local ret = trim(branch)
+
+    if ret == '' then
+        return nil
+    end
+
+    return ret
+end
+
 -- return the prompt format
 M.ghost_prompt = function (fail, _)
     return M.get_icon_by_failure(fail, {
@@ -61,13 +91,16 @@ M.ghost_prompt = function (fail, _)
 end
 
 M.blocks_prompt = function (fail, _)
+    local branch = get_branch_name()
+    local show_branch = branch ~= nil
+
     return M.get_icon_by_failure(fail, {
         success = "{blue}{blueBg}",
-        failure = '{magenta}{magentaBg}',
+        failure = '{red}{redBg}',
     }, {
-        success = '{black} {reset}{blue}{blackBg}',
-        failure = '{black} {reset}{magenta}{blackBg}',
-    }) .. '{reset}{blackBg}{cyan}  %d {reset}{black} {reset}{yellow} {reset}'
+        success = '{black} {reset}{blue}' .. (show_branch and '{cyanBg}' or '{blackBg}') .. '',
+        failure = '{black} {reset}{red}' .. (show_branch and '{cyanBg}' or '{blackBg}') .. '',
+    }) .. '{reset}' .. (show_branch and '{cyanBg}{black}  ' .. branch .. dirty() .. ' {reset}{cyan}{blackBg}' or '') .. '{blackBg}{cyan}  %d {reset}{black} {yellow}{reset}{yellow} {reset}'
 end
 
 -- change the style changing the name of the functin that `hilbish.prompt` calls
