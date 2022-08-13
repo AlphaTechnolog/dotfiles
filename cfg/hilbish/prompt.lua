@@ -65,7 +65,7 @@ local function dirty() -- thanks to TorchedSammy
         return ''
     end
 
-    return tonumber(ret) > 0 and ' *' or ''
+    return tonumber(ret) > 0 and ' ' or ''
 end
 
 local function get_branch_name() -- thanks to TorchedSammy
