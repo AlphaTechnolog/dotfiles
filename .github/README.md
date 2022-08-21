@@ -100,6 +100,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 ```sh
 mkdir -p ~/.config && cp -r ./cfg/* ~/.config
 mkdir -p ~/.local/bin && cp -r ./bin/* ~/.local/bin
+cp -r ./home/.Xresources ~/.Xresources
 sudo mv ~/.local/bin/eww /usr/bin/eww # IMPORTANT
 ```
 
