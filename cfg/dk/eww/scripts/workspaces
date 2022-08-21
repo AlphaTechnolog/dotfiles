@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+get_ws_name () {
+  local entry=$1
+  echo ${entry#?}
+}
+
+get_class_name () {
+  local entry=$1
+  echo ${entry} | sed 's/[0-9].*//g'
+}
+
+get_shape_by_class () {
+  local class=$1
+  local sfocused=$2
+  local sinactive=$3
+  local soccupied=$4
+  local afocused=$5
+  local ainactive=$6
+  local aoccupied=$7
+
+  # check focused
+  for info in $afocused; do
+    if [[ "$info" == "$class" ]]; then
+      echo $sfocused
+    fi
+  done
+
+  # check inactive
+  for info in $ainactive; do
+    if [[ "$info" == "$class" ]]; then
+      echo $sinactive
+    fi
+  done
+
+  # check occupied
+  for info in $aoccupied; do
+    if [[ "$info" == "$class" ]]; then
+      echo $soccupied
+    fi
+  done
+}
+
+workspaces () {
+  local info=$(echo $1 | sed 's/:/ /g')
+  local workspaces="(box :class \"ws\" :spacing \"-1\" :orientation \"h\" :halign \"center\" :space-evenly \"false\""
+
+  # define shapes
+  local sfocused=""
+  local sinactive=""
+  local soccupied=""
+
+  # define shapes associations
+  local afocused="A I" # focused and focused without childs
+  local ainactive="i" # unoccupied / inactive
+  local aoccupied="a" # occupied
+
+  # create buttons
+  for entry in $info; do
+    local name=$(get_ws_name $entry)
+    local class=$(get_class_name $entry)
+    local shape=$(get_shape_by_class "$class" "$sfocused" "$sinactive" "$soccupied" "$afocused" "$ainactive" "$aoccupied")
+
+    workspaces="${workspaces}(button :onclick \"dkcmd ws ${name}\" :class \"$class btn\" \"${shape}\")"
+  done
+
+  workspaces="$workspaces)"
+  echo $workspaces
+}
+
+dkcmd status type=ws | while read -r line; do
+  workspaces "$line"
+done

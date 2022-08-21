@@ -1,0 +1,157 @@
+.actions {
+  background-color: $bg;
+  color: $fg;
+  font-family: Product Sans;
+  padding: 10px;
+}
+
+.controlsbox {
+  background-color: $contrastbg;
+  border-radius: 7px;
+  padding: 7px 12px;
+
+  .vol-slider {
+    .vol-label {
+      font-size: 20px;
+      font-family: Iosevka Nerd Font;
+      margin-right: 15px;
+      color: $cyan;
+    }
+    & scale trough {
+      all: unset;
+      border-radius: 10px;
+      background-color: $black;
+      border: none;
+      min-height: 7px;
+      min-width: 250px;
+      margin-left: 3px;
+      & highlight {
+        all: unset;
+        background-color: $cyan;
+        color: #000000;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .br-slider {
+    .br-label {
+      font-size: 20px;
+      font-family: Iosevka Nerd Font;
+      margin-right: 15px;
+      color: $yellow;
+    }
+    & scale trough {
+      all: unset;
+      border-radius: 10px;
+      background-color: $black;
+      border: none;
+      min-height: 7px;
+      min-width: 250px;
+      margin-left: 3px;
+      & highlight {
+        all: unset;
+        background-color: $yellow;
+        color: #000000;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+.userinfobox {
+  .info {
+    .pfp {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 50px;
+      min-width: 30px;
+      min-height: 30px;
+    }
+    .username {
+      font-family: Product Sans;
+    }
+  }
+  .useractions {
+    .logout {
+      background-color: $black;
+      font-family: Iosevka Nerd Font;
+      font-size: 18px;
+      padding: 2px 12px 2px 7px;
+      border-radius: 4px;
+      transition: all ease .2s;
+      &:hover { background-color: $dimblack; }
+      &:active { background-color: $black; }
+    }
+  }
+}
+
+.sysbuttonsbox {
+  .block-container {
+    .block {
+      background-color: $contrastbg;
+      padding: 10px 6px;
+      border-radius: 7px;
+      transition: all ease .2s;
+      color: $fg;
+      &:hover { background-color: $bgSecondary; }
+      &:active { background-color: $contrastbg; }
+      &.active {
+        background-color: $black;
+        &:hover { background-color: $dimblack; }
+        &:active { background-color: $black; }
+        .sepbox .sep {
+          background-color: $lightblack;
+        }
+      }
+      .iconbox .icon {
+        font-family: Iosevka Nerd Font;
+        padding: 0px 17px 0px 8px;
+      }
+      .sepbox .sep {
+        background-color: $black;
+        margin: 0px 4px;
+        padding: 0px 1px;
+      }
+      .chevronbox {
+        font-family: Iosevka Nerd Font;
+        padding: 0px 12px;
+      }
+    }
+    .label {
+      font-family: Product Sans;
+      font-size: 14px;
+    }
+  }
+}
+
+.musicbox {
+  .pic-container {
+    .picbox {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      min-height: 100px;
+      min-width: 225px;
+      border-radius: 7px;
+      padding: 10px;
+    }
+    // i've to make it hidden, so i'll translate it to the INFINITE! LMFAO
+    .hidden {
+      margin-top: -100px;
+    }
+  }
+  .musiccontrolsbox {
+    background-color: $bgSecondary;
+    border-radius: 7px;
+    padding: 7px 15px;
+    font-family: Iosevka Nerd Font;
+    .previousbutton, .nextbutton {
+      font-size: 23px;
+    }
+    .pausebutton {
+      padding: 0px 10px 0px 4px;
+    }
+  }
+}

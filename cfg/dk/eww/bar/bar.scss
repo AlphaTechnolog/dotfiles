@@ -1,0 +1,76 @@
+.bar {
+  background-color: $bg;
+  color: $fg;
+}
+
+.launcherbox {
+  color: $blue;
+  background-color: $black;
+  margin: 6px;
+  padding: 0px 14px 0px 8px;
+  font-family: Iosevka Nerd Font;
+  border-radius: 7px;
+  transition: all ease .2s;
+  &:hover { background-color: $dimblack; }
+  &:active { background-color: $black; }
+}
+
+// workspaces
+.ws {
+  // box properties
+  font-family: Iosevka Nerd Font;
+  font-size: 10px;
+
+  // btn spacing
+  .btn { padding: 0px 7px; }
+
+  // ws dots colors
+  .i { color: $fg; } // unoccupied
+  .a { color: $fg; } // occupied
+  .A, .I { color: $blue; } // focused and focused without childs
+}
+
+.bardatebox {
+  margin-left: 6px;
+  font-family: Product Sans;
+  font-size: 14px;
+  font-weight: bolder;
+}
+
+.searchbutton {
+  background-color: $black;
+  margin: 6px 0px 6px 6px;
+  padding: 0px 15px 0px 11px;
+  border-radius: 20px;
+  transition: all ease .2s;
+  font-family: Product Sans;
+  .content {
+    .placeholder {
+      color: $lightblack;
+    }
+    .icon {
+      font-family: Iosevka Nerd Font;
+      margin-right: 14px;
+      color: $blue;
+    }
+  }
+  &:hover { background-color: $dimblack; }
+  &:active { background-color: $black; }
+}
+
+.actionsbox {
+  font-family: Iosevka Nerd Font;
+  margin: 0px 20px 0px 15px;
+}
+
+.powerbutton {
+  color: $red;
+  background-color: $black;
+  margin: 6px;
+  padding: 0px 14px 0px 8px;
+  font-family: Iosevka Nerd Font;
+  border-radius: 7px;
+  transition: all ease .2s;
+  &:hover { background-color: $dimblack; }
+  &:active { background-color: $black; }
+}

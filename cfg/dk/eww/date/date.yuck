@@ -1,0 +1,56 @@
+(defwidget divider []
+  (box :class "divider"
+       :orientation "v"
+       :space-evenly true)
+)
+
+(defwidget time []
+  (box :class "timebox"
+       :orientation "v"
+       :space-evenly false
+    (box :class "time-container"
+         :orientation "h"
+         :space-evenly false
+         :halign "center"
+         :valign "center"
+      (label :text "${lithour}" :class "content")
+      (divider)
+      (label :text "${litmin}" :class "content")
+    )
+    (box :class "date-container"
+         :orientation "h"
+         :space-evenly true
+         :halign "center"
+      (label :text "${completeday}")
+    )
+  )
+)
+
+(defwidget cal []
+  (box :class "cal-box"
+       :orientation "v"
+       :space-evenly false
+    (calendar :class "cal"
+              :day calendar_day
+              :month calendar_month
+              :year calendar_year)
+  )
+)
+
+(defwidget date []
+  (box :class "date"
+       :orientation "v"
+       :space-evenly false
+    (time)
+    (cal)
+  )
+)
+
+(defwindow date
+  :geometry (geometry :x "0px"
+                      :y "46px"
+                      :width "10px" ; automatically generated
+                      :height "10px" ; automatically generated
+                      :anchor "center top")
+  :wm-ignore true
+(date))

@@ -17,13 +17,13 @@
 
 # Manual sensitivity in %. If autosens is enabled, this will only be the initial value.
 # 200 means double height. Accepts only non-negative values.
-; sensitivity = 100
+sensitivity = 200
 
 # The number of bars (0-200). 0 sets it to auto (fill up console).
 # Bars' width and space between bars in number of characters.
 ; bars = 0
-; bar_width = 2
-; bar_spacing = 1
+bar_width = 1
+bar_spacing = 0
 # bar_height is only used for output in "noritake" format
 ; bar_height = 32
 

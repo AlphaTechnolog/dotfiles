@@ -1,7 +1,0 @@
-require "configuration.notifications"
-require "configuration.theme"
-require "configuration.layouts"
-require "configuration.mousebindings"
-require "configuration.keybindings"
-require "configuration.rules"
-require "configuration.autofocus"

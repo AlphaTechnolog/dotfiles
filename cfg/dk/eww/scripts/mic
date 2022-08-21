@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# @requires: pactl
+
+SINK=$(pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1)
+
+if [[ $1 == "status" ]]; then
+  pactl get-source-mute $SINK | awk '{print $2}'
+fi
+
+if [[ $1 == "toggle" ]]; then
+  pactl set-source-mute $SINK toggle
+fi

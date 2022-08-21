@@ -1,0 +1,39 @@
+(defpoll network_status :interval "1s" "~/.config/dk/eww/scripts/network.sh status")
+(defpoll network_icon :interval "1s" "~/.config/dk/eww/scripts/network.sh icon")
+(defpoll network_radio :interval "1s" "~/.config/dk/eww/scripts/network.sh radio-status")
+(defpoll network_ssid :interval "1s" "~/.config/dk/eww/scripts/network.sh ssid")
+
+(defpoll date :interval "1s" "date '+%d %b, %I:%M %p'")
+(defpoll completeday :interval "1h" "date '+%A, %d %B'")
+
+(defpoll volume_icon :interval "1s" "~/.config/dk/eww/scripts/volume.sh icon")
+(defpoll volume :interval "1s" "~/.config/dk/eww/scripts/volume.sh percentage")
+(defpoll volume_value :interval "1s" "~/.config/dk/eww/scripts/volume.sh vol")
+(defpoll is_muted :interval "1s" "~/.config/dk/eww/scripts/volume.sh muted")
+
+(defpoll lithour :interval "30m" "date +%H")
+(defpoll litmin :interval "30s" "date +%M")
+
+(defpoll br_icon :interval "1s" "~/.config/dk/eww/scripts/brightness.sh icon")
+(defpoll br :interval "1s" "~/.config/dk/eww/scripts/brightness.sh percent")
+
+(defpoll music_pic :interval "2s" "~/.config/dk/eww/scripts/music/songart.sh get")
+(defpoll music_url :interval "1s" "~/.config/dk/eww/scripts/music/songart.sh echo")
+
+(defpoll music_title :interval "1s" "~/.config/dk/eww/scripts/music/songdata.sh title")
+(defpoll music_artist :interval "1s" "~/.config/dk/eww/scripts/music/songdata.sh artist")
+(defpoll music_status :interval "1s" "~/.config/dk/eww/scripts/music/songdata.sh status")
+
+(defpoll calendar_day :interval "10h" "date '+%d'")
+(defpoll calendar_month :interval "10h" "date '+%m")
+(defpoll calendar_year :interval "10h" "date '+%Y'")
+
+(defpoll pfp :interval "1s" "~/.config/dk/eww/scripts/pfp.sh")
+(defpoll username :interval "1s" "~/.config/dk/eww/scripts/user.sh")
+
+(defpoll br_icon :interval "1s" "~/.config/dk/eww/scripts/brightness.sh icon")
+(defpoll br :interval "1s" "~/.config/dk/eww/scripts/brightness.sh br")
+
+(defpoll bluetooth_state :interval "1s" "~/.config/dk/eww/scripts/bluetooth state")
+(defpoll redshift_state :interval "1s" "~/.config/dk/eww/scripts/redshift state")
+(defpoll mic_status :interval "1s" "~/.config/dk/eww/scripts/mic status")

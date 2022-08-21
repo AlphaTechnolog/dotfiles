@@ -1,0 +1,120 @@
+#!/bin/sh
+
+# determine where to place the log file
+logfile="$HOME/.dkrc.log"
+[ -d "$HOME/.local/share/xorg" ] && logfile="$HOME/.local/share/xorg/dkrc.log"
+: > "$logfile"
+
+# launch autostart.sh
+test -f $HOME/.config/dk/autostart && bash ~/.config/dk/autostart
+
+{ # compound command to redirect all output
+
+	# workspace settings
+	# ------------------------
+
+  # initialize 6 workspaces (1-6) (default: 1/monitor)
+	dkcmd set numws=6
+
+	# default workspace '_' values used when allocating new workspaces
+	# can be applied to all existing workspaces when passed 'apply' after ws=_
+	dkcmd set ws=_ apply pad left=0 right=0 top=0 bottom=0 layout=tile master=1 stack=3 gap=6 msplit=0.5 ssplit=0.5
+
+	# change workspace names (default: number == name)
+	# dkcmd set \
+	# 	ws=1  name="edit" \
+	# 	ws=2  name="web" \
+	# 	ws=3  name="😀" \
+	# 	ws=4  name="😠" \
+	# 	ws=5  name="5" \
+	# 	ws=6  name="6" \
+	# 	ws=7  name="7" \
+	# 	ws=8  name="8" \
+	# 	ws=9  name="9" \
+	# 	ws=10 name="10"
+
+	# enable static workspaces and assign them to monitors (only relevant for multiple monitors)
+	# aside -
+	#       many that come from other workspace models tried dk and requested this feature
+	#       try embracing the default behaviour and allow access to any workspace from any monitor
+	#       you might end up liking it :)
+	#
+	# mon1='DisplayPort-0'
+	# mon2='HDMI-A-0'
+	# dkcmd set static_ws=true \
+	# 	ws=1  mon=$mon1 \
+	# 	ws=2  mon=$mon1 \
+	# 	ws=3  mon=$mon1 \
+	# 	ws=4  mon=$mon1 \
+	# 	ws=5  mon=$mon1 \
+	# 	ws=6  mon=$mon2 \
+	# 	ws=7  mon=$mon2 \
+	# 	ws=8  mon=$mon2 \
+	# 	ws=9  mon=$mon2 \
+	# 	ws=10 mon=$mon2
+
+
+	# global settings
+	# ---------------------
+
+	# focus windows when receiving activation and enable focus-follows-mouse
+	dkcmd set focus_open=true focus_urgent=true focus_mouse=true
+
+	# place clients at the tail and ignore size hints on tiled windows
+	dkcmd set tile_tohead=0 tile_hints=false
+
+  # enable gaps and borders all the time
+  dkcmd set smart_gap=false smart_border=false
+
+	# minimum width/height for resizing, and minimum allowed on-screen when moving
+	dkcmd set win_minwh=50 win_minxy=10
+
+	# define mouse mod and move/resize buttons
+	dkcmd set mouse mod=super move=button1 resize=button3
+
+
+	# borders
+	# ---------
+
+	# enable split borders and colours, width is overall width, outer width consumes some of width.
+	# outer width must be less than width, outer width of 0 will be single borders
+	dkcmd set border width=7 outer_width=6 \
+		colour \
+		focus='#1a1c25' \
+		unfocus='#151720' \
+		urgent='#dd6777' \
+		outer_focus='#0d0f18' \
+		outer_unfocus='#0d0f18' \
+		outer_urgent='#0d0f18'
+
+
+	# window rules
+	# --------------
+
+	# rule class, instance, and title regexes (*ALWAYS* CASE INSENSITIVE)
+
+	# open window(s) in a floating state
+	dkcmd rule class="^(pavucontrol|transmission-gtk|steam|lxappearance)$" float=true
+
+	# open window(s) with a specific geometry and coordinates (floating only!)
+	dkcmd rule class="^google-chrome$" title="^open files$" float=true w=1280 h=720
+
+	# open window(s) with sticky and floating enabled to view on all workspaces.
+	dkcmd rule class="^stickyterm$" stick=true float=true w=1280 h=720
+
+	# apply current rule set to all existing windows (useful for WM reload/restart)
+	dkcmd rule apply '*'
+
+	# delete all rules
+	# dkcmd rule remove '*'
+
+} >> "$logfile" 2>&1 # append responses
+
+# inform of any errors in a notification
+if grep -q 'error:' "$logfile"; then
+	hash notify-send && notify-send -t 0 -u critical "dkrc has errors" \
+		"$(awk '/error:/ {sub(/^error: /, ""); gsub(/</, "\<"); print}' "$logfile")"
+	exit 1
+fi
+
+exit 0

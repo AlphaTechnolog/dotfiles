@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+base=$(dirname $0)
+
+menu_file=$base/menu.txt
+conf_file=$base/jgmenurc
+
+jgmenu --csv-file=$menu_file --config-file=$conf_file

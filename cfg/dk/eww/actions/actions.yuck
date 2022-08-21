@@ -1,0 +1,223 @@
+(defwidget sysblock [icon onclick active label]
+  (box :class "block-container"
+       :orientation "v"
+       :space-evenly false
+       :spacing 5
+    (button :class "block ${active ? 'active' : ''}" :onclick "${onclick}"
+      (box :orientation "h"
+           :space-evenly false
+        (box :class "iconbox"
+             :halign "start"
+             :space-evenly true
+             :orientation "h"
+          (label :text "${icon}" :class "icon")
+        )
+        (box :class "sepbox"
+             :halign "center"
+             :space-evenly true
+             :orientation "h"
+          (box :class "sep")
+        )
+        (box :class "chevronbox"
+             :halign "end"
+             :space-evenly true
+             :orientation "h"
+          (label :text "")
+        )
+      )
+    )
+    (label :halign "center" :text "${label}" :class "label")
+  )
+)
+
+(defwidget sysbuttons []
+  (box :class "sysbuttonsbox"
+       :orientation "v"
+       :space-evenly false
+       :spacing 20
+    (box :class "firstrow"
+         :orientation "h"
+         :space-evenly true
+      (box :halign "start"
+           :orientation "h"
+           :space-evenly true
+        (sysblock :icon "${network_icon}"
+                  :onclick "st -e nmtui"
+                  :active "${network_status == 'Connected' ? true : false}"
+                  :label "${network_ssid}")
+      )
+      (box :halign "center"
+           :orientation "h"
+           :space-evenly true
+        (sysblock :icon "${bluetooth_state == 'on' ? '' : ''}"
+                  :onclick "~/.config/dk/eww/scripts/bluetooth toggle"
+                  :active "${bluetooth_state == 'on' ? true : false}"
+                  :label "Bluetooth")
+      )
+      (box :halign "end"
+           :orientation "h"
+           :space-evenly true
+        (sysblock :icon "${network_radio == 'on' ? '' : ''}"
+                  :onclick "~/.config/dk/eww/scripts/network.sh toggle-radio"
+                  :active "${network_radio == 'on' ? false : true}"
+                  :label "Airplane")
+      )
+    )
+    (box :class "lastrow"
+         :orientation "h"
+         :space-evenly true
+      (box :halign "start"
+           :orientation "h"
+           :space-evenly true
+        (sysblock :icon "${redshift_state == 'on' ? '' : ''}"
+                  :onclick "~/.config/dk/eww/scripts/redshift toggle"
+                  :active "${redshift_state == 'on' ? true : false}"
+                  :label "Night Light")
+      )
+      (box :halign "center"
+           :orientation "h"
+           :space-evenly true
+        (sysblock :icon "${volume_icon}"
+                  :onclick "~/.config/dk/eww/scripts/volume.sh toggle-muted"
+                  :active "${is_muted == 'yes' ? false : true}"
+                  :label "Volume")
+      )
+      (box :halign "end"
+           :orientation "h"
+           :space-evenly true
+        (sysblock :icon "${mic_status == 'yes' ? '' : ''}"
+                  :onclick "~/.config/dk/eww/scripts/mic toggle"
+                  :active "${mic_status == 'yes' ? true : false}"
+                  :label "Micro")
+      )
+    )
+  )
+)
+
+(defwidget controls []
+  (box :class "controlsbox"
+       :orientation "v"
+       :space-evenly false
+       :spacing 10
+    (box :orientation "h"
+         :space-evenly "false"
+         :class "vol-slider"
+      (box :class "vol-label"
+            volume_icon
+      )
+      (scale :value volume_value
+             :onchange "~/.config/dk/eww/scripts/volume.sh set {}"
+             :min 0
+             :max 101)
+    )
+    (box :orientation "h"
+         :space-evenly "false"
+         :class "br-slider"
+      (box :class "br-label"
+            br_icon
+      )
+      (scale :value br
+             :onchange "~/.config/dk/eww/scripts/brightness.sh set {}"
+             :min 0
+             :max 101)
+    )
+  )
+)
+
+(defwidget music []
+  (box :class "musicbox"
+       :orientation "h"
+       :space-evenly false
+       :spacing 10
+    (box :class "pic-container"
+         :orientation "v"
+         :space-evenly false
+      (box :class "picbox"
+           :style "background-image: url('${music_url}');"
+           :orientation "h"
+           :space-evenly true
+        (box :class "left"
+             :orientation "v"
+             :space-evenly false
+             :halign "start"
+             :spacing 4
+          (label :halign "start" :text "${music_title}" :class "title")
+          (label :halign "start" :text "${music_artist}" :class "artist")
+        )
+      )
+      (box :class "hidden"
+        music_pic
+      )
+    )
+    (box :class "musiccontrolsbox"
+         :orientation "v"
+         :space-evenly true
+      (button :valign "start"
+              :halign "center"
+              :onclick "~/.config/dk/eww/scripts/music/control.sh prev"
+              :class "previousbutton"
+        "玲"
+      )
+      (button :valign "center"
+              :halign "center"
+              :onclick "~/.config/dk/eww/scripts/music/control.sh play-pause"
+              :class "pausebutton"
+        "${music_status == 'Playing' ? '' : ''}"
+      )
+      (button :valign "end"
+              :halign "center"
+              :onclick "~/.config/dk/eww/scripts/music/control.sh next"
+              :class "nextbutton"
+        "怜"
+      )
+    )
+  )
+)
+
+(defwidget user []
+  (box :class "userinfobox"
+       :orientation "h"
+       :space-evenly true
+    (box :class "info"
+         :space-evenly false
+         :orientation "h"
+         :halign "start"
+         :valign "center"
+         :spacing 10
+      (box :class "pfp"
+           :style "background-image: url('${pfp}');")
+      (label :text "${username}" :class "username")
+    )
+    (box :class "useractions"
+         :space-evenly false
+         :orientation "h"
+         :halign "end"
+         :valign "center"
+      (button :class "logout" :onclick "dkcmd exit"
+        ""
+      )
+    )
+  )
+)
+
+(defwidget actions []
+  (box :class "actions"
+       :orientation "v"
+       :space-evenly false
+       :spacing 20
+    (user)
+    (sysbuttons)
+    (music)
+    (controls)
+  )
+)
+
+(defwindow actions
+  :geometry (geometry :x "-6px"
+                      :y "46px"
+                      :width "320px"
+                      :height "10px" ; automatically generated by eww
+                      :anchor "top right")
+  :type "dock"
+  :wm-ignore true
+(actions))
