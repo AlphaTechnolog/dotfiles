@@ -79,6 +79,9 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 | **dependency** | **utility** |
 |----------------|-------------|
 |DkWM|The window manager|
+|Network Manager|Recommended|
+|bluetoothctl|To manage bluetooth from actions widget|
+|redshift|To make Night Light work in actions widget|
 |picom|The compositor, i'm using the [Arian8j's picom fork](https://github.com/Arian8j2/picom)|
 |[hilbish](../cfg/hilbish)|The shell|
 |bat|Enhanced cat|
