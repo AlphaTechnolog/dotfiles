@@ -56,7 +56,7 @@ Just call the `tbsm.setup` method inside the `custom.setup` method (you can have
 
 ## Prompt
 
-For now exists two styles for the prompt: `ghost` and `blocks` (blocks is the default).
+For now exists two styles for the prompt: `ghost`, `blocks` or `power_ghost` (power_ghost is the default).
 To change the prompt style you can create a file called `rc.lua` and put the next as example:
 
 ```lua
@@ -65,7 +65,7 @@ local ansikit = require 'ansikit'
 return {
     prompt = {
         do_end_line = false, -- append an enter after command execution
-        style = 'ghost', -- blocks or ghost
+        style = 'ghost', -- blocks, ghost or power_ghost (default)
         vim_mode = {
             cursors_case = {
                 insert = ansikit.lineCursor,
