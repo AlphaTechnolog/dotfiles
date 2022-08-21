@@ -100,6 +100,45 @@ mkdir -p ~/.local/bin && cp -r ./bin/* ~/.local/bin
 sudo mv ~/.local/bin/eww /usr/bin/eww # IMPORTANT
 ```
 
+#### Compile st
+
+St is the terminal that i'm using, so you have to build it. Here are the steps to do it:
+
+First you have to install the next dependencies for your operative system:
+
+** Void Linux **
+
+- pkg-config
+- gcc
+- harfbuzz-devel
+- libXft-devel
+- libX11-devel
+- libXext-devel
+- libXrender-devel
+- libXinerama-devel
+
+** Debian (and ubuntu probably) **
+
+- build-essential
+- libxft-de
+- libharfbuzz-dev
+
+> Most of these are already installed in Arch based distros.
+
+> Install font-symbola and libXft-bgra
+
+After install the deps, you can just rebuild it using the rebuild script:
+
+```sh
+cd ~/.config/st
+./rebuild.sh
+```
+
+That should start the rebuilding process of st terminal, maybe i miss some deps, if that happened, you can tell
+me, the compiler should throw the deps that are missing, just install them and retry.
+
+The `rebuild.sh` script will install st in your system automatically, you don't have to move something.
+
 #### Make powermenu work
 
 Maybe the powermenu buttons (poweroff and restart) don't work, that's cuz you have to setup doas
@@ -137,9 +176,11 @@ and you shouldn't be asked for password.
 
 #### Gtk Theming
 
-I'm using decay, so you can install the
-[gtk3 decay theme](https://github.com/decaycs/gtk3) and
-the [decay papirus icons](https://github.com/decaycs/decay-icons)
+Here are details about my gtk theming:
+
+- ** Gtk theme **: [decay](https://github.com/decaycs/gtk3)
+- ** Icons **: [decay icons](https://github.com/decaycs/decay-icons)
+- ** Cursor **: Breeze Snow
 
 #### Eww Don't Work
 
