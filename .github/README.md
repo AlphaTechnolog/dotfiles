@@ -106,7 +106,7 @@ St is the terminal that i'm using, so you have to build it. Here are the steps t
 
 First you have to install the next dependencies for your operative system:
 
-** Void Linux **
+**Void Linux**
 
 - pkg-config
 - gcc
@@ -117,7 +117,7 @@ First you have to install the next dependencies for your operative system:
 - libXrender-devel
 - libXinerama-devel
 
-** Debian (and ubuntu probably) **
+**Debian (and ubuntu probably)**
 
 - build-essential
 - libxft-de
