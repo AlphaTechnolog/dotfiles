@@ -1,5 +1,14 @@
 # AlphaTechnolog's dotfiles!
 
+<h1>
+  <a href="#--------">
+    <img alt="" align="left" src="https://img.shields.io/github/stars/AlphaTechnolog/dotfiles?color=f1cf8a&labelColor=f1cf8a&style=for-the-badge"/>
+  </a>
+  <a href="#--------">
+    <img alt="" align="right" src="https://api.visitorbadge.io/api/visitors?path=AlphaTechnolog%2Fdotfiles&label=Views&labelColor=%2386aaec&countColor=%2386aaec" />
+  </a>
+</h1>
+
 First of all, thanks for dropping by! here is my dotfiles repo, configurations that i'm making (rices)
 for make my own setup and feel comfy while i'm working (and beeing productive ofc).
 
