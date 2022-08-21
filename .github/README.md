@@ -178,9 +178,9 @@ and you shouldn't be asked for password.
 
 Here are details about my gtk theming:
 
-- ** Gtk theme **: [decay](https://github.com/decaycs/gtk3)
-- ** Icons **: [decay icons](https://github.com/decaycs/decay-icons)
-- ** Cursor **: Breeze Snow
+- **Gtk theme**: [decay](https://github.com/decaycs/gtk3)
+- **Icons**: [decay icons](https://github.com/decaycs/decay-icons)
+- **Cursor**: Breeze Snow
 
 #### Eww Don't Work
 
