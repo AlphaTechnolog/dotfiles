@@ -33,7 +33,8 @@ Welcome! This is the repository for my awesomewm rice using [decay](https://gith
 If you like this configuration, please give me a star in this repo, it will make me more happy! 😁
 > If you want, you can visit [more of my repos](https://github.com/AlphaTechnolog?tab=repositories) or go to [my profile](https://github.com/AlphaTechnolog)
 > Ah, and gimme credits if you will use my config for showcase :3
-> If you're looking for the old bspwm rice, go to the [bspwm](https://github.com/AlphaTechnolog/dotfiles/tree/bspwm) branch
+
+> See other branches to go to others/olders rices.
 
 ## ‎ <samp>Information ℹ️</samp>
 
@@ -57,7 +58,7 @@ Here are some details about my setup:
 First clone the repository
 
 ```sh
-git clone https://github.com/AlphaTechnolog/dotfiles
+git clone -b awesomewm https://github.com/AlphaTechnolog/dotfiles
 cd dotfiles
 ```
 
