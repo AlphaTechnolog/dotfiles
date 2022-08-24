@@ -106,6 +106,30 @@ cp -r ./home/.Xresources ~/.Xresources
 sudo mv ~/.local/bin/eww /usr/bin/eww # IMPORTANT
 ```
 
+Now install the `Decayce` theme, who provides the window decorations lol.
+
+```sh
+mkdir -p ~/.themes
+cp -r ./themes/Decayce ~/.themes
+```
+
+Then the theme should be applied when you login to openbox, if you don't see the window decorations
+when you login in openbox, see the next.
+
+Install obconf:
+
+```sh
+sudo xbps-install obconf -y
+```
+
+Then open it:
+
+```sh
+obconf
+```
+
+And select in the GUI `Decayce`. That should be enough
+
 #### Make powermenu work
 
 Maybe the powermenu buttons (poweroff and restart) don't work, that's cuz you have to setup doas
