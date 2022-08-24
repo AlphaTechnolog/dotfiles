@@ -1,0 +1,46 @@
+(defpoll network_status :interval "1s" "~/.config/openbox/src/eww/scripts/network.sh status")
+(defpoll network_icon :interval "1s" "~/.config/openbox/src/eww/scripts/network.sh icon")
+(defpoll network_radio :interval "1s" "~/.config/openbox/src/eww/scripts/network.sh radio-status")
+(defpoll network_ssid :interval "1s" "~/.config/openbox/src/eww/scripts/network.sh ssid")
+
+(defpoll volume_icon :interval "1s" "~/.config/openbox/src/eww/scripts/volume.sh icon")
+(defpoll volume :interval "1s" "~/.config/openbox/src/eww/scripts/volume.sh percentage")
+(defpoll volume_value :interval "1s" "~/.config/openbox/src/eww/scripts/volume.sh vol")
+(defpoll is_muted :interval "1s" "~/.config/openbox/src/eww/scripts/volume.sh muted")
+
+(defpoll mic :interval "1s" "~/.config/openbox/src/eww/scripts/mic get")
+(defpoll mic_status :interval "1s" "~/.config/openbox/src/eww/scripts/mic status")
+
+(defpoll bluetooth_state :interval "1s" "~/.config/openbox/src/eww/scripts/bluetooth state")
+(defpoll redshift_state :interval "1s" "~/.config/openbox/src/eww/scripts/redshift state")
+
+(defpoll pfp :interval "1s" "~/.config/openbox/src/eww/scripts/pfp.sh")
+(defpoll rawuser :interval "30s" "whoami")
+(defpoll username :interval "30s" "~/.config/openbox/src/eww/scripts/user.sh")
+(defpoll hostname :interval "30s" "cat /etc/hostname")
+(defpoll uptime :interval "30s" "uptime -p")
+
+(defpoll br_icon :interval "1s" "~/.config/openbox/src/eww/scripts/brightness.sh icon")
+(defpoll br :interval "1s" "~/.config/openbox/src/eww/scripts/brightness.sh br")
+
+(defpoll music_pic :interval "2s" "~/.config/openbox/src/eww/scripts/music/songart.sh get")
+(defpoll music_url :interval "2s" "~/.config/openbox/src/eww/scripts/music/songart.sh echo")
+
+(defpoll music_title :interval "1s" "~/.config/openbox/src/eww/scripts/music/songdata.sh title")
+(defpoll music_artist :interval "1s" "~/.config/openbox/src/eww/scripts/music/songdata.sh artist")
+(defpoll music_status :interval "1s" "~/.config/openbox/src/eww/scripts/music/songdata.sh status")
+
+(defpoll completeday :interval "1h" "date '+%A, %d %B'")
+(defpoll lithour :interval "30m" "date +%H")
+(defpoll litmin :interval "30s" "date +%M")
+(defpoll calendar_day :interval "10h" "date '+%d'")
+(defpoll calendar_month :interval "10h" "date '+%m")
+(defpoll calendar_year :interval "10h" "date '+%Y'")
+(defpoll date :interval "30s" "date '+%d %b, %I:%M %p'")
+(defpoll shortday :interval "1h" "date '+%d %b %y'")
+(defpoll weekday :interval "24h" "date +%A")
+
+(defpoll cpu :interval "3s" "~/.config/openbox/src/eww/scripts/cpu.sh")
+(defpoll ram :interval "3s" "~/.config/openbox/src/eww/scripts/ram.sh ram")
+(defpoll temp :interval "3s" "~/.config/openbox/src/eww/scripts/temp.sh get")
+(defpoll disk :interval "3s" "~/.config/openbox/src/eww/scripts/disk.sh")

@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+TMP_PATH="$HOME/.cache/eww/tmp-screenshot.png"
+
+report () {
+  xclip -selection clipboard -target image/png -i $TMP_PATH
+  notify-send -i $TMP_PATH -a Screenshot "Screenshot" "Screenshot copied successfully"
+}
+
+recollect () {
+  rm $TMP_PATH
+}
+
+full () {
+  maim $TMP_PATH
+}
+
+area () {
+  maim --select $TMP_PATH
+}
+
+if [[ $1 == "full" ]]; then
+  full
+  report
+  recollect
+fi
+
+if [[ $1 == "area" ]]; then
+  area
+  report
+  recollect
+fi
+
+exit 0

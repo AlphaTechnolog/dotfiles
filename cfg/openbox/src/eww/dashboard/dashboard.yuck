@@ -1,0 +1,384 @@
+(defwidget header []
+  (box :class "headerbox"
+       :orientation "h"
+       :space-evenly false
+    (box :class "userbox"
+         :orientation "h"
+         :space-evenly false
+         :halign "start"
+         :valign "center"
+         :spacing 10
+      (box :class "pfp"
+           :style "background-image: url('${pfp}');")
+      (box :class "pcname"
+           :orientation "h"
+           :space-evenly false
+        (label :text "${rawuser}" :class "username")
+        (label :text "@" :class "sep")
+        (label :text "${hostname}" :class "hostname")
+      )
+    )
+    (box :class "searchbox"
+         :orientation "h"
+         :space-evenly true
+         :halign "end"
+         :hexpand true
+         :valign "center"
+      (button :class "searchinput"
+              :onclick "~/.config/openbox/src/eww/scripts/exec rofi -show drun"
+        (box :class "searchinput-content"
+             :orientation "h"
+             :space-evenly false
+             :hexpand true
+             :halign "start"
+             :valign "center"
+             :vexpand true
+          (label :text "" :class "icon")
+          (label :text "Search Applications" :class "placeholder")
+        )
+      )
+    )
+  )
+)
+
+(defwidget usercard []
+  (box :class "usercard"
+       :orientation "v"
+       :space-evenly false
+    (box :class "user-content"
+         :orientation "h"
+         :space-evenly false
+         :vexpand true
+         :spacing 15
+      (box :class "pfp"
+           :style "background-image: url('${pfp}');")
+      (box :class "info"
+           :hexpand true
+           :vexpand true
+           :valign "center"
+           :halign "start"
+           :orientation "v"
+           :space-evenly false
+           :spacing 3
+        (label :text "${username}" :class "username" :halign "start")
+        (label :text "${uptime}" :class "uptime" :halign "start")
+      )
+    )
+    (box :class "user-powerbuttons"
+         :orientation "h"
+         :space-evenly false
+         :hexpand true
+         :halign "end"
+         :valign "end"
+         :spacing 5
+      (button :class "reboot"
+              :onclick "doas poweroff"
+        "勒"
+      )
+      (button :class "poweroff"
+              :onclick "doas poweroff"
+        "襤"
+      )
+    )
+  )
+)
+
+(defwidget control [name icon tooltip onclick active]
+  (box :class "control-container"
+       :orientation "h"
+       :hexpand true
+       :valign "center"
+       :space-evenly true
+    (button :class "control-item ${name} ${active ? 'active' : ''}"
+            :orientation "h"
+            :space-evenly true
+            :halign "center"
+            :hexpand false
+            :valign "center"
+            :onclick "${onclick}"
+            :tooltip "${tooltip}"
+      (label :text "${icon}" :class "control-icon")
+    )
+  )
+)
+
+(defwidget quicksettings []
+  (box :class "controlscard"
+       :orientation "v"
+       :space-evenly false
+       :spacing 20
+    (box :class "firstrow"
+         :orientation "h"
+         :space-evenly true
+      (control :name "network${network_status == 'Connected' ? '' : '-disconnected'}"
+               :icon "${network_icon}"
+               :tooltip "Toggle network"
+               :active "${network_status == 'Connected' ? 'true' : 'false'}"
+               :onclick "~/.config/openbox/src/eww/scripts/network.sh toggle")
+
+      (control :name "airplane"
+               :icon "${network_radio == 'on' ? '' : ''}"
+               :tooltip "Airplane Mode"
+               :active "${network_radio == 'on' ? false : true}"
+               :onclick "~/.config/openbox/src/eww/scripts/network.sh toggle-radio")
+
+      (control :name "volume${is_muted == 'yes' ? '-muted' : ''}"
+               :icon "${volume_icon}"
+               :tooltip "Toggle muted"
+               :active "${is_muted == 'yes' ? false : true}"
+               :onclick "~/.config/openbox/src/eww/scripts/volume.sh toggle-muted")
+
+      (control :name "mic${mic_status == 'yes' ? '-on' : ''}"
+               :icon "${mic_status == 'yes' ? '' : ''}"
+               :tooltip "Toggle microphone"
+               :active "${mic_status == 'yes' ? true : false}"
+               :onclick "~/.config/openbox/src/eww/scripts/mic toggle")
+    )
+    (box :class "lastrow"
+         :orientation "h"
+         :space-evenly true
+      (control :name "redshift${redshift_state == 'on' ? '-on' : ''}"
+               :icon "${redshift_state == 'on' ? '' : ''}"
+               :tooltip "Toggle night light"
+               :active "${redshift_state == 'on' ? true : false}"
+               :onclick "~/.config/openbox/src/eww/scripts/redshift toggle")
+
+      (control :name "bluetooth${bluetooth_state == 'on' ? '-on' : ''}"
+               :icon "${bluetooth_state == 'on' ? '' : ''}"
+               :tooltip "Toggle bluetooth"
+               :active "${bluetooth_state == 'on' ? true : false}"
+               :onclick "~/.config/openbox/src/eww/scripts/bluetooth toggle")
+
+      (control :name "fullscreensht"
+               :icon ""
+               :tooltip "Take a full screenshot"
+               :active false
+               :onclick "~/.config/openbox/src/eww/scripts/screensht full")
+
+      (control :name "areascreensht"
+               :icon ""
+               :tooltip "Take a screenshot of a selected area"
+               :active false
+               :onclick "~/.config/openbox/src/eww/scripts/screensht area")
+    )
+  )
+)
+
+(defwidget sliders []
+  (box :class "slidersbox"
+       :orientation "v"
+       :space-evenly false
+       :spacing 25
+    (box :orientation "h"
+         :space-evenly "false"
+         :class "vol-slider"
+      (overlay
+        (scale :value volume_value
+               :onchange "~/.config/openbox/src/eww/scripts/volume.sh set {}"
+               :min 0
+               :max 101)
+        (label :class "vol-label"
+               :text "${volume_icon} "
+               :valign "top"
+               :halign "start")
+      )
+    )
+    (box :orientation "h"
+         :space-evenly "false"
+         :class "br-slider"
+      (overlay
+        (scale :value br
+               :onchange "~/.config/openbox/src/eww/scripts/brightness.sh set {}"
+               :min 0
+               :max 101)
+        (label :class "br-label"
+               :text "${br_icon} "
+               :valign "top"
+               :halign "start")
+      )
+    )
+    (box :orientation "h"
+         :space-evenly "false"
+         :class "mic-slider"
+      (overlay
+        (scale :value mic
+               :onchange "~/.config/openbox/src/eww/scripts/mic set {}"
+               :min 0
+               :max 101)
+        (label :class "mic-label"
+               :text "${mic_status == 'yes' ? '' : ''} "
+               :valign "top"
+               :halign "start")
+      )
+    )
+  )
+)
+
+(defwidget music []
+  (box :class "musicbox"
+       :orientation "v"
+       :space-evenly false
+    (box :class "firstrow"
+         :orientation "h"
+         :space-evenly false
+         :vexpand true
+      (box :class "picbox"
+           :orientation "v"
+           :space-evenly true
+           :style "background-image: url('${music_url}');"
+        music_pic
+      )
+      (box :class "info"
+           :space-evenly false
+           :hexpand true
+           :valign "center"
+           :orientation "v"
+           :spacing 5
+        (label :text "${music_title}" :class "music-title")
+        (label :text "${music_artist}" :class "music-artist")
+      )
+    )
+    (box :class "lastrow"
+         :orientation "h"
+         :space-evenly true
+      (box :class "controls-container"
+           :orientation "h"
+           :space-evenly true
+        (button :onclick "~/.config/openbox/src/eww/scripts/music/control.sh prev"
+                :class "previousbutton"
+                :halign "center"
+          "玲"
+        )
+        (button :onclick "~/.config/openbox/src/eww/scripts/music/control.sh play-pause"
+                :class "pausebutton ${music_status == 'Playing' ? 'playing' : ''}"
+                :halign "center"
+          "${music_status == 'Playing' ? '' : ''}"
+        )
+        (button :onclick "~/.config/openbox/src/eww/scripts/music/control.sh next"
+                :class "nextbutton"
+                :halign "center"
+          "怜"
+        )
+      )
+    )
+  )
+)
+
+(defwidget chart [label value icon icon-class]
+  (box :class "chart-container"
+       :orientation "v"
+       :space-evenly false
+    (box :class "header"
+         :space-evenly true
+         :orientation "v"
+      (label :text "${label}" :class "label" :halign "start")
+    )
+    (box :class "body"
+         :space-evenly true
+         :orientation "h"
+      (box :class "container"
+           :space-evenly true
+           :halign "center"
+           :hexpand true
+           :orientation "h"
+        (box :class "chart-container" :space-evenly false
+          (overlay
+            (circular-progress :value value
+                               :thickness 50
+                               :class "chart"
+                               :start-at 75
+              (label :text "L")
+            )
+            (label :text "${icon}" :class "chart-icon ${icon-class}")
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget charts []
+  (box :class "chartsbox"
+       :orientation "v"
+       :space-evenly false
+       :spacing 25
+    (box :class "firstrow"
+         :orientation "h"
+         :space-evenly true
+         :spacing 25
+      (chart :label "Cpu" :icon "" :icon-class "cpu" :value cpu)
+      (chart :label "Ram" :icon "" :icon-class "ram" :value ram)
+    )
+    (box :class "lastrow"
+         :orientation "h"
+         :space-evenly true
+         :spacing 25
+      (chart :label "Temp" :icon "" :icon-class "temp" :value temp)
+      (chart :label "Disk" :icon "" :icon-class "disk" :value disk)
+    )
+  )
+)
+
+(defwidget footer []
+  (box :class "footer"
+       :space-evenly true
+       :orientation "h"
+       :valign "end"
+    (box :class "protipbox"
+         :orientation "h"
+         :space-evenly false
+         :halign "center"
+         :spacing 15
+      (label :text "ﯦ " :class "icon")
+      (label :text "Press the menu icon again to close this popup." :class "placeholder")
+    )
+  )
+)
+
+(defwidget content []
+  (box :class "content-container"
+       :orientation "v"
+       :space-evenly false
+    (box :class "contentbox"
+         :orientation "h"
+         :space-evenly true
+         :spacing 25
+         :vexpand true
+      (box :class "firstcol"
+           :orientation "v"
+           :space-evenly false
+           :spacing 25
+        (usercard)
+        (quicksettings)
+        (sliders)
+      )
+      (box :class "lastcol"
+           :orientation "v"
+           :space-evenly false
+           :spacing 25
+        (music)
+        (charts)
+      )
+    )
+    (footer)
+  )
+)
+
+(defwidget dashboard []
+  (box :class "dashboardbox"
+       :orientation "v"
+       :space-evenly false
+    (header)
+    (content)
+  )
+)
+
+(defwindow dashboard
+  :geometry (geometry :x "6px"
+                      :y "-44px"
+                      :width "10px" ; automatically adjusted by eww
+                      :height "10px" ; automatically adjusted by eww
+                      :anchor "bottom center")
+  :type "dock"
+  :wm-ignore false
+(dashboard))

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+CONF_PATH=$HOME/.config/openbox
+SRC_PATH=$CONF_PATH/src
+
+EWW_PATH=$SRC_PATH/eww
+POLYBAR_PATH=$SRC_PATH/polybar
+
+run_polybar () {
+  $POLYBAR_PATH/launch.sh
+}
+
+run_eww () {
+  eww -c $EWW_PATH daemon
+  $EWW_PATH/scripts/redshift restore
+}
+
+xrdb merge $HOME/.Xresources
+feh --bg-scale $CONF_PATH/wallpaper.png
+picom --config=$CONF_PATH/picom.conf -b
+
+run_polybar
+run_eww

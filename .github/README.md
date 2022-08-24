@@ -22,9 +22,9 @@
 <br>
 
 ## Hi there! Thanks for dropping by! :blue_heart:
-<b>  AlphaTechnolog's DkWM Rice  </b>
+<b>  AlphaTechnolog's Openbox Rice  </b>
 
-Welcome! This is the repository for my dkwm rice using [decay](https://github.com/decaycs) (decayce variant)
+Welcome! This is the repository for my openbox rice using [decay](https://github.com/decaycs) (decayce variant)
 
 ## ‎ <samp>Notice! ⚠️</samp>
 
@@ -41,8 +41,8 @@ Here are some details about my setup:
 <img src="./assets/neofetch.png" align="right" width="400px"/>
 
 - **OS:** [Void Linux](https://voidlinux.org)
-- **WM:** [DkWM](https://bitbucket.org/natemaia/dk)
-- **Terminal:** [st](https://st.suckless.org/) (thanks to [siduck's build](https://github.com/siduck/st))
+- **WM:** [Openbox](http://openbox.org)
+- **Terminal:** [kitty](https://github.com/kovidgoyal/kitty)
 - **Shell:** [hilbish](https://github.com/Rosettea/Hilbish)
 - **Editor:** [neovim](https://github.com/neovim/neovim)
 - **NeovimConfig**: [nvcodark](https://github.com/AlphaTechnolog/nvcodark) (I'm using the remake that is present in the dev branch, instructions aren't ready yet, main branch is broken)
@@ -56,7 +56,7 @@ Here are some details about my setup:
 First clone the repository
 
 ```sh
-git clone -b dkwm https://github.com/AlphaTechnolog/dotfiles.git
+git clone -b openbox https://github.com/AlphaTechnolog/dotfiles.git
 cd dotfiles
 ```
 
@@ -78,7 +78,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 
 | **dependency** | **utility** |
 |----------------|-------------|
-|DkWM|The window manager|
+|Openbox|The window manager|
 |Network Manager|Recommended|
 |bluetoothctl|To manage bluetooth from actions widget|
 |redshift|To make Night Light work in actions widget|
@@ -91,6 +91,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |light|Manage the brightness using the cli|
 |pulseaudio|Well, just the audio manager|
 |pactl|Manage pulseaudio using the cli|
+|polybar|Main Bar|
 |eww|Widgets, don't install i included the binary|
 |jgmenu|Right click in the desktop menu with search ability|
 |xdo|Helps xqp to make jgmenu able to start when you do a right click in the desktop|
@@ -117,45 +118,6 @@ git clone https://github.com/baskerville/xqp.git
 cd xqp
 sudo make install
 ```
-
-#### Compile st
-
-St is the terminal that i'm using, so you have to build it. Here are the steps to do it:
-
-First you have to install the next dependencies for your operative system:
-
-**Void Linux**
-
-- pkg-config
-- gcc
-- harfbuzz-devel
-- libXft-devel
-- libX11-devel
-- libXext-devel
-- libXrender-devel
-- libXinerama-devel
-
-**Debian (and ubuntu probably)**
-
-- build-essential
-- libxft-de
-- libharfbuzz-dev
-
-> Most of these are already installed in Arch based distros.
-
-> Install font-symbola and libXft-bgra
-
-After install the deps, you can just rebuild it using the rebuild script:
-
-```sh
-cd ~/.config/st
-./rebuild.sh
-```
-
-That should start the rebuilding process of st terminal, maybe i miss some deps, if that happened, you can tell
-me, the compiler should throw the deps that are missing, just install them and retry.
-
-The `rebuild.sh` script will install st in your system automatically, you don't have to move something.
 
 #### Make powermenu work
 
@@ -254,19 +216,23 @@ sudo mv ./eww /usr/bin/eww
 
 #### App Launcher
 
-![app-launcher](./assets/galery/app-launcher.png)
+![rofi](./assets/galery/rofi.png)
 
 #### Root Menu
 
-![menu](./assets/galery/menu.png)
+![jgmenu](./assets/galery/jgmenu.png)
 
 #### Powermenu
 
 ![powermenu](./assets/galery/powermenu.png)
 
-#### Simple top bar
+#### Simple bottom bar
 
 ![bar](./assets/galery/bar.png)
+
+#### Control Center (dashboard)
+
+![dashboard](./assets/galery/dashboard.png)
 
 #### Calendar
 
