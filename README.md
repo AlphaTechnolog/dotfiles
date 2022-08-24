@@ -19,21 +19,21 @@ In this repo, I'm sharing with you my rices, and offering you tips/instructions 
 
 <br></br>
 
-# [1. DkWM](https://github.com/AlphaTechnolog/dotfiles/tree/dkwm)
+# [1. Openbox](https://github.com/AlphaTechnolog/dotfiles/tree/openbox)
+
+![openbox](./assets/openbox.png)
+
+# [2. DkWM](https://github.com/AlphaTechnolog/dotfiles/tree/dkwm)
 
 ![dkwm](./assets/dkwm.png)
 
-# [2. AwesomeWM](https://github.com/AlphaTechnolog/dotfiles/tree/awesomewm)
+# [3. AwesomeWM](https://github.com/AlphaTechnolog/dotfiles/tree/awesomewm)
 
 ![awesomewm](./assets/awesomewm.png)
 
-# [3. BspWM](https://github.com/AlphaTechnolog/dotfiles/tree/bspwm)
+# [4. BspWM](https://github.com/AlphaTechnolog/dotfiles/tree/bspwm)
 
 ![bspwm](./assets/bspwm.png)
-
-# 4. Openbox
-
-> Comming soon.
 
 # Enjoy!
 
