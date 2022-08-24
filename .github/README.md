@@ -79,6 +79,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 | **dependency** | **utility** |
 |----------------|-------------|
 |DkWM|The window manager|
+|sxhkd|Keybindings|
 |Network Manager|Recommended|
 |bluetoothctl|To manage bluetooth from actions widget|
 |redshift|To make Night Light work in actions widget|
