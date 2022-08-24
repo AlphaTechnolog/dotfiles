@@ -92,6 +92,8 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |pulseaudio|Well, just the audio manager|
 |pactl|Manage pulseaudio using the cli|
 |eww|Widgets, don't install i included the binary|
+|jgmenu|Right click in the desktop menu with search ability|
+|xdo|Helps xqp to make jgmenu able to start when you do a right click in the desktop|
 
 ### Copy the configs
 
@@ -102,6 +104,18 @@ mkdir -p ~/.config && cp -r ./cfg/* ~/.config
 mkdir -p ~/.local/bin && cp -r ./bin/* ~/.local/bin
 cp -r ./home/.Xresources ~/.Xresources
 sudo mv ~/.local/bin/eww /usr/bin/eww # IMPORTANT
+```
+
+#### Install xqp
+
+I'm using xqp to make jgmenu able to spawn when you do a right click in the desktop, so here are the steps to install it:
+
+```sh
+mkdir -p ~/repo
+cd ~/repo
+git clone https://github.com/baskerville/xqp.git
+cd xqp
+sudo make install
 ```
 
 #### Compile st
