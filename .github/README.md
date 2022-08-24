@@ -240,7 +240,7 @@ sudo mv ./eww /usr/bin/eww
 
 #### Actions Widget
 
-![actions](./assets/galery/actions-widget.png)
+![actions](./assets/galery/actions.png)
 
 ### Enjoy ❤️
 
