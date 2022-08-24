@@ -256,8 +256,8 @@ That's all! Now enjoy with this configuration!
 |super + b|Open firefox|
 |super + {j,k}|Move Window Focus|
 |super + {h,l}|Resize the window|
-|super + shift + q|Quit DkWM|
-|super + shift + r|Restart DkWM|
+|super + shift + q|Quit Openbox|
+|super + shift + r|Restart Openbox|
 |super + w|Close window|
 |super + space|Toggle floating state|
 
