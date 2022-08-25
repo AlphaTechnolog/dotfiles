@@ -6,7 +6,7 @@ File Manager,thunar,/usr/share/icons/Papirus/32x32/apps/org.xfce.thunar.svg
 
 ^sep()
 
-Launch Terminal,st,/usr/share/icons/Papirus/32x32/apps/terminal.svg
+Launch Terminal,kitty --single-instance,/usr/share/icons/Papirus/32x32/apps/terminal.svg
 Favorites,^checkout(favorites),/usr/share/icons/Papirus/32x32/status/starred.svg
 
 ^sep()
@@ -15,7 +15,7 @@ Openbox,^checkout(wm),/usr/share/icons/Papirus/32x32/apps/gnome-windows.svg
 Exit,^checkout(exit),/usr/share/icons/Papirus/32x32/apps/system-shutdown.svg
 
 ^tag(favorites)
-Neovim,st -e nvim,nvim
+Neovim,kitty --single-instance -e nvim,nvim
 Code,code,/usr/share/icons/Papirus/32x32/apps/com.visualstudio.code.svg
 
 ^tag(wm)
