@@ -4,7 +4,7 @@ cache_file=$HOME/.cache/eww/services/redshift_state
 
 initial_hook () {
   if [ ! -d $(dirname $cache_file) ]; then
-    mkdir $(dirname $cache_file)
+    mkdir -p $(dirname $cache_file)
   fi
   if [ ! -f $cache_file ]; then
     echo off > $cache_file
