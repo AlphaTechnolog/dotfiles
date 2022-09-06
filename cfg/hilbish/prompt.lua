@@ -51,21 +51,29 @@ end
 
 -- trim strings
 local function trim(s)
-    local result = s:gsub("%s+", "")
+    local function sgsub(s, ...)
+        return s:gsub(...)
+    end
 
-    return string.gsub(result, "%s+", "")
+    local result = pcall(sgsub, s, "%s+", "")
+
+    if result then
+        return string.gsub(s, "%s+", "")
+    end
 end
 
 -- git integration
-local function dirty() -- thanks to TorchedSammy
+local function dirty(char) -- thanks to TorchedSammy
     local _, dirt = hilbish.run('git status --porcelain | wc -l', false)
     local ret = trim(dirt)
+
+    local modifiedchar = char or ''
 
     if ret == '' then
         return ''
     end
 
-    return tonumber(ret) > 0 and ' ' or ''
+    return tonumber(ret) > 0 and (' ' .. modifiedchar) or ''
 end
 
 local function get_branch_name() -- thanks to TorchedSammy
@@ -84,16 +92,6 @@ local function git_branch()
 end
 
 -- return the prompt format
-M.ghost_prompt = function (fail, _)
-    return M.get_icon_by_failure(fail, {
-        success = '{blue}',
-        failure = '{red}',
-    }, {
-        success = ' {blue}❯{cyan}❯',
-        failure = ' {red}❯{magenta}❯'
-    }) .. ' '
-end
-
 M.blocks_prompt = function (fail, _)
     local branch, show_branch = git_branch()
 
@@ -106,7 +104,7 @@ M.blocks_prompt = function (fail, _)
     }) .. '{reset}' .. (show_branch and '{cyanBg}{black}  ' .. branch .. dirty() .. ' {reset}{cyan}{blackBg}' or '') .. '{blackBg}{cyan}  %d {reset}{black} {yellow}{reset}{yellow} {reset}'
 end
 
-M.power_ghost_prompt = function (fail, _)
+M.ghost_prompt = function (fail, _)
     local branch, show_branch = git_branch()
 
     return M.get_icon_by_failure(fail, {
@@ -115,7 +113,24 @@ M.power_ghost_prompt = function (fail, _)
     }) .. '{reset} ' .. (show_branch and ' {cyan}' .. branch .. '{blue}' .. dirty() .. ' ' or '') .. '{reset}{black}| {reset}'
 end
 
--- change the style changing the name of the functin that `hilbish.prompt` calls
+M.power_ghost_prompt = function (fail, _)
+    local branch, show_branch = git_branch()
+
+    return M.get_icon_by_failure(fail, {
+        success = '{blue}',
+        failure = '{red}',
+    }) .. '  {cyan}%d ' .. (show_branch and '{magenta} ' .. branch .. '{green}' .. dirty('') .. ' ' or '') .. '{blue}❯{cyan}❯ {reset}'
+end
+
+function M.indicator_prompt (fail, _)
+    local branch, show_branch = git_branch()
+
+    return (fail and '{redBg}' or '{greenBg}')
+        .. ' {reset} {blue}%d{reset}'
+        .. (show_branch and ' {magenta}' .. branch .. '{blue}' .. dirty() .. ' ' or ' ')
+end
+
+-- change the style changing the name of the function that `hilbish.prompt` calls
 M.do_prompt = function (code)
    hilbish.prompt(lunacolors.format(M[rc.prompt.style .. '_prompt'](
       code ~= 0 and code ~= nil, -- checks if the command was executed successfully
