@@ -265,8 +265,7 @@ That's all! Now enjoy with this configuration!
 |--------------|-------------|
 |super + shift + return|Open rofi|
 |super + b|Open firefox|
-|super + {j,k}|Move Window Focus|
-|super + {h,l}|Resize the window|
+|alt + Tab|Move Window Focus|
 |super + shift + q|Quit Openbox|
 |super + shift + r|Restart Openbox|
 |super + w|Close window|
