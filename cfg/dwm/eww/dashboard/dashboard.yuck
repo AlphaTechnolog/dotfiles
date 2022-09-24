@@ -1,0 +1,160 @@
+(defwidget profile []
+  (box :class "profile"
+       :orientation "h"
+       :space-evenly false
+       :spacing 12
+    (box :class "firstcol"
+         :orientation "v"
+         :space-evenly true
+      (box :class "pfp"
+           :style "background-image: url('${pfp}');")
+    )
+    (box :class "lastcol"
+         :orientation "v"
+         :space-evenly false
+         :hexpand true
+      (box :class "info"
+           :orientation "v"
+           :spacing 2
+           :space-evenly false
+           :vexpand true
+           :valign "center"
+        (label :class "username" :text "Welcome ${username}" :halign "start")
+        (label :class "hostname" :text "@${hostname}" :halign "start")
+        (label :class "uptime" :text "- ${uptime}" :halign "start")
+      )
+    )
+  )
+)
+
+(defwidget music []
+  (box :class "music-box"
+       :orientation "h"
+       :spacing 20
+       :space-evenly false
+    (box :class "firstcol"
+         :orientation "v"
+         :space-evenly true
+         :halign "start"
+         :valign "center"
+      (box :class "picture"
+           :orientation "v"
+           :space-evenly true
+           :style "background-image: url('${music_art_url}');"
+        music_art
+      )
+    )
+    (box :class "lastcol"
+         :orientation "v"
+         :space-evenly false
+         :spacing 7
+         :vexpand true
+         :hexpand true
+      (box :class "content"
+           :valign "start"
+           :orientation "v"
+           :halign "center"
+           :space-evenly false
+        (label :text "${music_title}" :class "title")
+        (label :text "${music_artist}" :class "artist")
+      )
+      (box :class "music-controls"
+           :orientation "h"
+           :space-evenly true
+           :spacing 6
+           :halign "center"
+           :hexpand false
+        (button :onclick "~/.config/dwm/eww/scripts/music/control.sh prev" "玲")
+        (button :class "pause" :onclick "~/.config/dwm/eww/scripts/music/control.sh play-pause" "${music_status == 'Playing' ? '' : ''}")
+        (button :onclick "~/.config/dwm/eww/scripts/music/control.sh next" "怜")
+      )
+    )
+  )
+)
+
+(defwidget controls []
+  (box :class "controls"
+       :orientation "v"
+       :space-evenly false
+       :spacing 7
+       :hexpand true
+    (box :class "header"
+         :orientation "h"
+         :hexpand true
+         :halign "start"
+      (label :text "Controls")
+    )
+    (box :class "content"
+         :orientation "v"
+         :halign "center"
+         :space-evenly true
+         :spacing 12
+      (box :orientation "h"
+           :space-evenly "false"
+           :class "disk-slider"
+        (box :class "disk-label"
+          ""
+        )
+        (progress :value disk
+               :min 0
+               :max 101)
+      )
+      (box :orientation "h"
+           :space-evenly "false"
+           :class "vol-slider"
+        (box :class "vol-label"
+              volume_icon
+        )
+        (scale :value volume_value
+               :onchange "~/.config/dwm/eww/scripts/volume.sh set {}"
+               :min 0
+               :max 101)
+      )
+      (box :orientation "h"
+           :space-evenly "false"
+           :class "br-slider"
+        (box :class "br-label"
+              br_icon
+        )
+        (scale :value "${br}"
+               :onchange "light -S {}"
+               :min 0
+               :max 101)
+      )
+    )
+  )
+)
+
+(defwidget cal []
+  (box :class "cal-box"
+       :orientation "h"
+       :space-evenly true
+       :hexpand true
+    (calendar :class "cal"
+              :day calendar_day
+              :month calendar_month
+              :year calendar_year)
+  )
+)
+
+(defwidget dashboard []
+  (box :class "dashboard"
+       :orientation "v"
+       :space-evenly false
+       :spacing 12
+    (profile)
+    (music)
+    (controls)
+    (cal)
+  )
+)
+
+(defwindow dashboard
+  :geometry (geometry :x "6px"
+                      :y "45px"
+                      :width "320px"
+                      :height "0px"
+                      :anchor "top left")
+  :wm-ignore true
+  :type "dock"
+(dashboard))

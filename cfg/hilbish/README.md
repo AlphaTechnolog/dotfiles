@@ -65,7 +65,7 @@ local ansikit = require 'ansikit'
 return {
     prompt = {
         do_end_line = false, -- append an enter after command execution
-        style = 'ghost', -- `ghost`, `void`, `power_ghost` or `blocks`.
+        style = 'ghost', -- blocks or ghost
         vim_mode = {
             cursors_case = {
                 insert = ansikit.lineCursor,

@@ -1,0 +1,371 @@
+diff --git a/config.def.h b/config.def.h
+index a2ac963..322d181 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -5,6 +5,8 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const int showbar            = 1;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
++#define ICONSIZE 16   /* icon size */
++#define ICONSPACING 5 /* space between icon and title */
+ static const char *fonts[]          = { "monospace:size=10" };
+ static const char dmenufont[]       = "monospace:size=10";
+ static const char col_gray1[]       = "#222222";
+diff --git a/config.mk b/config.mk
+index b6eb7e0..f3c01b0 100644
+--- a/config.mk
++++ b/config.mk
+@@ -22,7 +22,7 @@ FREETYPEINC = /usr/include/freetype2
+ 
+ # includes and libs
+ INCS = -I${X11INC} -I${FREETYPEINC}
+-LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
++LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS} -lXrender -lImlib2
+ 
+ # flags
+ CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+diff --git a/drw.c b/drw.c
+index 4cdbcbe..9b474c5 100644
+--- a/drw.c
++++ b/drw.c
+@@ -4,6 +4,7 @@
+ #include <string.h>
+ #include <X11/Xlib.h>
+ #include <X11/Xft/Xft.h>
++#include <Imlib2.h>
+ 
+ #include "drw.h"
+ #include "util.h"
+@@ -71,6 +72,7 @@ drw_create(Display *dpy, int screen, Window root, unsigned int w, unsigned int h
+ 	drw->w = w;
+ 	drw->h = h;
+ 	drw->drawable = XCreatePixmap(dpy, root, w, h, DefaultDepth(dpy, screen));
++	drw->picture = XRenderCreatePicture(dpy, drw->drawable, XRenderFindVisualFormat(dpy, DefaultVisual(dpy, screen)), 0, NULL);
+ 	drw->gc = XCreateGC(dpy, root, 0, NULL);
+ 	XSetLineAttributes(dpy, drw->gc, 1, LineSolid, CapButt, JoinMiter);
+ 
+@@ -85,14 +87,18 @@ drw_resize(Drw *drw, unsigned int w, unsigned int h)
+ 
+ 	drw->w = w;
+ 	drw->h = h;
++	if (drw->picture)
++		XRenderFreePicture(drw->dpy, drw->picture);
+ 	if (drw->drawable)
+ 		XFreePixmap(drw->dpy, drw->drawable);
+ 	drw->drawable = XCreatePixmap(drw->dpy, drw->root, w, h, DefaultDepth(drw->dpy, drw->screen));
++	drw->picture = XRenderCreatePicture(drw->dpy, drw->drawable, XRenderFindVisualFormat(drw->dpy, DefaultVisual(drw->dpy, drw->screen)), 0, NULL);
+ }
+ 
+ void
+ drw_free(Drw *drw)
+ {
++	XRenderFreePicture(drw->dpy, drw->picture);
+ 	XFreePixmap(drw->dpy, drw->drawable);
+ 	XFreeGC(drw->dpy, drw->gc);
+ 	drw_fontset_free(drw->fonts);
+@@ -236,6 +242,67 @@ drw_setscheme(Drw *drw, Clr *scm)
+ 		drw->scheme = scm;
+ }
+ 
++Picture
++drw_picture_create_resized(Drw *drw, char *src, unsigned int srcw, unsigned int srch, unsigned int dstw, unsigned int dsth) {
++	Pixmap pm;
++	Picture pic;
++	GC gc;
++
++	if (srcw <= (dstw << 1u) && srch <= (dsth << 1u)) {
++		XImage img = {
++			srcw, srch, 0, ZPixmap, src,
++			ImageByteOrder(drw->dpy), BitmapUnit(drw->dpy), BitmapBitOrder(drw->dpy), 32,
++			32, 0, 32,
++			0, 0, 0
++		};
++		XInitImage(&img);
++
++		pm = XCreatePixmap(drw->dpy, drw->root, srcw, srch, 32);
++		gc = XCreateGC(drw->dpy, pm, 0, NULL);
++		XPutImage(drw->dpy, pm, gc, &img, 0, 0, 0, 0, srcw, srch);
++		XFreeGC(drw->dpy, gc);
++
++		pic = XRenderCreatePicture(drw->dpy, pm, XRenderFindStandardFormat(drw->dpy, PictStandardARGB32), 0, NULL);
++		XFreePixmap(drw->dpy, pm);
++
++		XRenderSetPictureFilter(drw->dpy, pic, FilterBilinear, NULL, 0);
++		XTransform xf;
++		xf.matrix[0][0] = (srcw << 16u) / dstw; xf.matrix[0][1] = 0; xf.matrix[0][2] = 0;
++		xf.matrix[1][0] = 0; xf.matrix[1][1] = (srch << 16u) / dsth; xf.matrix[1][2] = 0;
++		xf.matrix[2][0] = 0; xf.matrix[2][1] = 0; xf.matrix[2][2] = 65536;
++		XRenderSetPictureTransform(drw->dpy, pic, &xf);
++	} else {
++		Imlib_Image origin = imlib_create_image_using_data(srcw, srch, (DATA32 *)src);
++		if (!origin) return None;
++		imlib_context_set_image(origin);
++		imlib_image_set_has_alpha(1);
++		Imlib_Image scaled = imlib_create_cropped_scaled_image(0, 0, srcw, srch, dstw, dsth);
++		imlib_free_image_and_decache();
++		if (!scaled) return None;
++		imlib_context_set_image(scaled);
++		imlib_image_set_has_alpha(1);
++
++		XImage img = {
++		    dstw, dsth, 0, ZPixmap, (char *)imlib_image_get_data_for_reading_only(),
++		    ImageByteOrder(drw->dpy), BitmapUnit(drw->dpy), BitmapBitOrder(drw->dpy), 32,
++		    32, 0, 32,
++		    0, 0, 0
++		};
++		XInitImage(&img);
++
++		pm = XCreatePixmap(drw->dpy, drw->root, dstw, dsth, 32);
++		gc = XCreateGC(drw->dpy, pm, 0, NULL);
++		XPutImage(drw->dpy, pm, gc, &img, 0, 0, 0, 0, dstw, dsth);
++		imlib_free_image_and_decache();
++		XFreeGC(drw->dpy, gc);
++
++		pic = XRenderCreatePicture(drw->dpy, pm, XRenderFindStandardFormat(drw->dpy, PictStandardARGB32), 0, NULL);
++		XFreePixmap(drw->dpy, pm);
++	}
++
++	return pic;
++}
++
+ void
+ drw_rect(Drw *drw, int x, int y, unsigned int w, unsigned int h, int filled, int invert)
+ {
+@@ -379,6 +446,14 @@ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lp
+ 	return x + (render ? w : 0);
+ }
+ 
++void
++drw_pic(Drw *drw, int x, int y, unsigned int w, unsigned int h, Picture pic)
++{
++	if (!drw)
++		return;
++	XRenderComposite(drw->dpy, PictOpOver, pic, None, drw->picture, 0, 0, 0, 0, x, y, w, h);
++}
++
+ void
+ drw_map(Drw *drw, Window win, int x, int y, unsigned int w, unsigned int h)
+ {
+diff --git a/drw.h b/drw.h
+index 4bcd5ad..71aefa2 100644
+--- a/drw.h
++++ b/drw.h
+@@ -21,6 +21,7 @@ typedef struct {
+ 	int screen;
+ 	Window root;
+ 	Drawable drawable;
++	Picture picture;
+ 	GC gc;
+ 	Clr *scheme;
+ 	Fnt *fonts;
+@@ -49,9 +50,12 @@ void drw_cur_free(Drw *drw, Cur *cursor);
+ void drw_setfontset(Drw *drw, Fnt *set);
+ void drw_setscheme(Drw *drw, Clr *scm);
+ 
++Picture drw_picture_create_resized(Drw *drw, char *src, unsigned int src_w, unsigned int src_h, unsigned int dst_w, unsigned int dst_h);
++
+ /* Drawing functions */
+ void drw_rect(Drw *drw, int x, int y, unsigned int w, unsigned int h, int filled, int invert);
+ int drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lpad, const char *text, int invert);
++void drw_pic(Drw *drw, int x, int y, unsigned int w, unsigned int h, Picture pic);
+ 
+ /* Map functions */
+ void drw_map(Drw *drw, Window win, int x, int y, unsigned int w, unsigned int h);
+diff --git a/dwm.c b/dwm.c
+index a96f33c..033ccec 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -28,6 +28,8 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
++#include <limits.h>
++#include <stdint.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
+ #include <X11/cursorfont.h>
+@@ -60,7 +62,7 @@
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+ enum { SchemeNorm, SchemeSel }; /* color schemes */
+-enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
++enum { NetSupported, NetWMName, NetWMIcon, NetWMState, NetWMCheck,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
+ enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
+@@ -93,6 +95,7 @@ struct Client {
+ 	int bw, oldbw;
+ 	unsigned int tags;
+ 	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
++	unsigned int icw, ich; Picture icon;
+ 	Client *next;
+ 	Client *snext;
+ 	Monitor *mon;
+@@ -170,6 +173,7 @@ static void focusin(XEvent *e);
+ static void focusmon(const Arg *arg);
+ static void focusstack(const Arg *arg);
+ static Atom getatomprop(Client *c, Atom prop);
++static Picture geticonprop(Window w, unsigned int *icw, unsigned int *ich);
+ static int getrootptr(int *x, int *y);
+ static long getstate(Window w);
+ static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
+@@ -214,6 +218,7 @@ static void togglebar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
+ static void toggletag(const Arg *arg);
+ static void toggleview(const Arg *arg);
++static void freeicon(Client *c);
+ static void unfocus(Client *c, int setfocus);
+ static void unmanage(Client *c, int destroyed);
+ static void unmapnotify(XEvent *e);
+@@ -225,6 +230,7 @@ static void updatenumlockmask(void);
+ static void updatesizehints(Client *c);
+ static void updatestatus(void);
+ static void updatetitle(Client *c);
++static void updateicon(Client *c);
+ static void updatewindowtype(Client *c);
+ static void updatewmhints(Client *c);
+ static void view(const Arg *arg);
+@@ -735,7 +741,8 @@ drawbar(Monitor *m)
+ 	if ((w = m->ww - tw - x) > bh) {
+ 		if (m->sel) {
+ 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
+-			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
++			drw_text(drw, x, 0, w, bh, lrpad / 2 + (m->sel->icon ? m->sel->icw + ICONSPACING : 0), m->sel->name, 0);
++			if (m->sel->icon) drw_pic(drw, x + lrpad / 2, (bh - m->sel->ich) / 2, m->sel->icw, m->sel->ich, m->sel->icon);
+ 			if (m->sel->isfloating)
+ 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+ 		} else {
+@@ -875,6 +882,67 @@ getatomprop(Client *c, Atom prop)
+ 	return atom;
+ }
+ 
++static uint32_t prealpha(uint32_t p) {
++	uint8_t a = p >> 24u;
++	uint32_t rb = (a * (p & 0xFF00FFu)) >> 8u;
++	uint32_t g = (a * (p & 0x00FF00u)) >> 8u;
++	return (rb & 0xFF00FFu) | (g & 0x00FF00u) | (a << 24u);
++}
++
++Picture
++geticonprop(Window win, unsigned int *picw, unsigned int *pich)
++{
++	int format;
++	unsigned long n, extra, *p = NULL;
++	Atom real;
++
++	if (XGetWindowProperty(dpy, win, netatom[NetWMIcon], 0L, LONG_MAX, False, AnyPropertyType, 
++						   &real, &format, &n, &extra, (unsigned char **)&p) != Success)
++		return None; 
++	if (n == 0 || format != 32) { XFree(p); return None; }
++
++	unsigned long *bstp = NULL;
++	uint32_t w, h, sz;
++	{
++		unsigned long *i; const unsigned long *end = p + n;
++		uint32_t bstd = UINT32_MAX, d, m;
++		for (i = p; i < end - 1; i += sz) {
++			if ((w = *i++) >= 16384 || (h = *i++) >= 16384) { XFree(p); return None; }
++			if ((sz = w * h) > end - i) break;
++			if ((m = w > h ? w : h) >= ICONSIZE && (d = m - ICONSIZE) < bstd) { bstd = d; bstp = i; }
++		}
++		if (!bstp) {
++			for (i = p; i < end - 1; i += sz) {
++				if ((w = *i++) >= 16384 || (h = *i++) >= 16384) { XFree(p); return None; }
++				if ((sz = w * h) > end - i) break;
++				if ((d = ICONSIZE - (w > h ? w : h)) < bstd) { bstd = d; bstp = i; }
++			}
++		}
++		if (!bstp) { XFree(p); return None; }
++	}
++
++	if ((w = *(bstp - 2)) == 0 || (h = *(bstp - 1)) == 0) { XFree(p); return None; }
++
++	uint32_t icw, ich;
++	if (w <= h) {
++		ich = ICONSIZE; icw = w * ICONSIZE / h;
++		if (icw == 0) icw = 1;
++	}
++	else {
++		icw = ICONSIZE; ich = h * ICONSIZE / w;
++		if (ich == 0) ich = 1;
++	}
++	*picw = icw; *pich = ich;
++
++	uint32_t i, *bstp32 = (uint32_t *)bstp;
++	for (sz = w * h, i = 0; i < sz; ++i) bstp32[i] = prealpha(bstp[i]);
++
++	Picture ret = drw_picture_create_resized(drw, (char *)bstp, w, h, icw, ich);
++	XFree(p);
++
++	return ret;
++}
++
+ int
+ getrootptr(int *x, int *y)
+ {
+@@ -1034,6 +1102,7 @@ manage(Window w, XWindowAttributes *wa)
+ 	c->h = c->oldh = wa->height;
+ 	c->oldbw = wa->border_width;
+ 
++	updateicon(c);
+ 	updatetitle(c);
+ 	if (XGetTransientForHint(dpy, w, &trans) && (t = wintoclient(trans))) {
+ 		c->mon = t->mon;
+@@ -1244,6 +1313,11 @@ propertynotify(XEvent *e)
+ 			if (c == c->mon->sel)
+ 				drawbar(c->mon);
+ 		}
++		else if (ev->atom == netatom[NetWMIcon]) {
++			updateicon(c);
++			if (c == c->mon->sel)
++				drawbar(c->mon);
++		}
+ 		if (ev->atom == netatom[NetWMWindowType])
+ 			updatewindowtype(c);
+ 	}
+@@ -1560,6 +1634,7 @@ setup(void)
+ 	netatom[NetActiveWindow] = XInternAtom(dpy, "_NET_ACTIVE_WINDOW", False);
+ 	netatom[NetSupported] = XInternAtom(dpy, "_NET_SUPPORTED", False);
+ 	netatom[NetWMName] = XInternAtom(dpy, "_NET_WM_NAME", False);
++	netatom[NetWMIcon] = XInternAtom(dpy, "_NET_WM_ICON", False);
+ 	netatom[NetWMState] = XInternAtom(dpy, "_NET_WM_STATE", False);
+ 	netatom[NetWMCheck] = XInternAtom(dpy, "_NET_SUPPORTING_WM_CHECK", False);
+ 	netatom[NetWMFullscreen] = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN", False);
+@@ -1752,6 +1827,15 @@ toggleview(const Arg *arg)
+ 	}
+ }
+ 
++void
++freeicon(Client *c)
++{
++	if (c->icon) {
++		XRenderFreePicture(dpy, c->icon);
++		c->icon = None;
++	}
++}
++
+ void
+ unfocus(Client *c, int setfocus)
+ {
+@@ -1773,6 +1857,7 @@ unmanage(Client *c, int destroyed)
+ 
+ 	detach(c);
+ 	detachstack(c);
++	freeicon(c);
+ 	if (!destroyed) {
+ 		wc.border_width = c->oldbw;
+ 		XGrabServer(dpy); /* avoid race conditions */
+@@ -2007,6 +2092,13 @@ updatetitle(Client *c)
+ 		strcpy(c->name, broken);
+ }
+ 
++void
++updateicon(Client *c)
++{
++	freeicon(c);
++	c->icon = geticonprop(c->win, &c->icw, &c->ich);
++}
++
+ void
+ updatewindowtype(Client *c)
+ {

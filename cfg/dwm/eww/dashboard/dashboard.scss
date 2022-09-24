@@ -1,0 +1,207 @@
+.dashboard {
+  background-color: $bg;
+  color: $fg;
+  padding: 12px;
+}
+
+.profile {
+  background-color: $bgSecondary;
+  border-radius: 7px;
+  padding: 12px;
+  .firstcol {
+    .pfp {
+      min-height: 60px;
+      min-width: 64px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 50px;
+    }
+  }
+  .lastcol {
+    font-family: Product Sans;
+    .username {
+      font-size: 22px;
+      font-weight: bolder;
+    }
+    .uptime, .hostname {
+      font-size: 14px;
+    }
+    .hostname {
+      color: $blue;
+    }
+    .uptime {
+      color: $lightblack;
+    }
+  }
+}
+
+.music-box {
+  background-color: $bgSecondary;
+  padding: 12px;
+  border-radius: 7px;
+  .firstcol {
+    .picture {
+      min-height: 64px;
+      min-width: 64px;
+      border-radius: 12px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  .lastcol {
+    font-family: Product Sans;
+    font-size: 14px;
+    .title {
+      font-size: 16px;
+      font-weight: bolder;
+    }
+    .artist {
+      color: $lightblack;
+    }
+    .music-controls {
+      font-family: Iosevka NF;
+      font-size: 18px;
+      button {
+        padding: 0px 9px;
+        border-radius: 7px;
+        transition: all ease .2s;
+        &:hover { background-color: $black; }
+        &:active { background-color: $bg; }
+      }
+      .pause {
+        font-size: 26px;
+      }
+    }
+  }
+}
+
+.controls {
+  background-color: $bgSecondary;
+  border-radius: 7px;
+  padding: 9px;
+  .header {
+    font-family: Product Sans;
+    color: $lightblack;
+    font-size: 14px;
+  }
+  .content {
+    .disk-slider {
+      .disk-label {
+        font-size: 20px;
+        font-family: Iosevka Nerd Font;
+        margin-right: 15px;
+        color: $fg;
+      }
+      & progressbar trough {
+        all: unset;
+        border-radius: 10px;
+        background-color: $black;
+        border: none;
+        margin-bottom: 10px;
+        min-height: 7px;
+        min-width: 200px;
+        margin-left: 3px;
+        & progress {
+          all: unset;
+          min-height: 7px;
+          background-color: $red;
+          color: #000000;
+          border-radius: 10px;
+        }
+      }
+    }
+    .vol-slider {
+      .vol-label {
+        font-size: 20px;
+        font-family: Iosevka Nerd Font;
+        margin-right: 15px;
+        color: $fg;
+      }
+      & scale trough {
+        all: unset;
+        border-radius: 10px;
+        background-color: $black;
+        border: none;
+        min-height: 7px;
+        min-width: 200px;
+        margin-left: 3px;
+        & highlight {
+          all: unset;
+          background-color: $blue;
+          color: #000000;
+          border-radius: 10px;
+        }
+      }
+    }
+    .br-slider {
+      .br-label {
+        font-size: 20px;
+        font-family: Iosevka Nerd Font;
+        margin-right: 15px;
+        color: $fg;
+      }
+      & scale trough {
+        all: unset;
+        border-radius: 10px;
+        background-color: $black;
+        border: none;
+        min-height: 7px;
+        min-width: 200px;
+        margin-left: 3px;
+        & highlight {
+          all: unset;
+          background-color: $yellow;
+          color: #000000;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}
+
+.cal-box {
+  font-family: Product Sans;
+  background-color: $bgSecondary;
+  border-radius: 4px;
+  padding: 0px 1rem .2rem;
+  color: $fg;
+  background-color: $bgSecondary;
+
+  .cal {
+    background-color: inherit;
+    padding: .7rem .10rem 0rem;
+    margin-left: 10px;
+
+    & > * {
+      border: solid 0px transparent;
+    }
+    
+    &.highlight {
+      padding: 10rem;
+    }
+  }
+}
+
+calendar:selected {
+  color: $cyan;
+}
+
+calendar.header {
+  color: $cyan;
+  font-weight: bold;
+}
+
+calendar.button {
+  color: $cyan;
+}
+
+calendar.highlight {
+  color: $green;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: $lightblack;
+}

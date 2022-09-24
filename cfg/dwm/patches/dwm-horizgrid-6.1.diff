@@ -1,0 +1,70 @@
+From 064e1d48631cd9b03f32b42d7be79677197ee42f Mon Sep 17 00:00:00 2001
+From: Marshall Mason <marshallmason3@gmail.com>
+Date: Mon, 9 Nov 2015 12:38:28 -0800
+Subject: [PATCH] Added horizgrid function
+
+---
+ config.def.h |  2 ++
+ horizgrid.c  | 32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 34 insertions(+)
+ create mode 100644 horizgrid.c
+
+diff --git a/config.def.h b/config.def.h
+index eaae8f3..c2ad519 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -36,11 +36,13 @@ static const float mfact      = 0.55; /* factor of master area size [0.05..0.95]
+ static const int nmaster      = 1;    /* number of clients in master area */
+ static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+ 
++#include "horizgrid.c"
+ static const Layout layouts[] = {
+ 	/* symbol     arrange function */
+ 	{ "[]=",      tile },    /* first entry is default */
+ 	{ "><>",      NULL },    /* no layout function means floating behavior */
+ 	{ "[M]",      monocle },
++	{ "###",      horizgrid },
+ };
+ 
+ /* key definitions */
+diff --git a/horizgrid.c b/horizgrid.c
+new file mode 100644
+index 0000000..51ce0f8
+--- /dev/null
++++ b/horizgrid.c
+@@ -0,0 +1,32 @@
++void
++horizgrid(Monitor *m) {
++	Client *c;
++	unsigned int n, i;
++	int w = 0;
++	int ntop, nbottom = 0;
++
++	/* Count windows */
++	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
++
++	if(n == 0)
++		return;
++	else if(n == 1) { /* Just fill the whole screen */
++		c = nexttiled(m->clients);
++		resize(c, m->wx, m->wy, m->ww - (2*c->bw), m->wh - (2*c->bw), False);
++	} else if(n == 2) { /* Split vertically */
++		w = m->ww / 2;
++		c = nexttiled(m->clients);
++		resize(c, m->wx, m->wy, w - (2*c->bw), m->wh - (2*c->bw), False);
++		c = nexttiled(c->next);
++		resize(c, m->wx + w, m->wy, w - (2*c->bw), m->wh - (2*c->bw), False);
++	} else {
++		ntop = n / 2;
++		nbottom = n - ntop;
++		for(i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
++			if(i < ntop)
++				resize(c, m->wx + i * m->ww / ntop, m->wy, m->ww / ntop - (2*c->bw), m->wh / 2 - (2*c->bw), False);
++			else
++				resize(c, m->wx + (i - ntop) * m->ww / nbottom, m->wy + m->wh / 2, m->ww / nbottom - (2*c->bw), m->wh / 2 - (2*c->bw), False);
++		}
++	}
++}
+-- 
+2.1.4
+

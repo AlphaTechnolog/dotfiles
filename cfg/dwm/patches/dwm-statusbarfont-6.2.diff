@@ -1,0 +1,145 @@
+diff -up dwm-6.2/config.def.h dwm-patched/config.def.h
+--- dwm-6.2/config.def.h	2019-02-02 13:55:28.000000000 +0100
++++ dwm-patched/config.def.h	2021-11-01 07:14:26.678879225 +0100
+@@ -5,7 +5,10 @@ static const unsigned int borderpx  = 1;
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const int showbar            = 1;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
+-static const char *fonts[]          = { "monospace:size=10" };
++static const char *fonts[]          = { "monospace:size=10",
++		"Symbola:size=10:antialias=true:autohint=truAe",
++		"Monospace:size=8:antialias=true:autohint=true"};
++static const int statusfontindex =2; //Select font of font list to use for statusbar
+ static const char dmenufont[]       = "monospace:size=10";
+ static const char col_gray1[]       = "#222222";
+ static const char col_gray2[]       = "#444444";
+Only in dwm-patched/: config.h
+diff -up dwm-6.2/drw.c dwm-patched/drw.c
+--- dwm-6.2/drw.c	2019-02-02 13:55:28.000000000 +0100
++++ dwm-patched/drw.c	2021-11-01 07:28:35.088863193 +0100
+@@ -248,7 +248,7 @@ drw_rect(Drw *drw, int x, int y, unsigne
+ }
+ 
+ int
+-drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lpad, const char *text, int invert)
++drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lpad, const char *text, int invert, const int fontindex)
+ {
+ 	char buf[1024];
+ 	int ty;
+@@ -287,6 +287,8 @@ drw_text(Drw *drw, int x, int y, unsigne
+ 		nextfont = NULL;
+ 		while (*text) {
+ 			utf8charlen = utf8decode(text, &utf8codepoint, UTF_SIZ);
++			curfont = drw->fonts; 
++			for (int i=0;i<fontindex;i++){ curfont = curfont->next ;}
+ 			for (curfont = drw->fonts; curfont; curfont = curfont->next) {
+ 				charexists = charexists || XftCharExists(drw->dpy, curfont->xfont, utf8codepoint);
+ 				if (charexists) {
+@@ -389,11 +391,11 @@ drw_map(Drw *drw, Window win, int x, int
+ }
+ 
+ unsigned int
+-drw_fontset_getwidth(Drw *drw, const char *text)
++drw_fontset_getwidth(Drw *drw, const char *text ,int fontindex)
+ {
+ 	if (!drw || !drw->fonts || !text)
+ 		return 0;
+-	return drw_text(drw, 0, 0, 0, 0, 0, text, 0);
++	return drw_text(drw, 0, 0, 0, 0, 0, text, 0,fontindex);
+ }
+ 
+ void
+diff -up dwm-6.2/drw.h dwm-patched/drw.h
+--- dwm-6.2/drw.h	2019-02-02 13:55:28.000000000 +0100
++++ dwm-patched/drw.h	2021-11-01 07:35:14.478855688 +0100
+@@ -34,7 +34,7 @@ void drw_free(Drw *drw);
+ /* Fnt abstraction */
+ Fnt *drw_fontset_create(Drw* drw, const char *fonts[], size_t fontcount);
+ void drw_fontset_free(Fnt* set);
+-unsigned int drw_fontset_getwidth(Drw *drw, const char *text);
++unsigned int drw_fontset_getwidth(Drw *drw, const char *text, int fontindex);
+ void drw_font_getexts(Fnt *font, const char *text, unsigned int len, unsigned int *w, unsigned int *h);
+ 
+ /* Colorscheme abstraction */
+@@ -51,7 +51,7 @@ void drw_setscheme(Drw *drw, Clr *scm);
+ 
+ /* Drawing functions */
+ void drw_rect(Drw *drw, int x, int y, unsigned int w, unsigned int h, int filled, int invert);
+-int drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lpad, const char *text, int invert);
++int drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lpad, const char *text, int invert, const int fontindex);
+ 
+ /* Map functions */
+ void drw_map(Drw *drw, Window win, int x, int y, unsigned int w, unsigned int h);
+Only in dwm-patched/: drw.o
+Only in dwm-patched/: dwm
+diff -up dwm-6.2/dwm.c dwm-patched/dwm.c
+--- dwm-6.2/dwm.c	2019-02-02 13:55:28.000000000 +0100
++++ dwm-patched/dwm.c	2021-11-01 07:37:57.572185949 +0100
+@@ -55,7 +55,7 @@
+ #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
+ #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
+ #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
+-#define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
++#define TEXTW(X,F)                (drw_fontset_getwidth(drw, (X),(F)) + lrpad)
+ 
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+@@ -432,14 +432,14 @@ buttonpress(XEvent *e)
+ 	if (ev->window == selmon->barwin) {
+ 		i = x = 0;
+ 		do
+-			x += TEXTW(tags[i]);
++			x += TEXTW(tags[i],0);
+ 		while (ev->x >= x && ++i < LENGTH(tags));
+ 		if (i < LENGTH(tags)) {
+ 			click = ClkTagBar;
+ 			arg.ui = 1 << i;
+ 		} else if (ev->x < x + blw)
+ 			click = ClkLtSymbol;
+-		else if (ev->x > selmon->ww - TEXTW(stext))
++		else if (ev->x > selmon->ww - TEXTW(stext,statusfontindex))
+ 			click = ClkStatusText;
+ 		else
+ 			click = ClkWinTitle;
+@@ -704,8 +704,8 @@ drawbar(Monitor *m)
+ 	/* draw status first so it can be overdrawn by tags later */
+ 	if (m == selmon) { /* status is only drawn on selected monitor */
+ 		drw_setscheme(drw, scheme[SchemeNorm]);
+-		sw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
+-		drw_text(drw, m->ww - sw, 0, sw, bh, 0, stext, 0);
++		sw = TEXTW(stext,statusfontindex) - lrpad + 2; /* 2px right padding */
++		drw_text(drw, m->ww - sw, 0, sw, bh, 0, stext, 0,statusfontindex);
+ 	}
+ 
+ 	for (c = m->clients; c; c = c->next) {
+@@ -715,23 +715,23 @@ drawbar(Monitor *m)
+ 	}
+ 	x = 0;
+ 	for (i = 0; i < LENGTH(tags); i++) {
+-		w = TEXTW(tags[i]);
++		w = TEXTW(tags[i],0);
+ 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
+-		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
++		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i,0);
+ 		if (occ & 1 << i)
+ 			drw_rect(drw, x + boxs, boxs, boxw, boxw,
+ 				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
+ 				urg & 1 << i);
+ 		x += w;
+ 	}
+-	w = blw = TEXTW(m->ltsymbol);
++	w = blw = TEXTW(m->ltsymbol,0);
+ 	drw_setscheme(drw, scheme[SchemeNorm]);
+-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
++	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0,0);
+ 
+ 	if ((w = m->ww - sw - x) > bh) {
+ 		if (m->sel) {
+ 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
+-			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
++			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0,0);
+ 			if (m->sel->isfloating)
+ 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+ 		} else {
+Only in dwm-patched/: dwm.o
+Only in dwm-patched/: util.o

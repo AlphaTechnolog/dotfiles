@@ -1,0 +1,1 @@
+/home/gabriel/.config/dwm/scripts/themes/decayce.sh

@@ -1,0 +1,55 @@
+From a9e442ec18683e2255ffef74404c283bbb0b6381 Mon Sep 17 00:00:00 2001
+From: aleks <aleks.stier@icloud.com>
+Date: Thu, 23 May 2019 23:27:59 +0200
+Subject: [PATCH] Make deck-patch work with the tilegap-patch
+
+Apply this patch on top of the deck-patch to make it work with the
+tilegap-patch.
+---
+ dwm.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/dwm.c b/dwm.c
+index 5b68242..1c17891 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -656,7 +656,7 @@ createmon(void)
+ 
+ void
+ deck(Monitor *m) {
+-	unsigned int i, n, h, mw, my;
++	unsigned int i, n, h, mw, my, ns;
+ 	Client *c;
+ 
+ 	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+@@ -665,18 +665,20 @@ deck(Monitor *m) {
+ 
+ 	if(n > m->nmaster) {
+ 		mw = m->nmaster ? m->ww * m->mfact : 0;
++		ns = m->nmaster > 0 ? 2 : 1;
+ 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n - m->nmaster);
+-	}
+-	else
++	} else {
+ 		mw = m->ww;
+-	for(i = my = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
++		ns = 1;
++	}
++	for(i = 0, my = gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+ 		if(i < m->nmaster) {
+-			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+-			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), False);
+-			my += HEIGHT(c);
++			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappx;
++			resize(c, m->wx + gappx, m->wy + my, mw - (2*c->bw) - gappx*(5-ns)/2, h - (2*c->bw), False);
++			my += HEIGHT(c) + gappx;
+ 		}
+ 		else
+-			resize(c, m->wx + mw, m->wy, m->ww - mw - (2*c->bw), m->wh - (2*c->bw), False);
++			resize(c, m->wx + mw + gappx/ns, m->wy + gappx, m->ww - mw - (2*c->bw) - gappx*(5-ns)/2, m->wh - (2*c->bw) - 2*gappx, False);
+ }
+ 
+ void
+-- 
+2.21.0
+
