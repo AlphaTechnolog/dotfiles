@@ -57,9 +57,13 @@ function playerctl:disable()
 
     -- Reset timers
     self._private.manager = nil
-    self._private.metadata_timer:stop()
+    if self._private.metadata_timer then
+        self._private.metadata_timer:stop()
+    end
     self._private.metadata_timer = nil
-    self._private.position_timer:stop()
+    if self._private.position_timer then
+        self._private.position_timer:stop()
+    end
     self._private.position_timer = nil
 
     -- Reset default values

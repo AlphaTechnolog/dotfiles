@@ -8,5 +8,6 @@ function exe () {
 }
 
 exe picom --config=./picom/picom.conf -b
-exe nm-applet
-exe volumeicon
+exe $HOME/.config/awesome/scripts/redshift.sh restore
+
+xrdb merge $HOME/.Xresources

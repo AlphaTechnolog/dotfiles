@@ -27,6 +27,15 @@ local function set_keybindings ()
                   {description = "go back", group = "tag"}),
     })
 
+    -- center a floating window
+    awful.keyboard.append_global_keybindings({
+        awful.key({modkey}, "Down", function ()
+            awful.placement.centered(client.focus, {
+                honor_workarea = true
+            })
+        end, { description = 'Center a floating window', group = 'client' })
+    })
+
     -- Focus related keybindings
     awful.keyboard.append_global_keybindings({
         awful.key({ modkey,           }, "j",
@@ -172,7 +181,7 @@ local function set_keybindings ()
                 {description = "toggle fullscreen", group = "client"}),
             awful.key({ modkey   }, "w",      function (c) c:kill()                         end,
                     {description = "close", group = "client"}),
-            awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+            awful.key({ modkey }, "space",  awful.client.floating.toggle                     ,
                     {description = "toggle floating", group = "client"}),
             awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
                     {description = "move to master", group = "client"}),

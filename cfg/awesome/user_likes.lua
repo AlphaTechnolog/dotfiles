@@ -1,6 +1,7 @@
 local menubar = require "menubar"
 
-terminal = "kitty"
+terminal = "st"
+explorer = "thunar"
 browser = "firefox"
 launcher = "rofi -show drun"
 editor = os.getenv("EDITOR") or "vim"

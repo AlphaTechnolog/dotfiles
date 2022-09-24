@@ -11,19 +11,20 @@ configuration {
 
 window {    
     transparency:                   "real";
-    font: "Product Sans 11";
+    font: "RobotoMono Nerd Font 9";
 	width:						    36%;
 }
 
 textbox {
   str: "";
   expand: false;
-  padding: 0 8px 0px 4px;
-  margin: 0px -2px 0px 0px;
+  padding: 0 12px 0px 8px;
+  border-radius: 12px;
+  margin: 0px 0px 0px 0px;
   horizontal-align: 0.5;
   vertical-align: 0.5;
-  text-color: @foreground;
-  background-color: @background-alt;
+  text-color: @background;
+  background-color: @accent;
   font: "Iosevka Nerd Font 15";
 }
 
@@ -41,7 +42,7 @@ inputbar {
   text-color:                     @foreground;
   expand:                         false;
   margin:                         10px;
-  padding:                        1%;
+  padding:                        0%;
   border-radius: 12px;
 }
 

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local gears = require 'gears'
 local awful = require 'awful'
 

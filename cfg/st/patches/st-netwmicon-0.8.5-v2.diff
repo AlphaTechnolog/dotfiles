@@ -1,0 +1,128 @@
+From 8b0128e8b295fc97bfa3bc5fb4b5e64856d4e3cb Mon Sep 17 00:00:00 2001
+From: Aleksandrs Stier <aleks.stier@icloud.com>
+Date: Sat, 4 Jun 2022 01:24:07 +0200
+Subject: [PATCH] Set _NET_WM_ICON with a png-image
+
+---
+ Makefile  |  3 +++
+ config.mk |  6 ++++--
+ st.h      |  2 ++
+ x.c       | 37 ++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 45 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 470ac86..96e27e3 100644
+--- a/Makefile
++++ b/Makefile
+@@ -49,9 +49,12 @@ install: st
+ 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/st.1
+ 	tic -sx st.info
+ 	@echo Please see the README file regarding the terminfo entry of st.
++	mkdir -p $(DESTDIR)$(ICONPREFIX)
++	[ -f $(ICONNAME) ] && cp -f $(ICONNAME) $(DESTDIR)$(ICONPREFIX) || :
+ 
+ uninstall:
+ 	rm -f $(DESTDIR)$(PREFIX)/bin/st
+ 	rm -f $(DESTDIR)$(MANPREFIX)/man1/st.1
++	rm -f $(DESTDIR)$(ICONPREFIX)/$(ICONNAME)
+ 
+ .PHONY: all options clean dist install uninstall
+diff --git a/config.mk b/config.mk
+index 4c4c5d5..f8fc780 100644
+--- a/config.mk
++++ b/config.mk
+@@ -6,6 +6,8 @@ VERSION = 0.8.5
+ # paths
+ PREFIX = /usr/local
+ MANPREFIX = $(PREFIX)/share/man
++ICONPREFIX = $(PREFIX)/share/pixmaps
++ICONNAME = st.png
+ 
+ X11INC = /usr/X11R6/include
+ X11LIB = /usr/X11R6/lib
+@@ -16,12 +18,12 @@ PKG_CONFIG = pkg-config
+ INCS = -I$(X11INC) \
+        `$(PKG_CONFIG) --cflags fontconfig` \
+        `$(PKG_CONFIG) --cflags freetype2`
+-LIBS = -L$(X11LIB) -lm -lrt -lX11 -lutil -lXft \
++LIBS = -L$(X11LIB) -lm -lrt -lX11 -lutil -lXft -lgd \
+        `$(PKG_CONFIG) --libs fontconfig` \
+        `$(PKG_CONFIG) --libs freetype2`
+ 
+ # flags
+-STCPPFLAGS = -DVERSION=\"$(VERSION)\" -D_XOPEN_SOURCE=600
++STCPPFLAGS = -DVERSION=\"$(VERSION)\" -DICON=\"$(ICONPREFIX)/$(ICONNAME)\" -D_XOPEN_SOURCE=600
+ STCFLAGS = $(INCS) $(STCPPFLAGS) $(CPPFLAGS) $(CFLAGS)
+ STLDFLAGS = $(LIBS) $(LDFLAGS)
+ 
+diff --git a/st.h b/st.h
+index 519b9bd..c10af86 100644
+--- a/st.h
++++ b/st.h
+@@ -3,6 +3,8 @@
+ #include <stdint.h>
+ #include <sys/types.h>
+ 
++#include <gd.h>
++
+ /* macros */
+ #define MIN(a, b)		((a) < (b) ? (a) : (b))
+ #define MAX(a, b)		((a) < (b) ? (b) : (a))
+diff --git a/x.c b/x.c
+index 8a16faa..169e833 100644
+--- a/x.c
++++ b/x.c
+@@ -93,7 +93,7 @@ typedef struct {
+ 	Window win;
+ 	Drawable buf;
+ 	GlyphFontSpec *specbuf; /* font spec buffer used for rendering */
+-	Atom xembed, wmdeletewin, netwmname, netwmiconname, netwmpid;
++	Atom xembed, wmdeletewin, netwmname, netwmicon, netwmiconname, netwmpid;
+ 	struct {
+ 		XIM xim;
+ 		XIC xic;
+@@ -1204,6 +1204,41 @@ xinit(int cols, int rows)
+ 	xw.netwmiconname = XInternAtom(xw.dpy, "_NET_WM_ICON_NAME", False);
+ 	XSetWMProtocols(xw.dpy, xw.win, &xw.wmdeletewin, 1);
+ 
++	/* use a png-image to set _NET_WM_ICON */
++	FILE* file = fopen(ICON, "r");
++	if (file) {
++		/* load image in rgba-format */
++		const gdImagePtr icon_rgba = gdImageCreateFromPng(file);
++		fclose(file);
++		/* declare icon-variable which will store the image in argb-format */
++		const int width  = gdImageSX(icon_rgba);
++		const int height = gdImageSY(icon_rgba);
++		const int icon_n = width * height + 2;
++		long icon_argb[icon_n];
++		/* set width and height of the icon */
++		int i = 0;
++		icon_argb[i++] = width;
++		icon_argb[i++] = height;
++		/* rgba -> argb */
++		for (int y = 0; y < height; y++) {
++			for (int x = 0; x < width; x++) {
++				const int pixel_rgba = gdImageGetPixel(icon_rgba, x, y);
++				unsigned char *pixel_argb = (unsigned char *) &icon_argb[i++];
++				pixel_argb[0] = gdImageBlue(icon_rgba, pixel_rgba);
++				pixel_argb[1] = gdImageGreen(icon_rgba, pixel_rgba);
++				pixel_argb[2] = gdImageRed(icon_rgba, pixel_rgba);
++				/* scale alpha from 0-127 to 0-255 */
++				const unsigned char alpha = 127 - gdImageAlpha(icon_rgba, pixel_rgba);
++				pixel_argb[3] = alpha == 127 ? 255 : alpha * 2;
++			}
++		}
++		gdImageDestroy(icon_rgba);
++		/* set _NET_WM_ICON */
++		xw.netwmicon = XInternAtom(xw.dpy, "_NET_WM_ICON", False);
++		XChangeProperty(xw.dpy, xw.win, xw.netwmicon, XA_CARDINAL, 32,
++				PropModeReplace, (uchar *) icon_argb, icon_n);
++	}
++
+ 	xw.netwmpid = XInternAtom(xw.dpy, "_NET_WM_PID", False);
+ 	XChangeProperty(xw.dpy, xw.win, xw.netwmpid, XA_CARDINAL, 32,
+ 			PropModeReplace, (uchar *)&thispid, 1);
+-- 
+2.36.1
+

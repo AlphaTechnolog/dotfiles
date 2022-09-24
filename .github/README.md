@@ -22,11 +22,9 @@
 <br>
 
 ## Hi there! Thanks for dropping by! :blue_heart:
-<b>  AlphaTechnolog's WIP AwesomeWM Rice  </b>
+<b>  AlphaTechnolog's AwesomeWM Rice  </b>
 
 Welcome! This is the repository for my awesomewm rice using [decay](https://github.com/decaycs) (decayce variant)
-
-> WIP cuz notifications aren't configured yet (btw WIP = Work In Progress)
 
 ## ‎ <samp>Notice! ⚠️</samp>
 
@@ -44,7 +42,7 @@ Here are some details about my setup:
 
 - **OS:** [Void Linux](https://voidlinux.org)
 - **WM:** [AwesomeWM](https://github.com/awesomeWM/awesome)
-- **Terminal:** [kitty](https://github.com/kovidgoyal/kitty)
+- **Terminal:** st (Configuration/Build included in `cfg`)
 - **Shell:** [hilbish](https://github.com/Rosettea/Hilbish)
 - **Editor:** [neovim](https://github.com/neovim/neovim)
 - **NeovimConfig**: [nvcodark](https://github.com/AlphaTechnolog/nvcodark) (I'm using the remake that is present in the dev branch, instructions aren't ready yet, main branch is broken)
@@ -73,16 +71,16 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 | **font** | **utility** |
 |----------|-------------|
 |[Product Sans (Google Sans)](https://www.cufonfonts.com/font/google-sans)|Main UI Font|
-|[Iosevka Nerd Font](https://nerdfonts.com/font-downloads)|Some icons, others are rendered using svg|
-|[CaskaydiaCove Nerd Font](https://nerdfonts.com/font-downloads)|Terminal font|
+|[JetBrainsMono Nerd Font](https://nerdfonts.com/font-downloads)|Some icons, others are rendered using svg|
+|[RobotoMono Nerd Font](https://nerdfonts.com/font-downloads)|Terminal font|
 
 #### Dependencies
 
 | **dependency** | **utility** |
 |----------------|-------------|
-|awesomeWM|The window manager (Use the GIT version)|
+|AwesomeWM|The window manager (Use the **git** version)|
 |picom|The compositor, i'm using the [Arian8j's picom fork](https://github.com/Arian8j2/picom)|
-|[hilbish](../cfg/hilbish)|The shell|
+|hilbish|The shell (see my [configuration documentation](../cfg/hilbish) if you want of course.)|
 |bat|Enhanced cat|
 |exa|Enhanced ls (using for tree too)|
 |rofi|Apps launcher|
@@ -90,25 +88,162 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |light|Manage the brightness using the cli|
 |pulseaudio|Well, just the audio manager|
 |pactl|Manage pulseaudio using the cli|
+|maim|Take screenshots|
+|dunst|Notifications are made using AwesomeWM naughty module, but actions screenshot script actions buttons are made with dunstify (still trying to replace dunstify with another program/tool)|
 
 ### Copy the configs
 
-**WARNING**: Configuration files may be overrided.
+**WARNING**: Configuration files present in the next paths might be overrided.
+
+#### Create folders
+
+First create folders if they aren't still there.
+
+```sh
+test -d ~/.config || mkdir -p ~/.config
+test -d ~/.local/bin || mkdir -p ~/.local/bin
+```
+
+#### Copy dotfiles
+
+Then, just copy the config files to the appropiate folders.
 
 ```sh
 cp -r ./cfg/* ~/.config
 cp -r ./bin/* ~/.local/bin
 ```
 
+### Compile Simple Terminal (st)
+
+My Simple-Terminal build is based on [siduck's one](https://github.com/siduck/st), this config is included in the `cfg` folder btw.
+
+Just do this before log-in using AwesomeWM.
+
+#### Install requirements
+
+**Void Linux**
+
+- pkg-config
+- gcc
+- harfbuzz-devel
+- libXft-devel
+- libX11-devel
+- libXext-devel
+- libXrender-devel
+- libXinerama-devel
+
+**Debian (and ubuntu probably)**
+
+- build-essential
+- libxft-de
+- libharfbuzz-dev
+
+Some snippets here:
+
+> `sudo xbps-install pkg-config gcc harfbuzz-devel libXft-devel libX11-devel libXext-devel libXrender-devel libXinerama-devel`
+
+> `sudo apt install build-essential libxft-de libharfbuzz-dev`
+
+#### Run Compilation Process
+
+Execute the next commands:
+
+```sh
+cd ~/.config/st
+test -f config.h ; sudo rm config.h
+sudo make clean install
+```
+
+> Then st should be installed globally automatically.
+
+### Make powermenu buttons work.
+
+Maybe the powermenu buttons don't work (just the poweroff and reboot ones), that's because i'm using doas combined
+with some configuration to make `poweroff` and `reboot` commands work without password (and because i like doas more than sudo).
+
+So, you have to setup doas to make that buttons work. See the next steps:
+
+
+#### Install doas
+
+You can install doas in any operative system, just check your operative system documentation, i'll asume you're using void linux,
+but this can be done using any operative system.
+
+Install doas using the `opendoas` package (assuming that you're using Void Linux):
+
+```sh
+sudo xbps-install opendoas -y
+```
+
+Then just configure it a bit, edit the file using your preferred cli editor with root privileges, i'll use vim.
+
+```sh
+sudo vim /etc/doas.conf
+```
+
+> You can use nano, code, etc.
+
+Put the next in that file:
+
+```
+permit persist :wheel
+permit nopass root
+permit nopass :wheel cmd poweroff
+permit nopass :wheel cmd reboot
+```
+
+Then, if you aren't in the wheel group, include yourself there.
+
+```sh
+sudo usermod -aG wheel $(whoami)
+```
+
+That should be enough. Basically the `doas.conf` that we copied-pasted in `/etc/doas.conf`, do the next:
+
+- allow users in the `wheel` group to elevate privileges.
+- allow root user to elevate privileges with no-password (because root already has root privileges)
+- allow users in the `wheel` group to execute the command `poweroff` without password.
+- allow users in the `wheel` group to execute the command `reboot` without password.
+
+If you want, you can test doas in your terminal.
+
+```sh
+doas echo hello
+```
+
+> That command should ask you for password.
+
+```sh
+doas poweroff
+```
+
+> That command shouldn't ask you for password, it just should turn off the pc.
+
+```sh
+doas reboot
+```
+
+> That command shouldn't ask you for password, it just should reboot the pc.
+
+### Gtk-Theming
+
+Here are some details about my Gtk-Config.
+
+- **Gtk Theme**: [decay](https://github.com/decaycs/gtk3)
+- **Icons**: [decay-icons](https://github.com/decaycs/decay-icons)
+- **Cursor**: Breeze Snow.
+
 ### Galery
+
+Just some screenshots to explore more the appearance/stuff of this AwesomeWM config.
 
 #### The Desktop
 
 ![desktop](./assets/galery/desktop.png)
 
-#### Actions Sidebar
+#### Beautiful and Fully Functional Dashboard
 
-![sidebar](./assets/galery/sidebar.png)
+![dashboard](./assets/galery/dashboard.png)
 
 #### Task preview (using bling)
 
@@ -118,11 +253,39 @@ cp -r ./bin/* ~/.local/bin
 
 ![tags-preview](./assets/galery/tags-preview.png)
 
+#### Hover-Based Calendar
+
+![calendar](./assets/galery/calendar.png)
+
+#### Rofi (Apps Launcher)
+
+![rofi](./assets/galery/rofi.png)
+
+#### Simple Powermenu
+
+![powermenu](./assets/galery/powermenu.png)
+
+#### Right-Click Simple Desktop Menu
+
+![menu](./assets/galery/menu.png)
+
+#### Simple but Fully Functional/Useful Bottom Bar
+
+![bar](./assets/galery/bar.png)
+
+#### Simple but useful systray popup (triggered with systray toggler button in bar)
+
+![systray](./assets/galery/systray.png)
+
 ### Enjoy ❤️
 
 That's all! Now enjoy with this configuration!
 
 ## ‎ <samp>Tips 😎</samp>
+
+### Wallpaper
+
+If you just want the wallpaper (lol), see [this file](./cfg/awesome/assets/wallpaper.jpg)
 
 ### Some keyboards shortcuts
 
