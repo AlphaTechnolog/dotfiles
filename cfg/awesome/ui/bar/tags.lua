@@ -20,7 +20,17 @@ end
 local function update_tags(self, index, s)
     local markup_role = self:get_children_by_id('markup_role')[1]
 
-    if s.selected_tag.index == index then
+    local found = false
+    local i = 1
+
+    while i <= #s.selected_tags do
+        if s.selected_tags[i].index == index then
+            found = true
+        end
+        i = i + 1
+    end
+
+    if found then
         markup_role:set_markup_silently(
             helpers.get_colorized_markup(
                 beautiful.selected_tag_format,
