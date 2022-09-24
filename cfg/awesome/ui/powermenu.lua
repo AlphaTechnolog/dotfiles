@@ -99,6 +99,79 @@ local function make_powerbutton (opts)
     return button
 end
 
+local powerbuttons = wibox.widget {
+    make_powerbutton {
+        widget = function (icon_font, align)
+            return wibox.widget {
+                {
+                    markup = '⏻',
+                    align = align,
+                    font = icon_font,
+                    widget = wibox.widget.textbox,
+                },
+                fg = beautiful.red,
+                widget = wibox.container.background,
+            }
+        end,
+        onclick = function ()
+            awful.spawn.with_shell('doas poweroff')
+        end,
+    },
+    make_powerbutton {
+        widget = function (font, align)
+            return wibox.widget {
+                {
+                    markup = '勒',
+                    align = align,
+                    font = font,
+                    widget = wibox.widget.textbox,
+                },
+                fg = beautiful.yellow,
+                widget = wibox.container.background,
+            }
+        end,
+        onclick = function ()
+            awful.spawn.with_shell('doas reboot')
+        end
+    },
+    make_powerbutton {
+        widget = function (font, align)
+            return wibox.widget {
+                {
+                    markup = '',
+                    align = align,
+                    font = font,
+                    widget = wibox.widget.textbox,
+                },
+                fg = beautiful.magenta,
+                widget = wibox.container.background,
+            }
+        end,
+        onclick = function ()
+            awful.spawn.with_shell('pkill awesome')
+        end
+    },
+    make_powerbutton {
+        widget = function (font, align)
+            return wibox.widget {
+                {
+                    markup = '',
+                    align = align,
+                    font = font,
+                    widget = wibox.widget.textbox,
+                },
+                fg = beautiful.blue,
+                widget = wibox.container.background,
+            }
+        end,
+        onclick = function ()
+            awesome.emit_signal('powermenu::visibility', false)
+        end
+    },
+    spacing = dpi(18),
+    layout = wibox.layout.fixed.horizontal,
+}
+
 awful.screen.connect_for_each_screen(function (s)
     s.powermenu = {}
 
@@ -135,78 +208,7 @@ awful.screen.connect_for_each_screen(function (s)
                             layout = wibox.layout.fixed.vertical,
                         },
                         {
-                            {
-                                make_powerbutton {
-                                    widget = function (icon_font, align)
-                                        return wibox.widget {
-                                            {
-                                                markup = '⏻',
-                                                align = align,
-                                                font = icon_font,
-                                                widget = wibox.widget.textbox,
-                                            },
-                                            fg = beautiful.red,
-                                            widget = wibox.container.background,
-                                        }
-                                    end,
-                                    onclick = function ()
-                                        awful.spawn.with_shell('doas poweroff')
-                                    end,
-                                },
-                                make_powerbutton {
-                                    widget = function (font, align)
-                                        return wibox.widget {
-                                            {
-                                                markup = '勒',
-                                                align = align,
-                                                font = font,
-                                                widget = wibox.widget.textbox,
-                                            },
-                                            fg = beautiful.yellow,
-                                            widget = wibox.container.background,
-                                        }
-                                    end,
-                                    onclick = function ()
-                                        awful.spawn.with_shell('doas reboot')
-                                    end
-                                },
-                                make_powerbutton {
-                                    widget = function (font, align)
-                                        return wibox.widget {
-                                            {
-                                                markup = '',
-                                                align = align,
-                                                font = font,
-                                                widget = wibox.widget.textbox,
-                                            },
-                                            fg = beautiful.magenta,
-                                            widget = wibox.container.background,
-                                        }
-                                    end,
-                                    onclick = function ()
-                                        awful.spawn.with_shell('pkill awesome')
-                                    end
-                                },
-                                make_powerbutton {
-                                    widget = function (font, align)
-                                        return wibox.widget {
-                                            {
-                                                markup = '',
-                                                align = align,
-                                                font = font,
-                                                widget = wibox.widget.textbox,
-                                            },
-                                            fg = beautiful.blue,
-                                            widget = wibox.container.background,
-                                        }
-                                    end,
-                                    onclick = function ()
-                                        awesome.emit_signal('powermenu::visibility', false)
-                                    end
-                                },
-                                spacing = dpi(18),
-                                layout = wibox.layout.fixed.horizontal,
-                            },
+                            powerbuttons,
                             widget = wibox.container.margin,
                             top = dpi(10),
                         },
