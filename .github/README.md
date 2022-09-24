@@ -89,7 +89,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |pulseaudio|Well, just the audio manager|
 |pactl|Manage pulseaudio using the cli|
 |maim|Take screenshots|
-|dunst|Notifications are made using AwesomeWM naughty module, but actions screenshot script actions buttons are made with dunstify (still trying to replace dunstify with another program/tool)|
+|dunst|Notifications are made using AwesomeWM naughty module, but screenshot script actions buttons are made with dunstify (still trying to replace dunstify with another program/tool)|
 
 ### Copy the configs
 
