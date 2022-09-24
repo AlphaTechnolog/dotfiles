@@ -160,7 +160,7 @@ Just some screenshots to explore more the appearance/stuff of this AwesomeWM con
 
 #### Tags Preview
 
-![tags-preview](./assets/galery/tags-preview.png)
+![tags-preview](./assets/galery/tagspreview.png)
 
 #### Rofi (Apps Launcher)
 
