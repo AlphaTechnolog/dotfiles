@@ -68,6 +68,7 @@ local previous = base_control_button('玲')
 local pause = base_control_button('', beautiful.nerd_font .. ' 18')
 local next = base_control_button('怜')
 
+-- WIP
 local shuffle = base_control_button('怜')
 
 -- controls buttons
