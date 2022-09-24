@@ -288,6 +288,12 @@ That's all! Now enjoy with this configuration!
 
 If you just want the wallpaper (lol), see [this file](../cfg/awesome/assets/wallpaper.jpg)
 
+### Changing Profile Photo
+
+If you want to change your profile photo in the powermenu,
+replace [this file](../cfg/awesome/assets/pfp.png) with
+your profile photo (use png or change the path in [theme.lua](../cfg/awesome/theme.lua))
+
 ### Some keyboards shortcuts
 
 | **shortcut** | **meaning** |
