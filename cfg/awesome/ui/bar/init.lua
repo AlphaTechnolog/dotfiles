@@ -273,6 +273,7 @@ screen.connect_signal('request::desktop_decoration', function (s)
     powerbutton_tooltip.attach_to_object(powerbutton)
 
     powerbutton:add_button(awful.button({}, 1, function ()
+        powerbutton_tooltip.hide()
         awesome.emit_signal('powermenu::toggle')
     end))
 
