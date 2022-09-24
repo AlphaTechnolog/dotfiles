@@ -201,7 +201,7 @@ awful.screen.connect_for_each_screen(function (s)
                                         }
                                     end,
                                     onclick = function ()
-                                        s.powermenu.hide()
+                                        awesome.emit_signal('powermenu::visibility', false)
                                     end
                                 },
                                 spacing = dpi(18),
@@ -244,7 +244,11 @@ awful.screen.connect_for_each_screen(function (s)
     local self = s.powermenu.splash
 
     function s.powermenu.toggle ()
-        self.visible = not self.visible
+        if self.visible then
+            s.powermenu.hide()
+        else
+            s.powermenu.show()
+        end
     end
 
     function s.powermenu.show ()
