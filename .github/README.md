@@ -286,7 +286,7 @@ That's all! Now enjoy with this configuration!
 
 ### Wallpaper
 
-If you just want the wallpaper (lol), see [this file](./cfg/awesome/assets/wallpaper.jpg)
+If you just want the wallpaper (lol), see [this file](../cfg/awesome/assets/wallpaper.jpg)
 
 ### Some keyboards shortcuts
 
