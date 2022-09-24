@@ -73,7 +73,6 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |[Product Sans (Google Sans)](https://www.cufonfonts.com/font/google-sans)|Main UI Font|
 |[JetBrainsMono Nerd Font](https://nerdfonts.com/font-downloads)|Some icons, others are rendered using svg|
 |[RobotoMono Nerd Font](https://nerdfonts.com/font-downloads)|Terminal font|
-|[Material Icons](https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.ttf)|Pacman Taglist Icons|
 
 #### Dependencies
 
@@ -103,6 +102,17 @@ First create folders if they aren't still there.
 ```sh
 test -d ~/.config || mkdir -p ~/.config
 test -d ~/.local/bin || mkdir -p ~/.local/bin
+```
+
+#### Install MaterialIcons
+
+Material Icons are required to get the pacman taglist icons working, i included the font files
+in this repo, just do this if you **do not have material icons installed yet**:
+
+```sh
+test -d ~/.local/share || mkdir -p ~/.local/share
+test -d ~/.local/share/fonts || mkdir -p ~/.local/share/fonts
+cp -r ./fonts/MaterialIcons/* ~/.local/share/fonts
 ```
 
 #### Copy dotfiles
