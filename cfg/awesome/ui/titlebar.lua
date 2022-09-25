@@ -9,7 +9,7 @@ local dpi = xresources.apply_dpi
 client.connect_signal('request::titlebars', function (c)
     local titlebar = awful.titlebar(c, {
         position = 'top',
-        size = 34
+        size = 39
     })
 
     local titlebars_buttons = {
@@ -34,8 +34,8 @@ client.connect_signal('request::titlebars', function (c)
 
     local function paddined_button(button, margins)
         margins = margins or {
-            top = 10,
-            bottom = 10,
+            top = 13,
+            bottom = 13,
             left = 4,
             right = 4
         }
@@ -53,8 +53,8 @@ client.connect_signal('request::titlebars', function (c)
     titlebar:setup {
         {
             paddined_button(awful.titlebar.widget.closebutton(c), {
-                top = 10,
-                bottom = 10,
+                top = 13,
+                bottom = 13,
                 right = 4,
                 left = 11
             }),
