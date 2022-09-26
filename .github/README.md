@@ -143,6 +143,7 @@ Just do this before log-in using AwesomeWM.
 - libXext-devel
 - libXrender-devel
 - libXinerama-devel
+- gd-devel
 
 **Debian (and ubuntu probably)**
 
