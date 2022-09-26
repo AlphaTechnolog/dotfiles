@@ -153,7 +153,7 @@ Just do this before log-in using AwesomeWM.
 
 Some snippets here:
 
-> `sudo xbps-install pkg-config gcc harfbuzz-devel libXft-devel libX11-devel libXext-devel libXrender-devel libXinerama-devel`
+> `sudo xbps-install pkg-config gcc harfbuzz-devel libXft-devel libX11-devel libXext-devel libXrender-devel libXinerama-devel gd-devel`
 
 > `sudo apt install build-essential libxft-de libharfbuzz-dev`
 
