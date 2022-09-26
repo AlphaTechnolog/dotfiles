@@ -86,6 +86,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |pulseaudio|Well, just the audio manager|
 |pactl|Manage pulseaudio using the cli|
 |dunst|Notifications Daemon|
+|eww|Widgets|
 
 ### Copy the configs
 
