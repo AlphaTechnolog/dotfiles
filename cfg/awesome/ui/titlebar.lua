@@ -56,7 +56,7 @@ client.connect_signal('request::titlebars', function (c)
                 top = 13,
                 bottom = 13,
                 right = 4,
-                left = 11
+                left = 14
             }),
             paddined_button(awful.titlebar.widget.maximizedbutton(c)),
             paddined_button(awful.titlebar.widget.minimizebutton(c)),
