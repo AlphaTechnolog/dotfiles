@@ -80,17 +80,18 @@ theme.tasklist_bg_urgent = theme.red .. '4D' -- 30% of transparency
 -- taglist
 theme.taglist_bg = theme.bg_normal
 theme.taglist_bg_urgent = theme.taglist_bg
-theme.normal_tag_format = '󰊠'
+theme.normal_tag_format = assets_path .. 'taglist/ghost.svg'
 theme.occupied_tag_format = theme.normal_tag_format
-theme.selected_tag_format = '󰮯'
+theme.selected_tag_format = assets_path .. 'taglist/pacman.svg'
 theme.taglist_fg_focus = theme.yellow
 theme.taglist_fg = theme.dimblack
 theme.taglist_fg_occupied = theme.blue
-theme.taglist_font = theme.material_icons .. ' 13'
 
 -- systray
 theme.systray_icon_spacing = dpi(12)
 theme.systray_max_rows = 7
+theme.tray_chevron_up = gears.color.recolor_image(assets_path .. 'tray/up.svg', theme.fg_normal)
+theme.tray_chevron_down = gears.color.recolor_image(assets_path .. 'tray/down.svg', theme.fg_normal)
 
 -- menu
 theme.menu_font = theme.font

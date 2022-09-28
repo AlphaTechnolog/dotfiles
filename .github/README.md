@@ -104,17 +104,6 @@ test -d ~/.config || mkdir -p ~/.config
 test -d ~/.local/bin || mkdir -p ~/.local/bin
 ```
 
-#### Install MaterialIcons
-
-Material Icons are required to get the pacman taglist icons working, i included the font files
-in this repo, just do this if you **do not have material icons installed yet**:
-
-```sh
-test -d ~/.local/share || mkdir -p ~/.local/share
-test -d ~/.local/share/fonts || mkdir -p ~/.local/share/fonts
-cp -r ./fonts/MaterialIcons/* ~/.local/share/fonts
-```
-
 #### Copy dotfiles
 
 Then, just copy the config files to the appropiate folders.

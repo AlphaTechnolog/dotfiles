@@ -31,27 +31,21 @@ local function update_tags(self, index, s)
     end
 
     if found then
-        markup_role:set_markup_silently(
-            helpers.get_colorized_markup(
-                beautiful.selected_tag_format,
-                beautiful.taglist_fg_focus
-            )
+        markup_role.image = gears.color.recolor_image(
+            beautiful.selected_tag_format,
+            beautiful.taglist_fg_focus
         )
     else
-        markup_role:set_markup_silently(
-            helpers.get_colorized_markup(
-                beautiful.normal_tag_format,
-                beautiful.taglist_fg
-            )
+        markup_role.image = gears.color.recolor_image(
+            beautiful.normal_tag_format,
+            beautiful.taglist_fg
         )
         for _, c in ipairs(client.get(s)) do
             for _, t in ipairs(c:tags()) do
                 if t.index == index then
-                    markup_role:set_markup_silently(
-                        helpers.get_colorized_markup(
-                            beautiful.occupied_tag_format,
-                            beautiful.taglist_fg_occupied
-                        )
+                    markup_role.image = gears.color.recolor_image(
+                        beautiful.occupied_tag_format,
+                        beautiful.taglist_fg_occupied
                     )
                 end
             end
@@ -84,11 +78,12 @@ local function get_taglist(s)
         widget_template = {
             {
                 id = 'markup_role',
-                markup = '',
-                align = 'center',
+                image = nil,
                 valign = 'center',
-                font = beautiful.taglist_font,
-                widget = wibox.widget.textbox,
+                halign = 'center',
+                forced_height = 16,
+                forced_width = 16,
+                widget = wibox.widget.imagebox,
             },
             id = 'background_role',
             widget = wibox.container.background,

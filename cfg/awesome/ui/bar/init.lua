@@ -133,8 +133,12 @@ screen.connect_signal('request::desktop_decoration', function (s)
     }
 
     local tray_dispatcher = wibox.widget {
-        markup = '',
-        widget = wibox.widget.textbox,
+        image = beautiful.tray_chevron_up,
+        forced_height = 14,
+        forced_width = 14,
+        valign = 'center',
+        halign = 'center',
+        widget = wibox.widget.imagebox,
     }
 
     local tray_dispatcher_tooltip = helpers.make_popup_tooltip('Press to toggle the systray panel', function (d)
@@ -151,9 +155,9 @@ screen.connect_signal('request::desktop_decoration', function (s)
         tray_dispatcher_tooltip.hide()
 
         if s.tray.popup.visible then
-            tray_dispatcher:set_markup_silently('')
+            tray_dispatcher.image = beautiful.tray_chevron_down
         else
-            tray_dispatcher:set_markup_silently('')
+            tray_dispatcher.image = beautiful.tray_chevron_up
         end
     end))
 
