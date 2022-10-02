@@ -3,6 +3,7 @@
 SINK=$(pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1)
 DWM=$HOME/.config/dwm
 SCRIPTS=$DWM/scripts
+DISTRO=$(awk -F '"' '/PRETTY_NAME/ { print $2 }' /etc/os-release)
 
 import () {
   . $SCRIPTS/${@}.sh
@@ -14,9 +15,15 @@ import bar-colors
 xsetroot -name ' '
 
 updates () {
-  local updates=$(xbps-install -un | wc -l) # void
-  # local updates=$(checkupdates | wc -l) # arch, requires pacman-contrib
-  # local updates=$(aptitude search '~U' | wc -l) # apt (ubuntu, debian and others that uses apt)
+  if [[ "$DISTRO" == "Arch Linux" ]]; then
+    local updates="$(pacman -Qu | wc -l)"
+  elif [[ "$DISTRO" == "Void Linux" ]]; then
+    local updates="$(xbps-install -un | wc -l)"
+  else 
+    local updates="0"
+  fi 
+
+  # updates=$(aptitude search '~U' | wc -l) # apt (ubuntu, debian and others that uses apt)
 
   if [ -z "$updates" ]; then
     updates="Fully updated"
