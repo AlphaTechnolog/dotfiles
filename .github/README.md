@@ -204,7 +204,7 @@ Just some screenshots to explore more the appearance/stuff of this AwesomeWM con
 
 #### Beautiful And Fully Functional Notifications Center (Opening/Closing events are animated with Rubato (too))
 
-![notification-center](./.assets/galery/notification-center.png)
+![notification-center](./assets/galery/notification-center.png)
 
 #### Simple-Calendar
 
