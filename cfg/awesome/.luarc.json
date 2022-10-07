@@ -1,0 +1,7 @@
+{
+    "runtime.version": "Lua 5.4",
+    "workspace.library": "/usr/local/share/awesome/lib",
+    "diagnostics": {
+        "enable": true
+    }
+}

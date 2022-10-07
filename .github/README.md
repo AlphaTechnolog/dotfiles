@@ -42,7 +42,7 @@ Here are some details about my setup:
 
 - **OS:** [Void Linux](https://voidlinux.org)
 - **WM:** [AwesomeWM](https://github.com/awesomeWM/awesome)
-- **Terminal:** st (Configuration/Build included in `cfg`)
+- **Terminal:** [kitty](https://github.com/kovidgoyal/kitty)
 - **Shell:** [hilbish](https://github.com/Rosettea/Hilbish)
 - **Editor:** [neovim](https://github.com/neovim/neovim)
 - **NeovimConfig**: [nvcodark](https://github.com/AlphaTechnolog/nvcodark) (I'm using the remake that is present in the dev branch, instructions aren't ready yet, main branch is broken)
@@ -56,7 +56,7 @@ Here are some details about my setup:
 First clone the repository
 
 ```sh
-git clone -b awesomewm https://github.com/AlphaTechnolog/dotfiles
+git clone -b awesomewm-vertical https://github.com/AlphaTechnolog/dotfiles
 cd dotfiles
 ```
 
@@ -72,7 +72,7 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |----------|-------------|
 |[Product Sans (Google Sans)](https://www.cufonfonts.com/font/google-sans)|Main UI Font|
 |[JetBrainsMono Nerd Font](https://nerdfonts.com/font-downloads)|Some icons, others are rendered using svg|
-|[RobotoMono Nerd Font](https://nerdfonts.com/font-downloads)|Terminal font|
+|[CaskaydiaCove Nerd Font](https://nerdfonts.com/font-downloads)|Terminal font|
 
 #### Dependencies
 
@@ -89,7 +89,6 @@ This is in testing phase btw, if you think i miss some pkg, please tell me it op
 |pulseaudio|Well, just the audio manager|
 |pactl|Manage pulseaudio using the cli|
 |maim|Take screenshots|
-|dunst|Notifications are made using AwesomeWM naughty module, but screenshot script actions buttons are made with dunstify (still trying to replace dunstify with another program/tool)|
 
 ### Copy the configs
 
@@ -113,50 +112,6 @@ cp -r ./cfg/* ~/.config
 cp -r ./bin/* ~/.local/bin
 cp -r ./home/.Xresources ~
 ```
-
-### Compile Simple Terminal (st)
-
-My Simple-Terminal build is based on [siduck's one](https://github.com/siduck/st), this config is included in the `cfg` folder btw.
-
-Just do this before log-in using AwesomeWM.
-
-#### Install requirements
-
-**Void Linux**
-
-- pkg-config
-- gcc
-- harfbuzz-devel
-- libXft-devel
-- libX11-devel
-- libXext-devel
-- libXrender-devel
-- libXinerama-devel
-- gd-devel
-
-**Debian (and ubuntu probably)**
-
-- build-essential
-- libxft-de
-- libharfbuzz-dev
-
-Some snippets here:
-
-> `sudo xbps-install pkg-config gcc harfbuzz-devel libXft-devel libX11-devel libXext-devel libXrender-devel libXinerama-devel gd-devel`
-
-> `sudo apt install build-essential libxft-de libharfbuzz-dev`
-
-#### Run Compilation Process
-
-Execute the next commands:
-
-```sh
-cd ~/.config/st
-test -f config.h ; sudo rm config.h
-sudo make clean install
-```
-
-> Then st should be installed globally automatically.
 
 ### Make powermenu buttons work.
 
@@ -243,19 +198,15 @@ Just some screenshots to explore more the appearance/stuff of this AwesomeWM con
 
 ![desktop](./assets/galery/desktop.png)
 
-#### Beautiful and Fully Functional Dashboard
+#### Beautiful and Fully Functional Dashboard (Opening/Closing events are animated with Rubato)
 
 ![dashboard](./assets/galery/dashboard.png)
 
-#### Task preview (using bling)
+#### Beautiful And Fully Functional Notifications Center (Opening/Closing events are animated with Rubato (too))
 
-![task-preview](./assets/galery/task-preview.png)
+![notification-center](./.assets/galery/notification-center.png)
 
-#### Tags Preview (using bling)
-
-![tags-preview](./assets/galery/tags-preview.png)
-
-#### Hover-Based Calendar
+#### Simple-Calendar
 
 ![calendar](./assets/galery/calendar.png)
 
@@ -271,7 +222,7 @@ Just some screenshots to explore more the appearance/stuff of this AwesomeWM con
 
 ![menu](./assets/galery/menu.png)
 
-#### Simple but Fully Functional/Useful Bottom Bar
+#### Simple but Fully Functional/Useful Vertical-Left Bar
 
 ![bar](./assets/galery/bar.png)
 
@@ -315,3 +266,5 @@ your profile photo (use png or change the path in [theme.lua](../cfg/awesome/the
 You can use the official bling module, but I made some modifications in the source code
 of bling to add multimonitor support in some parts, it's recommended to use my own version (for this dotfiles at least),
 but anyway you can use another version or modification of the bling module if you want
+
+> The same applies to all the modules inside the `modules` folder

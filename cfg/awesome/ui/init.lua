@@ -1,6 +1,10 @@
-require "ui.wallpaper"
-require "ui.bar"
-require "ui.titlebar"
-require 'ui.tag_preview'
-require 'ui.task_preview'
 require 'ui.notifications'
+require 'ui.wallpaper'
+require 'ui.menu'
+require 'ui.titlebars'
+require 'ui.bar'
+require 'ui.systray'
+require 'ui.dashboard'
+require 'ui.notifcenter'
+require 'ui.powermenu'
+require 'ui.calendar'

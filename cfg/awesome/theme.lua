@@ -36,6 +36,7 @@ theme.cyan = '#93cee9'
 theme.aqua = '#7bd9e6'
 
 -- backgrounds
+theme.bg_darker     = "#0b0d16"
 theme.bg_normal     = "#0d0f18"
 theme.bg_contrast   = "#0f111a"
 theme.bg_lighter    = "#11131c"
@@ -48,7 +49,7 @@ theme.bg_systray    = theme.bg_normal
 
 -- foregrounds
 theme.fg_normal     = "#a5b6cf"
-theme.fg_focus      = theme.fg_nromal
+theme.fg_focus      = theme.fg_normal
 theme.fg_urgent     = theme.fg_normal
 theme.fg_minimize   = theme.fg_normal
 
@@ -61,7 +62,7 @@ theme.actions = {
 }
 
 -- bar
-theme.bar_height = 40
+theme.bar_width = 43
 
 -- gaps and borders
 theme.useless_gap         = dpi(4)
@@ -79,19 +80,13 @@ theme.tasklist_bg_urgent = theme.red .. '4D' -- 30% of transparency
 
 -- taglist
 theme.taglist_bg = theme.bg_normal
-theme.taglist_bg_urgent = theme.taglist_bg
-theme.normal_tag_format = assets_path .. 'taglist/ghost.svg'
-theme.occupied_tag_format = theme.normal_tag_format
-theme.selected_tag_format = assets_path .. 'taglist/pacman.svg'
-theme.taglist_fg_focus = theme.yellow
-theme.taglist_fg = theme.dimblack
-theme.taglist_fg_occupied = theme.blue
+theme.taglist_bg_focus = theme.blue
+theme.taglist_bg_occupied = theme.light_black
+theme.taglist_bg_empty = theme.black
 
 -- systray
 theme.systray_icon_spacing = dpi(12)
 theme.systray_max_rows = 7
-theme.tray_chevron_up = gears.color.recolor_image(assets_path .. 'tray/up.svg', theme.fg_normal)
-theme.tray_chevron_down = gears.color.recolor_image(assets_path .. 'tray/down.svg', theme.fg_normal)
 
 -- menu
 theme.menu_font = theme.font

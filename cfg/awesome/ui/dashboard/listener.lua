@@ -2,19 +2,19 @@
 
 local awful = require 'awful'
 
-local function get_dashboard_object()
+local function _()
     return awful.screen.focused().dashboard
 end
 
--- listens for requests to toggle the dashboad in focused screen.
 awesome.connect_signal('dashboard::toggle', function ()
-    get_dashboard_object().toggle()
+    _().toggle()
 end)
 
-awesome.connect_signal('dashboard::visibility', function (v)
-    if v then
-        get_dashboard_object().show()
+awesome.connect_signal('dashboard::visibility', function (visibility)
+    if visibility then
+        _().open()
     else
-        get_dashboard_object().hide()
+        _().hide()
     end
 end)
+

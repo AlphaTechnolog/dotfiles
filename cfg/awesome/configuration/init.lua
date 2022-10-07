@@ -6,3 +6,4 @@ require "configuration.rules"
 require "configuration.autofocus"
 require "configuration.floating-clients"
 require "configuration.monitor"
+require 'configuration.music-notification'

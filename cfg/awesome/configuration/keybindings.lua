@@ -1,16 +1,28 @@
+---@diagnostic disable: undefined-global
 local awful = require "awful"
-local hotkeys_popup = require "awful.hotkeys_popup"
 
 local function set_keybindings ()
     awful.keyboard.append_global_keybindings({
-        awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
-                  {description="show help", group="awesome"}),
         awful.key({ modkey, "Control" }, "r", awesome.restart,
                   {description = "reload awesome", group = "awesome"}),
         awful.key({ modkey, "Shift"   }, "q", awesome.quit,
                   {description = "quit awesome", group = "awesome"}),
         awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
                   {description = "open a terminal", group = "launcher"}),
+        awful.key(
+            { modkey }, 'd',
+            function ()
+                awesome.emit_signal('dashboard::toggle')
+            end,
+            { description = 'toggle the dashboard', group = 'launcher '}
+        ),
+        awful.key(
+            { modkey }, 'n',
+            function ()
+                awesome.emit_signal('notifcenter::toggle')
+            end,
+            { description = 'toggle the notifcenter', group = 'launcher'}
+        ),
         awful.key({ modkey }, "p", function() menubar.show() end,
                   {description = "show the menubar", group = "launcher"}),
         awful.key({ modkey, "Shift" }, "Return", function () awful.spawn("rofi -show drun") end,
