@@ -4,6 +4,10 @@ local wibox = require 'wibox'
 local helpers = require 'helpers'
 
 client.connect_signal('request::titlebars', function (c)
+   if c.requests_no_titlebar then
+      return
+   end
+
     local titlebar = awful.titlebar(c, {
         position = 'left',
         size = 36,
