@@ -105,7 +105,15 @@ awesome.connect_signal('disk::usage', function (used)
 end)
 
 awesome.connect_signal('temperature::value', function (temperature)
-    temp.chart_value = temperature / 100
+    -- temp chart could break sometimes, idk why, but throws some errors
+    -- sometimes, so, i'll handle errors lol.
+    local function get_value()
+        return temperature / 100
+    end
+
+    if pcall(get_value) then
+        temp.chart_value = get_value()
+    end
 end)
 
 -- main widget
