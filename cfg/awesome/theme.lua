@@ -65,12 +65,15 @@ theme.actions = {
 theme.bar_width = 43
 
 -- gaps and borders
-theme.useless_gap         = dpi(4)
-theme.border_width        = dpi(0)
+theme.border_width = dpi(0)
 theme.border_color_normal = theme.bg_normal
 theme.border_color_active = theme.bg_normal
 theme.border_color_marked = theme.bg_normal
 theme.border_radius = dpi(10)
+
+-- Not recommended to change, because a LOT of widgets are using this value as
+-- a margin-reference, please note that if you change this, ALL THE WIDGETS SPACINGS will be changed too!!!
+theme.useless_gap = dpi(4)
 
 -- tasklist
 theme.tasklist_plain_task_name = true

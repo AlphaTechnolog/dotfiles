@@ -29,13 +29,14 @@ function M.do_notify (tmp_path)
 
     -- implement the copy screenshot button, uses xclip to take the screenshot in the clipboard
     copy:connect_signal('invoked', function ()
-        awful.spawn.easy_async_with_shell('xclip -sel clip -target image/png "' .. tmp_path .. '"', function ()
-            naughty.notify {
-                app_name = 'Screenshot',
-                title = 'Screenshot',
-                text = 'Screenshot copied successfully.',
-            }
-        end)
+        awful.spawn.with_shell('xclip -sel clip -target image/png "' .. tmp_path .. '"')
+
+        -- don't wait for xclip :/
+        naughty.notify {
+            app_name = 'Screenshot',
+            title = 'Screenshot',
+            text = 'Screenshot copied successfully.',
+        }
     end)
 
     -- implement the delete button, just execute rm in the `tmp_path`.
@@ -78,16 +79,19 @@ function M.full(opts)
     -- screenshot path.
     local tmp_path = get_path()
 
-    -- waiting one second to wait for hide of some visual elements
-    -- in the view lol.
+    -- waiting a bit of time to wait the hidding of some visual elements
+    -- that could be already rendered.
     gears.timer {
-        timeout = 1,
+        timeout = 0.25,
         call_now = false,
         autostart = true,
         single_shot = true,
         callback = function ()
             -- calls maim and then check if `do_notify` should be called using `opts.notify`.
             awful.spawn.easy_async_with_shell('maim "' .. tmp_path .. '"', function ()
+                ---@diagnostic disable-next-line: undefined-global
+                awesome.emit_signal('screenshot::done')
+
                 if with_defaults(opts).notify then
                     M.do_notify(tmp_path)
                 end
@@ -104,10 +108,49 @@ function M.area(opts)
 
     -- calls maim, also checks if `do_notify` should be called using `opts.notify`.
     awful.spawn.easy_async_with_shell('maim --select "' .. tmp_path .. '"', function ()
+        ---@diagnostic disable-next-line: undefined-global
+        awesome.emit_signal('screenshot::done')
+
         if with_defaults(opts).notify then
             M.do_notify(tmp_path)
         end
     end)
+end
+
+-- take a screenshot using the options-api, the options-api is just a function that gives
+-- an object that contains the next properties:
+-- -> type, possible values: full, area (string)
+-- -> timeout (int, default: 0)
+-- -> notify (boolean)
+-- it automatically calls the necessary functions and wait the time provided by `timeout`
+function M.with_options(opts)
+    opts = {
+        type = opts.type ~= nil and opts.type or 'full',
+        timeout = opts.timeout ~= nil and opts.timeout or 0,
+        notify = opts.notify ~= nil and opts.notify or false,
+    }
+
+    local function core()
+        if opts.type == 'full' then
+            M.full({ notify = opts.notify })
+        elseif opts.type == 'area' then
+            M.area({ notify = opts.notify })
+        else
+            error('Invalid `opts.type` in `screenshot.with_options` (' .. opts.type .. '), valid ones are: full and area')
+        end
+    end
+
+    if opts.timeout <= 0 then
+        return core()
+    end
+
+    gears.timer {
+        timeout = opts.timeout,
+        call_now = false,
+        autostart = true,
+        single_shot = true,
+        callback = core
+    }
 end
 
 -- done

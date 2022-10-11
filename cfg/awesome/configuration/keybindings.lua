@@ -17,6 +17,13 @@ local function set_keybindings ()
             { description = 'toggle the dashboard', group = 'launcher '}
         ),
         awful.key(
+            { modkey }, 'c',
+            function ()
+                awesome.emit_signal('screenshot-center::toggle')
+            end,
+            { description = 'toggle the screenshots center', group = 'launcher' }
+        ),
+        awful.key(
             { modkey }, 'n',
             function ()
                 awesome.emit_signal('notifcenter::toggle')

@@ -476,4 +476,18 @@ function helpers.get_sidebar_notification_widget(n, list_table, widget, notif_li
     }
 end
 
+function helpers.is_in_table(table, value, pfunc)
+    if not pfunc then
+        pfunc = ipairs
+    end
+
+    for _, val in pfunc(table) do
+        if val == value then
+            return true
+        end
+    end
+
+    return false
+end
+
 return helpers

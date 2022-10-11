@@ -2,6 +2,7 @@
 local wibox = require 'wibox'
 local awful = require 'awful'
 local beautiful = require 'beautiful'
+local naughty = require 'naughty'
 
 local launchers = {}
 
@@ -22,6 +23,14 @@ local function make_launcher(opts)
     return launcher
 end
 
+local function donotif(prog)
+    naughty.notify {
+        app_name = 'Launchers',
+        title = 'Launching!',
+        text = "Launching " .. prog .. ", please wait..."
+    }
+end
+
 local rofi = make_launcher {
     markup = '異',
     onclick = function ()
@@ -29,9 +38,17 @@ local rofi = make_launcher {
     end
 }
 
+local screenshot = make_launcher {
+    markup = '',
+    onclick = function ()
+        awesome.emit_signal('screenshot-center::toggle')
+    end
+}
+
 local firefox = make_launcher {
     markup = '',
     onclick = function ()
+        donotif('browser')
         awful.spawn(browser) -- comes from `user_likes.lua`
     end
 }
@@ -39,6 +56,7 @@ local firefox = make_launcher {
 local terminal = make_launcher {
     markup = '',
     onclick = function ()
+        donotif('terminal')
         awful.spawn(terminal) -- comes from `user_likes.lua`
     end
 }
@@ -46,6 +64,7 @@ local terminal = make_launcher {
 local explorer = make_launcher {
     markup = '',
     onclick = function ()
+        donotif('explorer')
         awful.spawn(explorer) -- comes from `user_likes.lua`'
     end
 }
@@ -53,6 +72,7 @@ local explorer = make_launcher {
 -- add here the list of all the wanted launchers.
 launchers.dict = {
     rofi,
+    screenshot,
     firefox,
     terminal,
     explorer
