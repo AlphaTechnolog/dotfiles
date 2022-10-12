@@ -81,15 +81,6 @@ local function set_keybindings ()
                   {description = "focus the next screen", group = "screen"}),
         awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
                   {description = "focus the previous screen", group = "screen"}),
-        awful.key({ modkey, "Control" }, "n",
-                  function ()
-                      local c = awful.client.restore()
-                      -- Focus restored client
-                      if c then
-                        c:activate { raise = true, context = "key.unminimize" }
-                      end
-                  end,
-                  {description = "restore minimized", group = "client"}),
     })
 
     -- Layout related keybindings
@@ -208,13 +199,6 @@ local function set_keybindings ()
                     {description = "move to screen", group = "client"}),
             awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
                     {description = "toggle keep on top", group = "client"}),
-            awful.key({ modkey,           }, "n",
-                function (c)
-                    -- The client currently has the input focus, so it cannot be
-                    -- minimized, since minimized clients can't have the focus.
-                    c.minimized = true
-                end ,
-                {description = "minimize", group = "client"}),
             awful.key({ modkey,           }, "m",
                 function (c)
                     c.maximized = not c.maximized
