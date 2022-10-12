@@ -30,8 +30,6 @@ local function set_keybindings ()
             end,
             { description = 'toggle the notifcenter', group = 'launcher'}
         ),
-        awful.key({ modkey }, "p", function() menubar.show() end,
-                  {description = "show the menubar", group = "launcher"}),
         awful.key({ modkey, "Shift" }, "Return", function () awful.spawn("rofi -show drun") end,
                   {description = "Open rofi", group = "launcher"}),
     })
