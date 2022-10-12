@@ -48,9 +48,11 @@ awful.screen.connect_for_each_screen(function (s)
     }
 
     local function update_struts(factor)
-        self:struts {
-            left = beautiful.bar_width + beautiful.useless_gap * 2 + (factor or 0)
-        }
+        if beautiful.dashboard_update_struts then
+            self:struts {
+                left = beautiful.bar_width + beautiful.useless_gap * 2 + (factor or 0)
+            }
+        end
     end
 
     self.animate:subscribe(function (animfactor)

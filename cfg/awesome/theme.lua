@@ -53,6 +53,9 @@ theme.fg_focus      = theme.fg_normal
 theme.fg_urgent     = theme.fg_normal
 theme.fg_minimize   = theme.fg_normal
 
+-- defines if should update struts on dashboard closing/opening events
+theme.dashboard_update_struts = true
+
 -- some actions bg colors
 theme.actions = {
     bg = theme.bg_normal,

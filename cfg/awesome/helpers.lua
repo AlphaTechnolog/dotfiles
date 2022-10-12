@@ -19,30 +19,49 @@ function helpers.get_colorized_markup(content, fg)
     return '<span foreground="' .. fg .. '">' .. content .. '</span>'
 end
 
--- add hover support to wibox.container.background-based elements
-function helpers.add_hover(element, bg, hbg)
-    local base_color = color.color { hex = bg }
-    local hover_color = color.color { hex = hbg }
+function helpers.apply_transition(opts)
+    opts = opts or {}
 
-    local do_transition = color.transition(base_color, hover_color, color.transition.RGB)
+    local bg = opts.bg or beautiful.bg_lighter
+    local hbg = opts.hbg or beautiful.black
 
-    local smooth_hover = rubato.timed {
-        duration = 0.25,
-        override_dt = true,
-        rate = 60
+    local element = opts.element
+    local prop = opts.prop
+
+    local background = color.color { hex = bg }
+    local hover_background = color.color { hex = hbg }
+
+    local transition = color.transition(background, hover_background, color.transition.RGB)
+
+    local fading = rubato.timed {
+        duration = 0.30,
     }
 
-    smooth_hover:subscribe(function (v)
-        element.bg = do_transition(v / 100).hex
+    fading:subscribe(function (pos)
+        element[prop] = transition(pos / 100).hex
     end)
 
-    element:connect_signal('mouse::enter', function ()
-        smooth_hover.target = 100
-    end)
+    return {
+        on = function ()
+            fading.target = 100
+        end,
+        off = function ()
+            fading.target = 0
+        end
+    }
+end
 
-    element:connect_signal('mouse::leave', function ()
-        smooth_hover.target = 0
-    end)
+-- add hover support to wibox.container.background-based elements
+function helpers.add_hover(element, bg, hbg)
+    local transition = helpers.apply_transition {
+        element = element,
+        prop = 'bg',
+        bg = bg,
+        hbg = hbg,
+    }
+
+    element:connect_signal('mouse::enter', transition.on)
+    element:connect_signal('mouse::leave', transition.off)
 end
 
 -- create a rounded rect using a custom radius
