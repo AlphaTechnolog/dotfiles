@@ -32,8 +32,9 @@ function volume.set(vol, reemit)
 end
 
 function volume.toggle_muted ()
-    awful.spawn.with_shell(sink_part .. "pactl set-sink-mute $SINK toggle")
-    volume.re_emit_muted_signal()
+    awful.spawn.easy_async_with_shell(gfs.get_configuration_dir () .. 'scripts/volume.sh mute', function ()
+        volume.re_emit_muted_signal()
+    end)
 end
 
 gears.timer {
