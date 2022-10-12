@@ -6,6 +6,9 @@ local beautiful = require 'beautiful'
 local naughty = require 'naughty'
 local dpi = beautiful.xresources.apply_dpi
 
+local color = require 'modules.color'
+local rubato = require 'modules.rubato'
+
 local helpers = {}
 
 -- colorize a text using pango markup
@@ -18,11 +21,27 @@ end
 
 -- add hover support to wibox.container.background-based elements
 function helpers.add_hover(element, bg, hbg)
-    element:connect_signal('mouse::enter', function (self)
-        self.bg = hbg
+    local base_color = color.color { hex = bg }
+    local hover_color = color.color { hex = hbg }
+
+    local do_transition = color.transition(base_color, hover_color, color.transition.RGB)
+
+    local smooth_hover = rubato.timed {
+        duration = 0.25,
+        override_dt = true,
+        rate = 60
+    }
+
+    smooth_hover:subscribe(function (v)
+        element.bg = do_transition(v / 100).hex
     end)
-    element:connect_signal('mouse::leave', function (self)
-        self.bg = bg
+
+    element:connect_signal('mouse::enter', function ()
+        smooth_hover.target = 100
+    end)
+
+    element:connect_signal('mouse::leave', function ()
+        smooth_hover.target = 0
     end)
 end
 

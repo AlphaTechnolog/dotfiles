@@ -47,7 +47,7 @@ local function base_button(icon, onclick)
             local bg_lighter = color.color { hex = beautiful.bg_lighter }
 
             -- method -> rgb
-            local by_percent = color.transition(bg_lighter, blue, 0)
+            local by_percent = color.transition(bg_lighter, blue, color.transition.RGB)
 
             if not self.fading then
                 self.fading = rubato.timed {
