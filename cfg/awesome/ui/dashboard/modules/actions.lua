@@ -3,6 +3,9 @@ local wibox = require 'wibox'
 local awful = require 'awful'
 local beautiful = require 'beautiful'
 local gears = require 'gears'
+
+local color = require 'modules.color'
+local rubato = require 'modules.rubato'
 local screenshot = require 'modules.screenshot'
 
 local gfs = gears.filesystem
@@ -38,11 +41,27 @@ local function mkactionicon(icon, font)
         set_active = function (self, is_active)
             local background = self:get_children_by_id('background_role')[1]
 
+            local blue = color.color { hex = beautiful.blue }
+            local dimblack = color.color { hex = beautiful.dimblack }
+
+            -- method -> rgb
+            local by_percent = color.transition(dimblack, blue, 0)
+
+            if not self.fading then
+                self.fading = rubato.timed {
+                    duration = 0.30,
+                }
+
+                self.fading:subscribe(function (percent)
+                    background.bg = by_percent(percent / 100).hex
+                end)
+            end
+
             if is_active then
-                background.bg = beautiful.blue
+                self.fading.target = 100 -- go to blue
                 background.fg = beautiful.bg_normal
             else
-                background.bg = beautiful.dimblack
+                self.fading.target = 0 -- go to dimblack
                 background.fg = beautiful.fg_normal
             end
         end,

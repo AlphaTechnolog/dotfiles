@@ -7,6 +7,8 @@ local naughty = require 'naughty'
 
 -- modules
 local screenshot = require 'modules.screenshot'
+local color = require 'modules.color'
+local rubato = require 'modules.rubato'
 
 -- meta info
 local popup_dimensions = require 'ui.screenshot-center.dimensions'
@@ -41,11 +43,27 @@ local function base_button(icon, onclick)
             local background = self:get_children_by_id('background_role')[1]
             local icon_element = self:get_children_by_id('icon_role')[1]
 
+            local blue = color.color { hex = beautiful.blue }
+            local bg_lighter = color.color { hex = beautiful.bg_lighter }
+
+            -- method -> rgb
+            local by_percent = color.transition(bg_lighter, blue, 0)
+
+            if not self.fading then
+                self.fading = rubato.timed {
+                    duration = 0.30,
+                }
+
+                self.fading:subscribe(function (percent)
+                    background.bg = by_percent(percent / 100).hex
+                end)
+            end
+
             if active then
-                background.bg = beautiful.blue
+                self.fading.target = 100
                 icon_element:set_markup_silently(helpers.get_colorized_markup(icon, beautiful.bg_normal))
             else
-                background.bg = beautiful.bg_lighter
+                self.fading.target = 0
                 icon_element:set_markup_silently(helpers.get_colorized_markup(icon, beautiful.fg_normal))
             end
         end
