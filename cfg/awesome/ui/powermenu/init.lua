@@ -72,7 +72,7 @@ local function make_powerbutton (opts)
 
     -- add hover support just when background is bg_lighter
     if opts.bg == beautiful.bg_lighter then
-        helpers.add_hover(button, beautiful.bg_lighter, beautiful.dimblack)
+        helpers.add_hover(button, beautiful.bg_lighter, beautiful.light_black)
     end
 
     button:add_button(awful.button({}, 1, function ()
