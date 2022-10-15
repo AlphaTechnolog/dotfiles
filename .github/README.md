@@ -53,10 +53,10 @@ Here are some details about my setup:
 
 ### Clone the repository
 
-First clone the repository
+First clone the repository (remember to clone the submodules)
 
 ```sh
-git clone -b awesomewm-vertical https://github.com/AlphaTechnolog/dotfiles
+git clone -b awesomewm-vertical --recurse-submodules --depth=1 https://github.com/AlphaTechnolog/dotfiles
 cd dotfiles
 ```
 
