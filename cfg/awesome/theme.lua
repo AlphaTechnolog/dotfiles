@@ -17,7 +17,7 @@ local theme = {}
 
 -- fonts
 theme.font_name = 'Product Sans'
-theme.nerd_font = 'JetBrainsMono NF'
+theme.nerd_font = 'Iosevka NF'
 theme.material_icons = 'Material Icons'
 theme.font_size = '10'
 theme.font = theme.font_name .. ' ' .. theme.font_size
