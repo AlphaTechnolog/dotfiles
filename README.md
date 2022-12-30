@@ -6,6 +6,9 @@ for make my own setup and feel comfy while i'm working (and beeing productive of
 In this repo, I'm sharing with you my rices, and offering you tips/instructions on how this things works
 (but in fact, i don't really know how this works, cuz i don't know what I'm doing :/ so good luck :3 lmao).
 
+Also, support could be a bit limited, or maybe late responses on issues, because i'm kinda busy with work
+and school :/
+
 > Configurations are in other branches.
 
 <h1>
