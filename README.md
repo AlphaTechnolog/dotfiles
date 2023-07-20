@@ -9,6 +9,8 @@ In this repo, I'm sharing with you my rices, and offering you tips/instructions 
 Also, support could be a bit limited, or maybe late responses on issues, because i'm kinda busy with work
 and school :/
 
+Please check out the [what's happening note](#note)
+
 > Configurations are in other branches.
 
 <h1>
@@ -45,6 +47,20 @@ and school :/
 # [6. BspWM](https://github.com/AlphaTechnolog/dotfiles/tree/bspwm)
 
 ![bspwm](./assets/bspwm.png)
+
+# Note
+
+Hey thank you so much for reaching out, i would like to tell you on why the issues are getting poorly maintained these days, and how you could help me... let's start from the beginning. Some time ago my laptop broke, and you may be wondering on how did it broke, basically a water glass accidentally in the morning got thrown by the blinds because of the wind... it was at 3am so I wasn't able to turn it off quickly so it turned off automatically, after the whole day waiting for it to get without water, I turned it on again and it didn't turn on, so it looks like it fried... anyways I tried to set up my older laptop to at least work to get more money to get a new one, it worked, I did setup the bios as it didn't have the UEFI boot enabled, and it was just getting resetting itself every morning (resulting on random black screens when turning on it, but every time it worked turning on the UEFI boot again... well basically one day it stopped showing the bios splash and just turning on the led ._. maybe the cmos battery? idk. anyways basically I'm without computer atm and I had some ricing projects in progress, one myself that I was going to put here :) and one Collab with [rxyhn](https://github.com/rxyhn)!
+
+If you want to see some pictures on how these projects were looking you can see the gallery on my Ko-Fi account!
+
+## So how can I help you? :c
+
+If you wanna help me, you can reach me out at Ko-Fi and donate me something to get a new computer, that would really help me as I'm not still +18 and it's quite hard to me to find something to get money... I would really thank you so much!!
+
+[![](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/alphatechnolog)
+
+Thank you for reading and thank so much for the support of this repository by giving me stars! I heavily thank you for that! 😁 ❤️
 
 # Enjoy!
 
